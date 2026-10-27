@@ -1730,8 +1730,13 @@ function renderLv(m, lv) {
   const raggruppaStrutture =
     m.id === 'architetto' && lv.lv === 2 && !searchQ;
 
+  
   const raggruppaPozioni =
     m.id === 'alchimista' && !searchQ;
+
+  const raggruppaOste =
+    m.id === 'oste' && !searchQ;
+
 
   // Nuovi raggruppamenti dell'Artigiano.
   const famiglieArtigiano = [
@@ -1759,6 +1764,7 @@ function renderLv(m, lv) {
   const isPozione = it =>
     /pozion|potion/i.test(it.n || '');
 
+ 
   // Determina a quale famiglia appartiene una ricetta.
   const famigliaDi = it => {
     if (raggruppaStrutture && isStrutturaClasse(it)) {
@@ -1775,12 +1781,32 @@ function renderLv(m, lv) {
       };
     }
 
+    if (raggruppaOste) {
+      const nome = it.n || '';
+
+      const bevande =
+        /\b(sidro|grog|birra|vino|sake|t[eè]|whiskey|liquore|nettare|caff[eè]|idromele|distillato|bibita|elisir)\b/i;
+
+      if (bevande.test(nome)) {
+        return {
+          key: 'bevande-oste',
+          label: '🍺 Bibite e Alcolici'
+        };
+      }
+
+      return {
+        key: 'cibo-oste',
+        label: '🍖 Cibo'
+      };
+    }
+
     if (m.id === 'artigiano' && !searchQ) {
       return famiglieArtigiano.find(f => f.test.test(it.n || '')) || null;
     }
 
     return null;
   };
+
 
   // Raggruppa soltanto le famiglie con almeno due ricette.
   const gruppi = new Map();
