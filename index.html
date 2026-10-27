@@ -1720,7 +1720,15 @@ function renderLv(m, lv) {
     dtHeaders.push(`LV${i + 1}+`);
   }
 
-  const items = lv.items.filter(it => !searchQ || matches(it, searchQ));
+  
+const items = lv.items
+  .filter(it => !searchQ || matches(it, searchQ))
+  .sort((a, b) =>
+    (a.n || '').localeCompare(b.n || '', 'it', {
+      sensitivity: 'base'
+    })
+  );
+
 
   if (!items.length) {
     return '<div class="no-results">Nessun oggetto trovato.</div>';
@@ -1912,23 +1920,42 @@ const raggruppaSarto =
     </tr>`;
   };
 
-  const gruppiInseriti = new Set();
+  
+  // Ordine personalizzato per i gruppi che devono mantenere
+  // una posizione precisa; gli altri saranno ordinati per nome.
+  const ordineGruppi = [
+    'armature-sarto',
+    'abiti-sarto',
+    'indossabili-sarto',
+    'avventura-sarto',
+    'creazioni-speciali-sarto',
+    'bevande-oste',
+    'cibo-oste'
+  ];
 
-  const righe = items.map(it => {
-    const famiglia = famigliaDi(it);
-    const gruppo = famiglia ? gruppi.get(famiglia.key) : null;
+  const confrontaNomi = (a, b) =>
+    (a.n || '').localeCompare(b.n || '', 'it', {
+      sensitivity: 'base'
+    });
 
-    // Ricetta singola o famiglia con un solo elemento.
-    if (!gruppo) {
-      return renderItemRow(it);
+  // Tutti i menu vengono mostrati prima delle ricette singole.
+  const gruppiOrdinati = [...gruppi.values()].sort((a, b) => {
+    const ia = ordineGruppi.indexOf(a.key);
+    const ib = ordineGruppi.indexOf(b.key);
+
+    if (ia !== -1 || ib !== -1) {
+      if (ia === -1) return 1;
+      if (ib === -1) return -1;
+      return ia - ib;
     }
 
-    // Ogni gruppo viene inserito una sola volta.
-    if (gruppiInseriti.has(gruppo.key)) {
-      return '';
-    }
+    return a.label.localeCompare(b.label, 'it', {
+      sensitivity: 'base'
+    });
+  });
 
-    gruppiInseriti.add(gruppo.key);
+  const righeGruppi = gruppiOrdinati.map(gruppo => {
+    const ricetteOrdinate = [...gruppo.ricette].sort(confrontaNomi);
 
     return `
       <tr class="class-structures-toggle">
@@ -1941,11 +1968,11 @@ const raggruppaSarto =
           >
             <span class="class-structures-chevron">▸</span>
             <span>${gruppo.label}</span>
-            <span class="class-structures-count">${gruppo.ricette.length} oggetti</span>
+            <span class="class-structures-count">${ricetteOrdinate.length} oggetti</span>
           </button>
         </td>
       </tr>
-      ${gruppo.ricette.map(ricetta => `
+      ${ricetteOrdinate.map(ricetta => `
         <tr class="class-structure-detail"
             data-class-structure-row
             hidden>
@@ -1954,6 +1981,17 @@ const raggruppaSarto =
       `).join('')}
     `;
   }).join('');
+
+  // Le ricette non appartenenti a un menu vengono dopo i menu,
+  // sempre in ordine alfabetico.
+  const itemsSenzaGruppo = items.filter(it => {
+    const famiglia = famigliaDi(it);
+    return !famiglia || !gruppi.has(famiglia.key);
+  });
+
+  const righe = righeGruppi +
+    itemsSenzaGruppo.map(renderItemRow).join('');
+
 
   return `
   <div class="lv-header">
@@ -2118,7 +2156,14 @@ function renderMat(m) {
     </div>
   </div>
   <div class="mat-grid">
-    ${m.materialiSpeciali.map(mat => `
+    ${m.materialiSpeciali
+  .slice()
+  .sort((a, b) =>
+    (a.nome || '').localeCompare(b.nome || '', 'it', {
+      sensitivity: 'base'
+    })
+  )
+  .map(mat => `
       <div class="${rarClass(mat.rarity)}">
         <h4>${mat.nome}</h4>
         <div class="mat-rarity">${matRarBadge(mat.rarity)}</div>
