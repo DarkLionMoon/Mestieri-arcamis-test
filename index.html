@@ -1712,8 +1712,8 @@ function renderIntro(m) {
 
 
 
+
 function renderLv(m, lv) {
-  const maxDT = lv.lv === 1 ? 5 : 6 - lv.lv;
   const dtHeaders = [];
 
   for (let i = lv.lv - 1; i < 5; i++) {
@@ -1726,17 +1726,32 @@ function renderLv(m, lv) {
     return '<div class="no-results">Nessun oggetto trovato.</div>';
   }
 
-  // Architetto: raggruppa le Strutture di Classe al livello 2.
+  // Raggruppamenti già esistenti.
   const raggruppaStrutture =
-    m.id === 'architetto' &&
-    lv.lv === 2 &&
-    !searchQ;
+    m.id === 'architetto' && lv.lv === 2 && !searchQ;
 
-  // Alchimista: raggruppa le ricette che contengono
-  // "Pozione" oppure "Potion" nel nome, a tutti i livelli.
   const raggruppaPozioni =
-    m.id === 'alchimista' &&
-    !searchQ;
+    m.id === 'alchimista' && !searchQ;
+
+  // Nuovi raggruppamenti dell'Artigiano.
+  const famiglieArtigiano = [
+    { key: 'orb', label: '🔮 Orb', test: /^Orb of\b/i },
+    { key: 'ring', label: '💍 Anelli', test: /\bRing\b/i },
+    { key: 'amulet', label: '📿 Amuleti', test: /\bAmulet of\b/i },
+    { key: 'eyes', label: '👁️ Oggetti per la vista', test: /^Eyes of\b/i },
+    { key: 'helm', label: '🪖 Elmi', test: /^Helm of\b/i },
+    {
+      key: 'enspelled-armor',
+      label: '🛡️ Armature Incantate',
+      test: /^Enspelled Armor\b/i
+    },
+    {
+      key: 'enspelled-weapon',
+      label: '⚔️ Armi Incantate',
+      test: /^Enspelled Weapon\b/i
+    },
+    { key: 'manual', label: '📖 Manuali', test: /^Manual of\b/i }
+  ];
 
   const isStrutturaClasse = it =>
     (it.tip || '').startsWith('Struttura Classe —');
@@ -1744,21 +1759,51 @@ function renderLv(m, lv) {
   const isPozione = it =>
     /pozion|potion/i.test(it.n || '');
 
-  const raggruppa = raggruppaStrutture || raggruppaPozioni;
+  // Determina a quale famiglia appartiene una ricetta.
+  const famigliaDi = it => {
+    if (raggruppaStrutture && isStrutturaClasse(it)) {
+      return {
+        key: 'strutture-classe',
+        label: '🏛️ Strutture di Classe'
+      };
+    }
 
-  const isRicettaGruppo = raggruppaStrutture
-    ? isStrutturaClasse
-    : raggruppaPozioni
-      ? isPozione
-      : () => false;
+    if (raggruppaPozioni && isPozione(it)) {
+      return {
+        key: 'pozioni',
+        label: '🧪 Pozioni'
+      };
+    }
 
-  const ricetteGruppo = raggruppa
-    ? items.filter(isRicettaGruppo)
-    : [];
+    if (m.id === 'artigiano' && !searchQ) {
+      return famiglieArtigiano.find(f => f.test.test(it.n || '')) || null;
+    }
 
-  const nomeGruppo = raggruppaStrutture
-    ? '🏛️ Strutture di Classe'
-    : '🧪 Pozioni';
+    return null;
+  };
+
+  // Raggruppa soltanto le famiglie con almeno due ricette.
+  const gruppi = new Map();
+
+  for (const it of items) {
+    const famiglia = famigliaDi(it);
+    if (!famiglia) continue;
+
+    if (!gruppi.has(famiglia.key)) {
+      gruppi.set(famiglia.key, {
+        ...famiglia,
+        ricette: []
+      });
+    }
+
+    gruppi.get(famiglia.key).ricette.push(it);
+  }
+
+  for (const [key, gruppo] of gruppi) {
+    if (gruppo.ricette.length < 2) {
+      gruppi.delete(key);
+    }
+  }
 
   const colspan = 9 + dtHeaders.length;
 
@@ -1787,16 +1832,23 @@ function renderLv(m, lv) {
     </tr>`;
   };
 
-  let gruppoInserito = false;
+  const gruppiInseriti = new Set();
 
   const righe = items.map(it => {
-    if (!raggruppa || !isRicettaGruppo(it)) {
+    const famiglia = famigliaDi(it);
+    const gruppo = famiglia ? gruppi.get(famiglia.key) : null;
+
+    // Ricetta singola o famiglia con un solo elemento.
+    if (!gruppo) {
       return renderItemRow(it);
     }
 
-    // Inserisce il gruppo una sola volta, alla prima ricetta.
-    if (gruppoInserito) return '';
-    gruppoInserito = true;
+    // Ogni gruppo viene inserito una sola volta.
+    if (gruppiInseriti.has(gruppo.key)) {
+      return '';
+    }
+
+    gruppiInseriti.add(gruppo.key);
 
     return `
       <tr class="class-structures-toggle">
@@ -1808,12 +1860,12 @@ function renderLv(m, lv) {
             onclick="toggleClassStructures(this)"
           >
             <span class="class-structures-chevron">▸</span>
-            <span>${nomeGruppo}</span>
-            <span class="class-structures-count">${ricetteGruppo.length} ricette</span>
+            <span>${gruppo.label}</span>
+            <span class="class-structures-count">${gruppo.ricette.length} oggetti</span>
           </button>
         </td>
       </tr>
-      ${ricetteGruppo.map(ricetta => `
+      ${gruppo.ricette.map(ricetta => `
         <tr class="class-structure-detail"
             data-class-structure-row
             hidden>
@@ -1870,6 +1922,7 @@ function toggleClassStructures(button) {
     chevron.textContent = expanded ? '▸' : '▾';
   }
 }
+
 
 
 
