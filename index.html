@@ -1910,7 +1910,7 @@ const raggruppaSarto =
       }
 
       // Armi.
-      if (/arco|balestra|bastone ferrato|clava|giavellotto|cerbottana|\\bbow\\b|\\bcrossbow\\b|weapon/i.test(testo)) {
+      if (/arco|balestra|bastone ferrato|clava|giavellotto|cerbottana|\bbow\b|\bcrossbow\b|weapon/i.test(testo)) {
         return {
           key: 'armi-falegname',
           label: '🏹 Armi'
