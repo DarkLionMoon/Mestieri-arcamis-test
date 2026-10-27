@@ -1711,9 +1711,11 @@ function renderIntro(m) {
 }
 
 
+
 function renderLv(m, lv) {
   const maxDT = lv.lv === 1 ? 5 : 6 - lv.lv;
   const dtHeaders = [];
+
   for (let i = lv.lv - 1; i < 5; i++) {
     dtHeaders.push(`LV${i + 1}+`);
   }
@@ -1724,25 +1726,47 @@ function renderLv(m, lv) {
     return '<div class="no-results">Nessun oggetto trovato.</div>';
   }
 
-  // Raggruppa le Strutture di Classe solo nell'Architetto di livello 2.
-  // Durante la ricerca, mostra invece direttamente le ricette trovate.
+  // Architetto: raggruppa le Strutture di Classe al livello 2.
   const raggruppaStrutture =
     m.id === 'architetto' &&
     lv.lv === 2 &&
     !searchQ;
 
+  // Alchimista: raggruppa le ricette che contengono
+  // "Pozione" oppure "Potion" nel nome, a tutti i livelli.
+  const raggruppaPozioni =
+    m.id === 'alchimista' &&
+    !searchQ;
+
   const isStrutturaClasse = it =>
     (it.tip || '').startsWith('Struttura Classe —');
 
-  const strutture = raggruppaStrutture
-    ? items.filter(isStrutturaClasse)
+  const isPozione = it =>
+    /pozion|potion/i.test(it.n || '');
+
+  const raggruppa = raggruppaStrutture || raggruppaPozioni;
+
+  const isRicettaGruppo = raggruppaStrutture
+    ? isStrutturaClasse
+    : raggruppaPozioni
+      ? isPozione
+      : () => false;
+
+  const ricetteGruppo = raggruppa
+    ? items.filter(isRicettaGruppo)
     : [];
+
+  const nomeGruppo = raggruppaStrutture
+    ? '🏛️ Strutture di Classe'
+    : '🧪 Pozioni';
 
   const colspan = 9 + dtHeaders.length;
 
   const renderItemRow = it => {
     const dtCells = (it.dt || [])
-      .map((v, i) => `<td class="dt-cell ${dtClass(v, i)}">${v}</td>`)
+      .map((v, i) =>
+        `<td class="dt-cell ${dtClass(v, i)}">${v}</td>`
+      )
       .join('');
 
     return `<tr>
@@ -1766,11 +1790,11 @@ function renderLv(m, lv) {
   let gruppoInserito = false;
 
   const righe = items.map(it => {
-    if (!raggruppaStrutture || !isStrutturaClasse(it)) {
+    if (!raggruppa || !isRicettaGruppo(it)) {
       return renderItemRow(it);
     }
 
-    // Inserisce il gruppo una sola volta, nel punto della prima struttura.
+    // Inserisce il gruppo una sola volta, alla prima ricetta.
     if (gruppoInserito) return '';
     gruppoInserito = true;
 
@@ -1784,16 +1808,16 @@ function renderLv(m, lv) {
             onclick="toggleClassStructures(this)"
           >
             <span class="class-structures-chevron">▸</span>
-            <span>🏛️ Strutture di Classe</span>
-            <span class="class-structures-count">${strutture.length} ricette</span>
+            <span>${nomeGruppo}</span>
+            <span class="class-structures-count">${ricetteGruppo.length} ricette</span>
           </button>
         </td>
       </tr>
-      ${strutture.map(struttura => `
+      ${ricetteGruppo.map(ricetta => `
         <tr class="class-structure-detail"
             data-class-structure-row
             hidden>
-          ${renderItemRow(struttura).replace(/^<tr>|<\/tr>$/g, '')}
+          ${renderItemRow(ricetta).replace(/^<tr>|<\/tr>$/g, '')}
         </tr>
       `).join('')}
     `;
@@ -1826,7 +1850,7 @@ function renderLv(m, lv) {
   </div>`;
 }
 
-// Apre o chiude il gruppo di Strutture di Classe.
+// Apre o chiude il gruppo di ricette.
 function toggleClassStructures(button) {
   const groupRow = button.closest('tr');
   if (!groupRow) return;
@@ -1846,6 +1870,7 @@ function toggleClassStructures(button) {
     chevron.textContent = expanded ? '▸' : '▾';
   }
 }
+
 
 
 function renderPergamene() {
