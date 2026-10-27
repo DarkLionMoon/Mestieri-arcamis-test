@@ -1751,6 +1751,9 @@ const raggruppaSarto =
   const raggruppaFalegname =
     m.id === 'falegname' && !searchQ;
 
+  const raggruppaMetallurgo =
+    m.id === 'metallurgo' && !searchQ;
+
   const raggruppaArtista =
     m.id === 'artista' && !searchQ;
   
@@ -1913,6 +1916,51 @@ const raggruppaSarto =
       }
     }
 
+    if (raggruppaMetallurgo) {
+      const nome = it.n || '';
+      const testo = `${nome} ${it.tip || ''}`;
+
+      // Armature, scudi, elmi e protezioni.
+      if (/armatura|armor|scudo|shield|plate|mail|breastplate|helm|elmo|dastana|armatura a scaglie|cotta di maglia|maglia a catena/i.test(testo)) {
+        return {
+          key: 'armature-metallurgo',
+          label: '🛡️ Armature, Scudi e Protezioni'
+        };
+      }
+
+      // Potenziamenti e versioni migliorate di armi o armature.
+      if (/miglioramento armi|arma del mestiere|\\+\\s*[123]/i.test(nome)) {
+        return {
+          key: 'potenziamenti-metallurgo',
+          label: '⚒️ Potenziamenti e Miglioramenti'
+        };
+      }
+
+      // Armi comuni e relative varianti non magiche.
+      if (/^(pugnale|mazza|accetta|spada corta|stocco|scimitarra|spada lunga|spadone|ascia bipenne|martello da guerra|alabarda|falcione|pistola|moschetto|katana|naginata|chakram|shuriken|dardo|lancia|falcetto|martello leggero|picca da guerra|tridente|picca|stella del mattino|maglio|lancia da cavaliere|mazzafrusto|ascia da battaglia|scimitarra a doppia lama)\\b/i.test(nome)) {
+        return {
+          key: 'armi-comuni-metallurgo',
+          label: '⚔️ Armi'
+        };
+      }
+
+      // Armi magiche nominate e armi incantate.
+      if (/sword of|vorpal sword|nine lives stealer|holy avenger|moon-touched sword|sylvan talon|enspelled weapon|lancia di noxus/i.test(nome)) {
+        return {
+          key: 'armi-magiche-metallurgo',
+          label: '✨ Armi Magiche e Speciali'
+        };
+      }
+
+      // Oggetti speciali, strumenti e manufatti non classificati sopra.
+      if (/cannoniere noxiano|figurine of wondrous power|mechanical wonder|prosthetic limb|veteran's cane|ear horn|lock of trickery|masque charm|mystery key|rival coin|shield of expression/i.test(nome)) {
+        return {
+          key: 'oggetti-speciali-metallurgo',
+          label: '🔧 Oggetti Speciali e Manufatti'
+        };
+      }
+    }
+
     if (raggruppaFalegname) {
       const nome = it.n || '';
       const testo = `${nome} ${it.tip || ''}`;
@@ -2054,7 +2102,12 @@ const raggruppaSarto =
     'tatuaggi-artista',
     'grimori-artista',
     'opere-artista',
-    'reliquie-artista'
+    'reliquie-artista',
+    'armature-metallurgo',
+    'armi-comuni-metallurgo',
+    'armi-magiche-metallurgo',
+    'potenziamenti-metallurgo',
+    'oggetti-speciali-metallurgo'
   ];
 
   const confrontaNomi = (a, b) =>
