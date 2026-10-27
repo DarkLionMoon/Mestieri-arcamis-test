@@ -859,9 +859,9 @@ const MESTIERI = [
         {n:'Feather Token', mp:'40 MO Metallo', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
         {n:'Horn of Silent Alarm', mp:'40 MO Metallo', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
         {n:'Lantern of Tracking', mp:'40 MO Metallo', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
-        {n:'Orb of Direction', mp:'40 MO Vetro', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
-        {n:'Orb of Shielding', mp:'40 MO Gemme', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
-        {n:'Orb of Time', mp:'40 MO Vetro', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
+        {n:'Orb of Direction', mp:'40 MO Vetro', ms:'—', tip:'Comune', url:'https://5e.tools/items.html#orb%20of%20direction_xdmg', costo:40, vend:80, dt:[4,2,1,1,1]},
+        {n:'Orb of Shielding', mp:'40 MO Gemme', ms:'—', tip:'Comune', url:'https://5e.tools/items.html#orb%20of%20shielding_erlw', costo:40, vend:80, dt:[4,2,1,1,1]},
+        {n:'Orb of Time', mp:'40 MO Vetro', ms:'—', tip:'Comune', url:'https://5e.tools/items.html#orb%20of%20time_xdmg', costo:40, vend:80, dt:[4,2,1,1,1]},
         {n:'Pipe of Smoke Monsters', mp:'40 MO Avorio', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
         {n:'Pot of Awakening', mp:'40 MO Argilla', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
         {n:'Ruby of the War Mage', mp:'40 MO Rubini', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
@@ -2147,12 +2147,11 @@ const raggruppaSarto =
 
   const renderItemRow = it => {
     const tempi = it.dt || [];
-    // Per l'Artista, gli array completi LV1-LV5 vanno mostrati
-    // a partire dal livello selezionato; gli array brevi sono già
-    // riferiti al livello della ricetta e ai successivi.
+    // Se ci sono più tempi delle colonne disponibili per il livello,
+    // mostra i valori finali, senza creare celle oltre LV5.
     const tempiVisibili =
-      m.id === 'artista' && tempi.length > (6 - lv.lv)
-        ? tempi.slice(lv.lv - 1)
+      tempi.length > dtHeaders.length
+        ? tempi.slice(-dtHeaders.length)
         : tempi;
     const dtCells = tempiVisibili
       .map((v, i) =>
