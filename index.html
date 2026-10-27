@@ -2148,7 +2148,15 @@ const raggruppaSarto =
   };
 
   const renderItemRow = it => {
-    const dtCells = (it.dt || [])
+    const tempi = it.dt || [];
+    // Per l'Artista, gli array completi LV1-LV5 vanno mostrati
+    // a partire dal livello selezionato; gli array brevi sono già
+    // riferiti al livello della ricetta e ai successivi.
+    const tempiVisibili =
+      m.id === 'artista' && tempi.length > (6 - lv.lv)
+        ? tempi.slice(lv.lv - 1)
+        : tempi;
+    const dtCells = tempiVisibili
       .map((v, i) =>
         `<td class="dt-cell ${dtClass(v, i)}">${v}</td>`
       )
