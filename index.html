@@ -540,6 +540,64 @@
     .lv-header h3 { font-size: .95rem; }
   }
 
+  
+.class-structures-toggle td {
+  padding: 0 !important;
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.class-structures-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--gold);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.class-structures-button:hover {
+  background: rgba(212,149,74,.08);
+}
+
+.class-structures-chevron {
+  width: 1em;
+  color: var(--text2);
+}
+
+.class-structures-count {
+  margin-left: auto;
+  color: var(--text3);
+  font-size: .82em;
+  font-weight: 500;
+}
+
+.class-structure-detail td {
+  background: var(--panel);
+}
+
+.class-structure-class {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.class-structure-hint {
+  color: var(--text3);
+  font-size: .82em;
+}
+
+.class-structure-detail[hidden],
+tr[data-class-structure-row][hidden] {
+  display: none !important;
+}
+
   @media (max-width: 480px) {
   }
 </style>
@@ -1652,14 +1710,94 @@ function renderIntro(m) {
   `;
 }
 
+
 function renderLv(m, lv) {
   const maxDT = lv.lv === 1 ? 5 : 6 - lv.lv;
   const dtHeaders = [];
-  for(let i=lv.lv-1;i<5;i++) dtHeaders.push(`LV${i+1}+`);
+  for (let i = lv.lv - 1; i < 5; i++) {
+    dtHeaders.push(`LV${i + 1}+`);
+  }
 
   const items = lv.items.filter(it => !searchQ || matches(it, searchQ));
 
-  if (!items.length) return '<div class="no-results">Nessun oggetto trovato.</div>';
+  if (!items.length) {
+    return '<div class="no-results">Nessun oggetto trovato.</div>';
+  }
+
+  // Raggruppa le Strutture di Classe solo nell'Architetto di livello 2.
+  // Durante la ricerca, mostra invece direttamente le ricette trovate.
+  const raggruppaStrutture =
+    m.id === 'architetto' &&
+    lv.lv === 2 &&
+    !searchQ;
+
+  const isStrutturaClasse = it =>
+    (it.tip || '').startsWith('Struttura Classe —');
+
+  const strutture = raggruppaStrutture
+    ? items.filter(isStrutturaClasse)
+    : [];
+
+  const colspan = 9 + dtHeaders.length;
+
+  const renderItemRow = it => {
+    const dtCells = (it.dt || [])
+      .map((v, i) => `<td class="dt-cell ${dtClass(v, i)}">${v}</td>`)
+      .join('');
+
+    return `<tr>
+      <td>${it.n}</td>
+      <td>${it.prog
+        ? '<span class="has-prog">✅</span>'
+        : '<span class="no-prog">—</span>'}</td>
+      <td>${it.mp || '—'}</td>
+      <td>${it.ms || '—'}</td>
+      <td>${tipBadge(it.tip)}</td>
+      <td><span class="desc-text">${it.desc || '—'}</span></td>
+      <td class="cost cost-craft" style="text-align:right">${fmtMO(it.costo)}</td>
+      <td class="cost cost-sell" style="text-align:right">${fmtMO(it.vend)}</td>
+      ${dtCells}
+      <td>${it.url
+        ? `<a href="${it.url}" target="_blank">5e.tools ↗</a>`
+        : '—'}</td>
+    </tr>`;
+  };
+
+  let gruppoInserito = false;
+
+  const righe = items.map(it => {
+    if (!raggruppaStrutture || !isStrutturaClasse(it)) {
+      return renderItemRow(it);
+    }
+
+    // Inserisce il gruppo una sola volta, nel punto della prima struttura.
+    if (gruppoInserito) return '';
+    gruppoInserito = true;
+
+    return `
+      <tr class="class-structures-toggle">
+        <td colspan="${colspan}">
+          <button
+            type="button"
+            class="class-structures-button"
+            aria-expanded="false"
+            onclick="toggleClassStructures(this)"
+          >
+            <span class="class-structures-chevron">▸</span>
+            <span>🏛️ Strutture di Classe</span>
+            <span class="class-structures-count">${strutture.length} ricette</span>
+          </button>
+        </td>
+      </tr>
+      ${strutture.map(struttura => `
+        <tr class="class-structure-detail"
+            data-class-structure-row
+            hidden>
+          ${renderItemRow(struttura).replace(/^<tr>|<\/tr>$/g, '')}
+        </tr>
+      `).join('')}
+    `;
+  }).join('');
 
   return `
   <div class="lv-header">
@@ -1678,31 +1816,37 @@ function renderLv(m, lv) {
       <th>Materiale Secondario</th>
       <th>Tipologia</th>
       <th>Descrizione</th>
-      <th style="text-align:right">Craft</th>
-      <th style="text-align:right">Vendita</th>
-      ${dtHeaders.map(h=>`<th class="dt-cell">${h}</th>`).join('')}
+      <th style="text-align:right">Costo Materiali</th>
+      <th style="text-align:right">Costo finale</th>
+      ${dtHeaders.map(h => `<th class="dt-cell">${h}</th>`).join('')}
       <th>Ref.</th>
     </tr></thead>
-    <tbody>
-    ${items.map(it => {
-      const dtCells = (it.dt||[]).map((v,i)=>`<td class="dt-cell ${dtClass(v,i)}">${v}</td>`).join('');
-      return `<tr>
-        <td>${it.n}</td>
-        <td>${it.prog ? '<span class="has-prog">✅</span>' : '<span class="no-prog">—</span>'}</td>
-        <td>${it.mp||'—'}</td>
-        <td>${it.ms||'—'}</td>
-        <td>${tipBadge(it.tip)}</td>
-        <td><span class="desc-text">${it.desc||'—'}</span></td>
-        <td class="cost cost-craft" style="text-align:right">${fmtMO(it.costo)}</td>
-        <td class="cost cost-sell" style="text-align:right">${fmtMO(it.vend)}</td>
-        ${dtCells}
-        <td>${it.url?`<a href="${it.url}" target="_blank">5e.tools ↗</a>`:'—'}</td>
-      </tr>`;
-    }).join('')}
-    </tbody>
+    <tbody>${righe}</tbody>
   </table>
   </div>`;
 }
+
+// Apre o chiude il gruppo di Strutture di Classe.
+function toggleClassStructures(button) {
+  const groupRow = button.closest('tr');
+  if (!groupRow) return;
+
+  const expanded = button.getAttribute('aria-expanded') === 'true';
+  let row = groupRow.nextElementSibling;
+
+  while (row && row.hasAttribute('data-class-structure-row')) {
+    row.hidden = expanded;
+    row = row.nextElementSibling;
+  }
+
+  button.setAttribute('aria-expanded', String(!expanded));
+
+  const chevron = button.querySelector('.class-structures-chevron');
+  if (chevron) {
+    chevron.textContent = expanded ? '▸' : '▾';
+  }
+}
+
 
 function renderPergamene() {
   const PERGAMENE = [
