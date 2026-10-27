@@ -2111,6 +2111,39 @@ const raggruppaSarto =
 
   const colspan = 9 + dtHeaders.length;
 
+  const ACRONIMI_FONTI_REF = {
+    xdmg: 'XDMG',
+    tce: 'TCE',
+    erlw: 'ERLW',
+    humblewoodtales: 'HWT',
+    humblewoodcampaignsetting: 'HCS',
+    xge: 'XGE',
+    dmg: 'DMG',
+    xphb: 'XPHB',
+    fraif: 'FRAiF',
+    ditlcot: 'DitLCoT',
+    monstersofdrakkenheim: 'MoD',
+    frhof: 'FRHoF',
+    egw: 'EGtW',
+    ftd: 'FToD',
+    sato: 'SatO',
+    bgg: 'BPGG',
+    scc: 'SACoC',
+    ggr: 'GGtR',
+    pota: 'PotA',
+    taldoreicampaignsettingreborn: 'TCSR',
+    llk: 'LLK'
+  };
+
+  const fonteDaUrl = url => {
+    if (!url || !url.includes('/items.html#')) return null;
+    const hash = url.split('#')[1] || '';
+    const match = hash.match(/_([^_]+)$/);
+    if (!match) return null;
+    const codice = decodeURIComponent(match[1]).toLowerCase();
+    return ACRONIMI_FONTI_REF[codice] || codice.toUpperCase();
+  };
+
   const renderItemRow = it => {
     const dtCells = (it.dt || [])
       .map((v, i) =>
@@ -2131,7 +2164,7 @@ const raggruppaSarto =
       <td class="cost cost-sell" style="text-align:right">${fmtMO(it.vend)}</td>
       ${dtCells}
       <td>${it.url
-        ? `<a href="${it.url}" target="_blank">5e.tools ↗</a>`
+        ? `<a href="${it.url}" target="_blank" rel="noopener noreferrer">${fonteDaUrl(it.url) || '5e.tools'} ↗</a>`
         : '—'}</td>
     </tr>`;
   };
