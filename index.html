@@ -385,6 +385,9 @@
     transition: border-color .2s, box-shadow .2s;
   }
   .guide-card:hover { border-color: var(--border2); box-shadow: var(--glow); }
+  .guide-card-clickable { cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .15s; }
+  .guide-card-clickable:hover { border-color: var(--gold); box-shadow: 0 0 18px rgba(201,168,76,.16); transform: translateY(-2px); }
+  .guide-card-clickable:focus-visible { outline: 2px solid var(--gold2); outline-offset: 3px; }
   .guide-card h4 { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; font-size: .88rem; color: var(--gold2); margin-bottom: 6px; }
   .guide-card p  { font-size: .88rem; color: var(--text2); line-height: 1.5; }
   .guide-card ul { padding-left: 14px; }
@@ -2519,15 +2522,15 @@ function renderGuide() {
     <div class="guide-section">
       <h3>🏗️ I Mestieri Disponibili</h3>
       <div class="guide-cards">
-        <div class="guide-card"><h4>⚗️ Alchimista</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Maestro delle pozioni, dei veleni e delle essenze.</p><div><span class="tag">Alchemist's Supplies</span><span class="tag">Herbalism Kit</span><span class="tag">Poisoner's Kit</span></div></div>
-        <div class="guide-card"><h4>🍺 Oste</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Distillati e banchetti degni di un Re o di un Poro.</p><div><span class="tag">Brewer's Supplies</span><span class="tag">Cook's Utensils</span></div></div>
-        <div class="guide-card"><h4>🪵 Falegname</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Dalle baliste di Noxus alle eleganti prue di Bilgewater.</p><div><span class="tag">Carpenter's Tools</span><span class="tag">Woodcarver's Tools</span></div></div>
-        <div class="guide-card"><h4>🧵 Sarto</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Armature leggere, vesti cerimoniali e calzature.</p><div><span class="tag">Cobbler's Tools</span><span class="tag">Weaver's Tools</span><span class="tag">Leatherworker's Tools</span></div></div>
-        <div class="guide-card"><h4>⚔️ Metallurgo</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Il cuore della forgia, acciaio e meccanismi complessi.</p><div><span class="tag">Forgery Kit</span><span class="tag">Tinker's Tools</span></div></div>
-        <div class="guide-card"><h4>🏛️ Architetto</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Fortezze, altari sacri e rifugi cittadini.</p><div><span class="tag">Mason's Tools</span></div></div>
-        <div class="guide-card"><h4>🎨 Artista</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Cartografi, miniatori e pittori della storia.</p><div><span class="tag">Cartographer's Supplies</span><span class="tag">Calligrapher's Tools</span><span class="tag">Painter's Supplies</span></div></div>
-        <div class="guide-card"><h4>🔨 Artigiano</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Cristalli Hextech, gemme e argilla pregiata.</p><div><span class="tag">Jeweler's Tools</span><span class="tag">Glassblower's Tools</span><span class="tag">Potter's Tools</span></div></div>
-        <div class="guide-card"><h4>⚙️ Meccanico</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Orologi di precisione, trappole, protesi e automi.</p><div><span class="tag">Orologeria</span><span class="tag">Trappole</span><span class="tag">Protesi meccaniche</span><span class="tag">Automi</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Alchimista" onclick="vaiAlMestiere('alchimista')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('alchimista')}"><h4>⚗️ Alchimista</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Maestro delle pozioni, dei veleni e delle essenze.</p><div><span class="tag">Alchemist's Supplies</span><span class="tag">Herbalism Kit</span><span class="tag">Poisoner's Kit</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Oste" onclick="vaiAlMestiere('oste')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('oste')}"><h4>🍺 Oste</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Distillati e banchetti degni di un Re o di un Poro.</p><div><span class="tag">Brewer's Supplies</span><span class="tag">Cook's Utensils</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Falegname" onclick="vaiAlMestiere('falegname')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('falegname')}"><h4>🪵 Falegname</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Dalle baliste di Noxus alle eleganti prue di Bilgewater.</p><div><span class="tag">Carpenter's Tools</span><span class="tag">Woodcarver's Tools</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Sarto" onclick="vaiAlMestiere('sarto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('sarto')}"><h4>🧵 Sarto</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Armature leggere, vesti cerimoniali e calzature.</p><div><span class="tag">Cobbler's Tools</span><span class="tag">Weaver's Tools</span><span class="tag">Leatherworker's Tools</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Metallurgo" onclick="vaiAlMestiere('metallurgo')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('metallurgo')}"><h4>⚔️ Metallurgo</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Il cuore della forgia, acciaio e meccanismi complessi.</p><div><span class="tag">Forgery Kit</span><span class="tag">Tinker's Tools</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Architetto" onclick="vaiAlMestiere('architetto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('architetto')}"><h4>🏛️ Architetto</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Fortezze, altari sacri e rifugi cittadini.</p><div><span class="tag">Mason's Tools</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Artista" onclick="vaiAlMestiere('artista')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('artista')}"><h4>🎨 Artista</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Cartografi, miniatori e pittori della storia.</p><div><span class="tag">Cartographer's Supplies</span><span class="tag">Calligrapher's Tools</span><span class="tag">Painter's Supplies</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Artigiano" onclick="vaiAlMestiere('artigiano')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('artigiano')}"><h4>🔨 Artigiano</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Cristalli Hextech, gemme e argilla pregiata.</p><div><span class="tag">Jeweler's Tools</span><span class="tag">Glassblower's Tools</span><span class="tag">Potter's Tools</span></div></div>
+        <div class="guide-card guide-card-clickable" role="button" tabindex="0" aria-label="Apri il mestiere Meccanico" onclick="vaiAlMestiere('meccanico')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();vaiAlMestiere('meccanico')}"><h4>⚙️ Meccanico</h4><p style="font-style:italic;color:var(--text3);margin-bottom:6px">Orologi di precisione, trappole, protesi e automi.</p><div><span class="tag">Orologeria</span><span class="tag">Trappole</span><span class="tag">Protesi meccaniche</span><span class="tag">Automi</span></div></div>
       </div>
     </div>
 
@@ -2558,6 +2561,11 @@ function renderGuide() {
 // ═══════════════════════════════════════════════════════════════
 //  STATE SETTERS
 // ═══════════════════════════════════════════════════════════════
+
+function vaiAlMestiere(id) {
+  const indice = MESTIERI.findIndex(m => m.id === id);
+  if (indice !== -1) setMestiere(indice);
+}
 
 function setGuide() {
   currentMestiere = -1;
