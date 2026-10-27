@@ -1754,6 +1754,9 @@ const raggruppaSarto =
   const raggruppaMetallurgo =
     m.id === 'metallurgo' && !searchQ;
 
+  const raggruppaMeccanico =
+    m.id === 'meccanico' && !searchQ;
+
   const raggruppaArtista =
     m.id === 'artista' && !searchQ;
   
@@ -1961,6 +1964,59 @@ const raggruppaSarto =
       }
     }
 
+    if (raggruppaMeccanico) {
+      const nome = it.n || '';
+      const testo = `${nome} ${it.tip || ''}`;
+
+      // Protesi ed esoscheletri: modifiche applicate al corpo o all'armatura.
+      if (/protesi|esoscheletro/i.test(testo)) {
+        return {
+          key: 'protesi-meccanico',
+          label: '🦾 Protesi ed Esoscheletri'
+        };
+      }
+
+      // Automi e nuclei per costrutti.
+      if (/automa|nucleo automa/i.test(testo)) {
+        return {
+          key: 'automi-meccanico',
+          label: '🤖 Automi e Costrutti'
+        };
+      }
+
+      // Armi, modifiche offensive, armature e scudi.
+      if (/balestra|modifica arma|armatura rinforzata|scudo a deflettore/i.test(nome)) {
+        return {
+          key: 'armi-difese-meccanico',
+          label: '⚔️ Armi, Armature e Difese'
+        };
+      }
+
+      // Orologi e dispositivi che misurano o alterano il tempo.
+      if (/orologio|clockwork amulet|macchina del tempo/i.test(nome)) {
+        return {
+          key: 'orologi-meccanico',
+          label: '⏱️ Orologi e Dispositivi Temporali'
+        };
+      }
+
+      // Trappole, sistemi di sicurezza e congegni pericolosi.
+      if (/trappola|meccanismo di difesa|congegno esplosivo|grimaldello/i.test(nome)) {
+        return {
+          key: 'trappole-meccanico',
+          label: '🪤 Trappole e Meccanismi di Sicurezza'
+        };
+      }
+
+      // Strumenti e attrezzature meccaniche da lavoro o avventura.
+      if (/lanterna|carrucola|fischietto|molla a ricarica|gancio retrattile|manifold tool/i.test(nome)) {
+        return {
+          key: 'attrezzature-meccanico',
+          label: '🔧 Strumenti e Attrezzature'
+        };
+      }
+    }
+
     if (raggruppaFalegname) {
       const nome = it.n || '';
       const testo = `${nome} ${it.tip || ''}`;
@@ -2107,7 +2163,13 @@ const raggruppaSarto =
     'armi-comuni-metallurgo',
     'armi-magiche-metallurgo',
     'potenziamenti-metallurgo',
-    'oggetti-speciali-metallurgo'
+    'oggetti-speciali-metallurgo',
+    'orologi-meccanico',
+    'trappole-meccanico',
+    'attrezzature-meccanico',
+    'armi-difese-meccanico',
+    'protesi-meccanico',
+    'automi-meccanico'
   ];
 
   const confrontaNomi = (a, b) =>
