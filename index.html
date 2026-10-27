@@ -1746,7 +1746,10 @@ const items = lv.items
     m.id === 'oste' && !searchQ;
 
 const raggruppaSarto =
-  m.id === 'sarto' && !searchQ; 
+  m.id === 'sarto' && !searchQ;
+
+  const raggruppaFalegname =
+    m.id === 'falegname' && !searchQ;
   
   // Nuovi raggruppamenti dell'Artigiano.
   const famiglieArtigiano = [
@@ -1862,6 +1865,67 @@ const raggruppaSarto =
   }
 }
     
+    if (raggruppaFalegname) {
+      const nome = it.n || '';
+      const testo = `${nome} ${it.tip || ''}`;
+
+      // Armature e difese.
+      if (/armatura|armor|shield|scudo/i.test(testo)) {
+        return {
+          key: 'difese-falegname',
+          label: '🛡️ Armature e Difese'
+        };
+      }
+
+      // Munizioni.
+      if (/freccia|quadrello|munizion|ammunition/i.test(testo)) {
+        return {
+          key: 'munizioni-falegname',
+          label: '🎯 Munizioni'
+        };
+      }
+
+      // Veicoli e trasporti.
+      if (/canoa|barca|carrett|carrozz|slitta|scialuppa|nave|veicolo|boat|ship|wagon|sleigh/i.test(testo)) {
+        return {
+          key: 'veicoli-falegname',
+          label: '🛶 Veicoli e Trasporti'
+        };
+      }
+
+      // Strumenti musicali.
+      if (/strumento musicale|instrument of|liuto|lute|arpa|harp|tamburo|drum|bandore|cittern|pipes of|lyre|flauto/i.test(testo)) {
+        return {
+          key: 'strumenti-falegname',
+          label: '🎻 Strumenti Musicali'
+        };
+      }
+
+      // Bacchette, staffe e oggetti magici.
+      if (/wand of|bacchetta|staff of|staffa|enspelled staff|rod of|pole of|broom of|scopa/i.test(testo)) {
+        return {
+          key: 'bacchette-falegname',
+          label: '🪄 Bacchette, Staffe e Oggetti Magici'
+        };
+      }
+
+      // Armi.
+      if (/arco|balestra|bastone ferrato|clava|giavellotto|cerbottana|\\bbow\\b|\\bcrossbow\\b|weapon/i.test(testo)) {
+        return {
+          key: 'armi-falegname',
+          label: '🏹 Armi'
+        };
+      }
+
+      // Attrezzature ed equipaggiamento.
+      if (/barile|cassa|equipaggiamento|attrezzatura|angling|collapsing/i.test(testo)) {
+        return {
+          key: 'attrezzature-falegname',
+          label: '🪚 Attrezzature ed Equipaggiamento'
+        };
+      }
+    }
+
     if (m.id === 'artigiano' && !searchQ) {
       return famiglieArtigiano.find(f => f.test.test(it.n || '')) || null;
     }
@@ -1930,7 +1994,14 @@ const raggruppaSarto =
     'avventura-sarto',
     'creazioni-speciali-sarto',
     'bevande-oste',
-    'cibo-oste'
+    'cibo-oste',
+    'armi-falegname',
+    'difese-falegname',
+    'munizioni-falegname',
+    'veicoli-falegname',
+    'strumenti-falegname',
+    'bacchette-falegname',
+    'attrezzature-falegname'
   ];
 
   const confrontaNomi = (a, b) =>
