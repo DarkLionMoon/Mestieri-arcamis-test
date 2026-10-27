@@ -1750,6 +1750,9 @@ const raggruppaSarto =
 
   const raggruppaFalegname =
     m.id === 'falegname' && !searchQ;
+
+  const raggruppaArtista =
+    m.id === 'artista' && !searchQ;
   
   // Nuovi raggruppamenti dell'Artigiano.
   const famiglieArtigiano = [
@@ -1865,6 +1868,51 @@ const raggruppaSarto =
   }
 }
     
+    if (raggruppaArtista) {
+      const nome = it.n || '';
+      const testo = `${nome} ${it.tip || ''}`;
+
+      // Pergamene magiche di qualsiasi livello.
+      if (/pergamena|scroll/i.test(testo)) {
+        return {
+          key: 'pergamene-artista',
+          label: '📜 Pergamene Magiche'
+        };
+      }
+
+      // Tatuaggi magici.
+      if (/tattoo|tatuaggio/i.test(testo)) {
+        return {
+          key: 'tatuaggi-artista',
+          label: '✒️ Tatuaggi Magici'
+        };
+      }
+
+      // Libri degli incantesimi e grimori.
+      if (/spellbook|libro degli incantesimi|arcane grimoire|grimoire/i.test(testo)) {
+        return {
+          key: 'grimori-artista',
+          label: '📚 Libri e Grimori Arcani'
+        };
+      }
+
+      // Opere d'arte e creazioni artistiche uniche.
+      if (/mural|obra maestra|ritratto|manifesto della creazione|opera d'arte|opera d’arte/i.test(testo)) {
+        return {
+          key: 'opere-artista',
+          label: "🖼️ Opere d'Arte e Creazioni Speciali"
+        };
+      }
+
+      // Reliquie e oggetti artistici speciali.
+      if (/icon of ravenloft|reliquia|oggetto artistico speciale/i.test(testo)) {
+        return {
+          key: 'reliquie-artista',
+          label: '✨ Reliquie e Oggetti Artistici Speciali'
+        };
+      }
+    }
+
     if (raggruppaFalegname) {
       const nome = it.n || '';
       const testo = `${nome} ${it.tip || ''}`;
@@ -2001,7 +2049,12 @@ const raggruppaSarto =
     'veicoli-falegname',
     'strumenti-falegname',
     'bacchette-falegname',
-    'attrezzature-falegname'
+    'attrezzature-falegname',
+    'pergamene-artista',
+    'tatuaggi-artista',
+    'grimori-artista',
+    'opere-artista',
+    'reliquie-artista'
   ];
 
   const confrontaNomi = (a, b) =>
