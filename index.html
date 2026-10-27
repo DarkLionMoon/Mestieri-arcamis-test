@@ -1802,43 +1802,54 @@ const raggruppaSarto =
       };
     }
 
-    if (raggruppaSarto) {
+   if (raggruppaSarto) {
   const nome = it.n || '';
 
-  // Creazioni davvero uniche: hanno la precedenza
-  // sulle categorie generiche.
-  if (/Tessuto del Fato|Mimetismo Mostruoso/i.test(nome)) {
-    return {
-      key: 'creazioni-speciali-sarto',
-      label: '✨ Tessuti Incantati e Creazioni Speciali'
-    };
-  }
-
-  if (/armatura|armor/i.test(nome)) {
+  // Armature e difese, inclusi i bracciali difensivi.
+  if (
+    /armatura|armor|bracers of defense/i.test(nome)
+  ) {
     return {
       key: 'armature-sarto',
       label: '🛡️ Armature e Difese'
     };
   }
 
-  if (/abito|abiti|vestit|vestaglia|tunica|robe|cloak|mantello|glamerweave|shiftweave|clothes|camuffamento|costume/i.test(nome)) {
+  // Abiti, vesti, mantelli e tessuti indossabili.
+  if (
+    /abito|abiti|vestit|vestaglia|tunica|robe|cloak|mantle|mantello|glamerweave|shiftweave|clothes|camuffamento|mimetismo|costume/i.test(nome)
+  ) {
     return {
       key: 'abiti-sarto',
       label: '👘 Abiti, Vesti e Mantelli'
     };
   }
 
-  if (/boots|bracers|gloves|hat|belt|wraps|nature's mantle/i.test(nome)) {
+  // Accessori indossabili.
+  if (
+    /boots|bracers|gloves|hat|belt|wraps|cap of|nature's mantle/i.test(nome)
+  ) {
     return {
       key: 'indossabili-sarto',
       label: '👢 Accessori e Oggetti Indossabili'
     };
   }
 
-  if (/bag|borsa|quiver|faretra|pouch|rope|corda|saddle|balloon pack|fionda|frusta|talking doll/i.test(nome)) {
+  // Equipaggiamento pratico da avventura.
+  if (
+    /bag|borsa|quiver|faretra|pouch|rope|corda|saddle|balloon pack|fionda|frusta|talking doll/i.test(nome)
+  ) {
     return {
       key: 'avventura-sarto',
       label: '🎒 Equipaggiamento e Accessori da Avventura'
+    };
+  }
+
+  // Creazioni uniche o eccezionali.
+  if (/tessuto del fato/i.test(nome)) {
+    return {
+      key: 'creazioni-speciali-sarto',
+      label: '✨ Tessuti Incantati e Creazioni Speciali'
     };
   }
 }
