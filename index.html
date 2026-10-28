@@ -1729,8 +1729,7 @@ function infoResa(it) {
   if (isBirra) {
     unita = nome.includes('fiamma di pyrax')
       ? [
-          { nome: 'Botte da 50 L', litri: 50 },
-          { nome: 'Botte da 10 L', litri: 10 },
+          { nome: 'Barile da 10 L', litri: 10 },
           { nome: 'Boccale da 1 L', litri: 1 },
           { nome: 'Boccale da 0,5 L', litri: 0.5 }
         ]
@@ -1788,6 +1787,10 @@ function infoResa(it) {
     })
     .sort((a, b) => b.litri - a.litri);
 
+  const intestazionePrezzo = nome.includes('fiamma di pyrax')
+    ? '<div style="font-size:1.15rem;font-weight:700;color:var(--text)">Prezzo per barile da 10 L: ' + fmtMO(prezzoMassimo * 10 / litri) + '</div>'
+    : '<div style="font-size:1.15rem;font-weight:700;color:var(--text)">Prezzo massimo: ' + fmtMO(prezzoMassimo) + '</div>';
+
   const righeUnita = unita.map(u => {
     const quantita = Math.floor((litri + 1e-9) / u.litri);
     const volumeVenduto = quantita * u.litri;
@@ -1815,7 +1818,7 @@ function infoResa(it) {
     '<div><strong>Resa:</strong> ' + escapeHTML(formato) + ' · ' + fmtLitri(litri) + ' L totali</div>' +
     '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px">' +
       '<div style="font-size:.82rem">Opzione alternativa: vendi l’intera produzione · lotto completo</div>' +
-      '<div style="font-size:1.15rem;font-weight:700;color:var(--text)">Prezzo massimo: ' + fmtMO(prezzoMassimo) + '</div>' +
+      intestazionePrezzo +
       '<div style="font-size:.82rem">Include anche eventuali residui non sufficienti a riempire un altro contenitore.</div>' +
     '</div>' +
     '<div style="font-weight:700;color:var(--text);margin:10px 0 2px">Formati disponibili</div>' +
