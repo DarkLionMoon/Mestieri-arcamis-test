@@ -605,6 +605,11 @@ tr[data-class-structure-row][hidden] {
   }
 
 
+  .architetto-ricetta-focus td {
+    background: rgba(212,149,74,.18) !important;
+    transition: background .25s ease;
+  }
+
   /* Popup resa e quantità */
   .quantita-btn {
     display: inline-block; margin: 0 6px 4px 0; padding: 5px 10px;
@@ -1763,6 +1768,53 @@ function infoResa(it) {
   '</div>';
 }
 
+function apriPopupGuidaArchitetto() {
+  const overlay = document.getElementById('quantitaOverlay');
+  const titolo = document.getElementById('quantitaTitolo');
+  const info = document.getElementById('quantitaInfo');
+  if (!overlay || !titolo || !info) return;
+
+  titolo.textContent = '🏠 Come comporre una casa';
+  info.innerHTML = `
+    <p style="margin-top:0">Le ricette di Livello 1 sono singoli elementi edilizi. Puoi combinarli per creare una proprietà completa.</p>
+    <div style="padding:12px;margin:10px 0;border:1px solid var(--border);border-radius:10px">
+      <strong style="color:var(--gold)">Casa base — elementi obbligatori</strong>
+      <p style="margin:8px 0">Una casa richiede tutti e tre questi ambienti:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Bagno')">🛁 Bagno ↗</button>
+        <button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Salotto')">🛋️ Salotto ↗</button>
+        <button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Camera da Letto')">🛏️ Camera da Letto ↗</button>
+      </div>
+    </div>
+    <div style="padding:12px;margin:10px 0;border:1px solid var(--border);border-radius:10px">
+      <strong style="color:var(--gold)">Esempi di ampliamento</strong>
+      <ul style="margin:8px 0;padding-left:20px">
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Scantinato')">Scantinato ↗</button> — conserva le cibarie.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Cucina')">Cucina ↗</button> — permette di cucinare alimenti.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Orto')">Orto ↗</button> — produce erbe nel tempo.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Magazzino')">Magazzino ↗</button> — offre spazio per i materiali.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Recinzione')">Recinzione ↗</button> — delimita il perimetro.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Stalla')">Stalla ↗</button> — ospita animali di taglia grande.</li>
+      </ul>
+    </div>
+    <p style="font-size:.82rem;color:var(--text2);margin-bottom:0">I collegamenti aprono direttamente la ricetta corrispondente nella tabella dell'Architetto.</p>
+  `;
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+}
+
+function vaiRicettaArchitetto(nome) {
+  chiudiPopupQuantita();
+  const righe = [...document.querySelectorAll('#content tr')];
+  const riga = righe.find(tr => tr.cells && tr.cells.length && tr.cells[0].textContent.trim() === nome);
+  if (!riga) return;
+  riga.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const precedente = document.querySelector('.architetto-ricetta-focus');
+  if (precedente) precedente.classList.remove('architetto-ricetta-focus');
+  riga.classList.add('architetto-ricetta-focus');
+  setTimeout(() => riga.classList.remove('architetto-ricetta-focus'), 2200);
+}
+
 function apriPopupQuantita(button) {
   const overlay = document.getElementById('quantitaOverlay');
   const titolo = document.getElementById('quantitaTitolo');
@@ -2479,6 +2531,7 @@ const raggruppaSarto =
       <h3>${m.emoji} ${m.nome} — Livello ${lv.lv}</h3>
       <p>${items.length} oggetti craftabili</p>
     </div>
+    ${m.id === 'architetto' && lv.lv === 1 ? '<button type="button" class="quantita-btn" style="margin-left:auto;align-self:center" onclick="apriPopupGuidaArchitetto()">🏠 Come comporre una casa</button>' : ''}
   </div>
   <div class="table-wrap">
   <table>
