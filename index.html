@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Compendio dei mestieri di Arcamis per D&amp;D 5e: crafting, downtime, materiali speciali e oggetti per la tua campagna.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>⚗️ Mestieri di Arcamis</title>
 <style>
   
@@ -1997,7 +1999,9 @@ function renderContent() {
   const el = document.getElementById('content');
   let html = '';
 
-  if (currentMestiere === -1) {
+  if (searchQ && currentMestiere === -1) {
+    html += renderGlobalSearch();
+  } else if (currentMestiere === -1) {
     html += renderGuide();
   } else if (searchQ) {
     html += renderSearch(m);
@@ -2893,6 +2897,26 @@ function renderSearch(m) {
     }
   });
   if (!found) html += '<div class="no-results">Nessun risultato trovato in questo mestiere.</div>';
+  return html;
+}
+
+function renderGlobalSearch() {
+  let html = `<div style="margin-bottom:16px;color:var(--text2)">Risultati per <strong style="color:var(--gold)">"${escapeHTML(searchQ)}"</strong> in tutti i mestieri:</div>`;
+  let found = false;
+
+  MESTIERI.forEach(m => {
+    m.livelli.forEach(lv => {
+      const items = lv.items.filter(it => matches(it, searchQ));
+      if (items.length) {
+        found = true;
+        html += renderLv(m, {...lv, items});
+      }
+    });
+  });
+
+  if (!found) {
+    html += '<div class="no-results">Nessun oggetto trovato in nessun mestiere.</div>';
+  }
   return html;
 }
 
