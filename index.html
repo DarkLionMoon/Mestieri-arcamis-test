@@ -730,6 +730,66 @@ header {
   backdrop-filter: none;
 }
 
+
+/* ── HOMEPAGE / PORTALE ── */
+.home-mode { display:block; min-height:0; }
+.home-mode .sidenav { display:none; }
+.home-mode .content { max-width:none; width:100%; padding:0; overflow:visible; }
+#tabs:empty { display:none; }
+.home-page { max-width:1240px; margin:0 auto; padding:28px 28px 64px; }
+.home-hero {
+  position:relative; isolation:isolate; overflow:hidden;
+  min-height:350px; display:flex; align-items:center;
+  padding:clamp(28px,5vw,64px); margin-bottom:28px;
+  border:1px solid #70572f; border-radius:12px;
+  background:
+    radial-gradient(ellipse at 82% 46%, rgba(194,151,75,.18), transparent 32%),
+    radial-gradient(ellipse at 90% 100%, rgba(94,71,39,.3), transparent 45%),
+    linear-gradient(115deg,#121318 0%,#1b1c22 55%,#29241b 100%);
+  box-shadow:0 18px 44px rgba(0,0,0,.28), inset 0 0 0 5px rgba(214,183,112,.025);
+}
+.home-hero::before { content:"⚒"; position:absolute; z-index:-1; right:5%; top:50%; transform:translateY(-50%) rotate(-12deg); font-size:clamp(10rem,24vw,19rem); line-height:1; color:#d6b770; opacity:.075; text-shadow:0 0 40px rgba(214,183,112,.3); }
+.home-hero::after { content:""; position:absolute; inset:12px; border:1px solid rgba(214,183,112,.13); border-radius:7px; pointer-events:none; }
+.home-hero-copy { max-width:720px; position:relative; z-index:1; }
+.home-eyebrow { color:#d6b770; font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; font-weight:700; margin-bottom:14px; }
+.home-hero h2 { color:#f4e8cb; font-family:Georgia,"Palatino Linotype",serif; font-size:clamp(2.15rem,5vw,4rem); line-height:1.05; letter-spacing:.015em; margin-bottom:16px; text-shadow:0 3px 18px #000; }
+.home-hero p { color:#d1c5ae; font-size:clamp(1rem,1.6vw,1.15rem); max-width:610px; line-height:1.75; margin-bottom:24px; }
+.home-actions { display:flex; flex-wrap:wrap; gap:10px; }
+.home-action { display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:12px 18px; border:1px solid #947642; border-radius:5px; background:linear-gradient(180deg,#d6b770,#a88749); color:#17171a; font-size:.9rem; font-weight:800; letter-spacing:.035em; cursor:pointer; text-decoration:none; transition:transform .18s,filter .18s,box-shadow .18s; }
+.home-action:hover { color:#111216; filter:brightness(1.08); transform:translateY(-2px); box-shadow:0 7px 20px rgba(0,0,0,.25); text-decoration:none; }
+.home-action.secondary { background:rgba(20,21,26,.72); color:#e5d3a8; border-color:#625238; }
+.home-action.secondary:hover { color:#f4e8cb; }
+.home-section { margin-top:34px; }
+.home-section-heading { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:16px; }
+.home-section-heading h2 { color:#e5c77e; font-family:Georgia,"Palatino Linotype",serif; font-size:clamp(1.4rem,3vw,2rem); }
+.home-section-heading p { color:#9e927c; font-size:.9rem; }
+.home-kicker { color:#a98a50; font-size:.68rem; text-transform:uppercase; letter-spacing:.2em; margin-bottom:5px; }
+.home-professions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.home-profession {
+  position:relative; display:flex; gap:15px; align-items:flex-start; min-height:142px;
+  text-align:left; padding:20px; border:1px solid #49402f; border-radius:8px;
+  background:linear-gradient(145deg,#24252b,#1b1c21 75%); color:#eee0c2; cursor:pointer;
+  transition:transform .18s,border-color .18s,box-shadow .18s;
+}
+.home-profession:hover { transform:translateY(-3px); border-color:#b49456; box-shadow:0 12px 28px rgba(0,0,0,.22),0 0 18px rgba(214,183,112,.07); }
+.home-profession:focus-visible { outline:2px solid #e0c27a; outline-offset:3px; }
+.home-profession-icon { flex:0 0 48px; width:48px; height:48px; display:grid; place-items:center; border:1px solid #675334; border-radius:7px; background:linear-gradient(145deg,#373025,#24242a); font-size:1.65rem; }
+.home-profession-copy { min-width:0; }
+.home-profession h3 { color:#e8cd8a; font-family:Georgia,"Palatino Linotype",serif; font-size:1.12rem; margin:1px 0 6px; }
+.home-profession p { color:#b8ad99; font-size:.88rem; line-height:1.5; }
+.home-profession .home-card-arrow { position:absolute; right:14px; bottom:10px; color:#9e8149; font-size:1.1rem; }
+.home-utility-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.home-utility { display:flex; gap:14px; align-items:flex-start; padding:19px; border:1px solid #3f3a2e; border-radius:8px; background:#1c1d22; }
+.home-utility-icon { font-size:1.5rem; }
+.home-utility h3 { color:#e5c77e; font-size:.98rem; margin-bottom:5px; }
+.home-utility p { color:#b8ad99; font-size:.86rem; line-height:1.55; }
+.home-utility button { margin-top:10px; border:0; background:none; color:#d6b770; font-weight:700; cursor:pointer; padding:0; }
+.home-utility button:hover { color:#f4e8cb; text-decoration:underline; }
+.home-footer-note { display:flex; gap:12px; align-items:flex-start; padding:17px 19px; margin-top:30px; border-left:3px solid #9c7d45; background:rgba(200,160,80,.055); color:#b8ad99; font-size:.88rem; }
+.home-footer-note strong { color:#e5c77e; }
+@media(max-width:900px) { .home-professions { grid-template-columns:repeat(2,minmax(0,1fr)); } .home-utility-grid { grid-template-columns:1fr; } }
+@media(max-width:600px) { .home-page { padding:16px 12px 38px; } .home-hero { min-height:0; padding:30px 22px; margin-bottom:22px; } .home-hero::before { right:-7%; top:23%; font-size:10rem; } .home-hero::after { inset:7px; } .home-hero h2 { font-size:2.25rem; } .home-hero p { font-size:.98rem; } .home-actions { display:grid; grid-template-columns:1fr; } .home-action { width:100%; } .home-professions { grid-template-columns:1fr; gap:10px; } .home-profession { min-height:0; padding:16px; } .home-section-heading { align-items:flex-start; flex-direction:column; gap:4px; } }
+
 </style>
 </head>
 <body>
@@ -1728,7 +1788,7 @@ const MESTIERI = [
 //  STATE
 // ═══════════════════════════════════════════════════════════════
 
-let currentMestiere = -1;
+let currentMestiere = -2;
 let currentSection = 'intro';
 let searchQ = '';
 
@@ -2051,6 +2111,8 @@ function matches(item, q) {
 
 function renderTabs() {
   const el = document.getElementById('tabs');
+  if (currentMestiere === -2) { el.innerHTML = ''; el.style.display = 'none'; return; }
+  el.style.display = '';
   const guideActive = currentMestiere === -1;
   let html = `<button type="button" class="tab-btn ${guideActive?'active guide-tab-active':''}" onclick="setGuide()">📖 Guida ai Mestieri</button>`;
   html += '<div style="width:1px;background:var(--border);margin:0 4px 0;align-self:stretch"></div>';
@@ -2062,7 +2124,7 @@ function renderTabs() {
 
 function renderSideNav() {
   const el = document.getElementById('sidenav');
-  if (currentMestiere === -1) { el.innerHTML = ''; return; }
+  if (currentMestiere < 0) { el.innerHTML = ''; return; }
   const m = MESTIERI[currentMestiere];
   let html = '<div class="sidenav-section">';
   html += '<div class="sidenav-title">Sezioni</div>';
@@ -2084,7 +2146,9 @@ function renderContent() {
   const el = document.getElementById('content');
   let html = '';
 
-  if (searchQ && currentMestiere === -1) {
+  if (currentMestiere === -2 && !searchQ) {
+    html = renderHome();
+  } else if (searchQ && currentMestiere < 0) {
     html += renderGlobalSearch();
   } else if (currentMestiere === -1) {
     html += renderGuide();
@@ -3006,6 +3070,65 @@ function renderGlobalSearch() {
 }
 
 
+
+function renderHome() {
+  const totalItems = MESTIERI.reduce((sum, m) => sum + m.livelli.reduce((lvSum, lv) => lvSum + lv.items.length, 0), 0);
+  const cards = MESTIERI.map((m, i) => `
+    <button type="button" class="home-profession" onclick="setMestiere(${i})" aria-label="Apri il mestiere ${escapeHTML(m.nome)}">
+      <span class="home-profession-icon" aria-hidden="true">${escapeHTML(m.emoji)}</span>
+      <span class="home-profession-copy">
+        <h3>${escapeHTML(m.nome)}</h3>
+        <p>${escapeHTML(m.desc || m.tagline || 'Scopri ricette, materiali e lavorazioni di questo mestiere.')}</p>
+      </span>
+      <span class="home-card-arrow" aria-hidden="true">↗</span>
+    </button>`).join('');
+
+  return `
+  <div class="home-page">
+    <section class="home-hero" aria-labelledby="homeTitle">
+      <div class="home-hero-copy">
+        <div class="home-eyebrow">Compendio artigianale di Arcamis</div>
+        <h2 id="homeTitle">L'arte di creare.<br>Il sapere di Arcamis.</h2>
+        <p>Esplora le professioni, scopri le ricette e pianifica le tue lavorazioni: dai materiali necessari ai costi, fino ai tempi di Downtime.</p>
+        <div class="home-actions">
+          <button type="button" class="home-action" onclick="document.getElementById('homeProfessions').scrollIntoView({behavior:'smooth',block:'start'})">⚒ Esplora i mestieri <span aria-hidden="true">↓</span></button>
+          <button type="button" class="home-action secondary" onclick="setGuide()">📖 Leggi la guida</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section" id="homeProfessions" aria-labelledby="homeProfessionsTitle">
+      <div class="home-section-heading">
+        <div><div class="home-kicker">Scegli la tua via</div><h2 id="homeProfessionsTitle">I mestieri</h2></div>
+        <p>${MESTIERI.length} professioni da esplorare</p>
+      </div>
+      <div class="home-professions">${cards}</div>
+    </section>
+
+    <section class="home-section" aria-labelledby="homeToolsTitle">
+      <div class="home-section-heading">
+        <div><div class="home-kicker">Strumenti a tua disposizione</div><h2 id="homeToolsTitle">Consulta e pianifica</h2></div>
+      </div>
+      <div class="home-utility-grid">
+        <article class="home-utility">
+          <div class="home-utility-icon" aria-hidden="true">⌕</div>
+          <div><h3>Ricerca rapida</h3><p>Cerca un oggetto, un materiale o una tipologia nel catalogo completo, senza dover aprire ogni mestiere.</p><button type="button" onclick="document.getElementById('searchInput').focus();window.scrollTo({top:0,behavior:'smooth'})">Cerca nel catalogo →</button></div>
+        </article>
+        <article class="home-utility">
+          <div class="home-utility-icon" aria-hidden="true">◈</div>
+          <div><h3>Costi e quantità</h3><p>Apri le schede dei mestieri per consultare i materiali, i prezzi e gli strumenti di dettaglio già presenti nelle ricette.</p><button type="button" onclick="setMestiere(0)">Apri il catalogo →</button></div>
+        </article>
+        <article class="home-utility">
+          <div class="home-utility-icon" aria-hidden="true">▤</div>
+          <div><h3>Guida al crafting</h3><p>Consulta le regole di progressione, la produzione per Downtime e le indicazioni per collaborare alle lavorazioni.</p><button type="button" onclick="setGuide()">Apri la guida →</button></div>
+        </article>
+      </div>
+    </section>
+
+    <div class="home-footer-note"><span aria-hidden="true">✦</span><div><strong>Un compendio, non solo un catalogo.</strong><br>Usa la ricerca per trovare subito ciò che ti serve, oppure entra in un mestiere per consultare le lavorazioni divise per livello e i relativi materiali.</div></div>
+  </div>`;
+}
+
 function renderGuide() {
   return `
   <div class="guide-wrap">
@@ -3100,6 +3223,17 @@ function vaiAlMestiere(id) {
   if (indice !== -1) setMestiere(indice);
 }
 
+function setHome() {
+  currentMestiere = -2;
+  currentSection = 'home';
+  searchQ = '';
+  document.getElementById('searchInput').value = '';
+  render();
+  updateMobileFab();
+  closeDrawer();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
 function setGuide() {
   currentMestiere = -1;
   currentSection = 'guide';
@@ -3133,11 +3267,12 @@ function setSection(s) {
 function doSearch(q) {
   searchQ = q.trim();
   if (searchQ) currentSection = '__search__';
-  else currentSection = 'intro';
+  else currentSection = currentMestiere === -2 ? 'home' : 'intro';
   render();
 }
 
 function render() {
+  document.querySelector('.main').classList.toggle('home-mode', currentMestiere === -2 && !searchQ);
   renderTabs();
   renderSideNav();
   renderContent();
