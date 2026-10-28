@@ -603,6 +603,34 @@ tr[data-class-structure-row][hidden] {
 
   @media (max-width: 480px) {
   }
+
+
+  /* Popup resa e quantità */
+  .quantita-btn {
+    display: inline-block; margin: 0 6px 4px 0; padding: 5px 10px;
+    border: 1px solid var(--border2); border-radius: 4px;
+    background: var(--panel2); color: var(--gold2); font: inherit;
+    font-size: .78rem; font-weight: 700; cursor: pointer; white-space: nowrap;
+  }
+  .quantita-btn:hover { background: var(--bg3); border-color: var(--gold); }
+  .quantita-overlay {
+    display: none; position: fixed; inset: 0; z-index: 500;
+    align-items: center; justify-content: center; padding: 18px;
+    background: rgba(0,0,0,.72); backdrop-filter: blur(3px);
+  }
+  .quantita-overlay.open { display: flex; }
+  .quantita-dialog {
+    width: min(520px, 100%); max-height: min(80vh, 680px); overflow-y: auto;
+    background: var(--panel); border: 1px solid var(--border2); border-radius: 8px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.6); padding: 22px;
+  }
+  .quantita-dialog-header { display:flex; gap:16px; align-items:flex-start; justify-content:space-between; margin-bottom:14px; }
+  .quantita-dialog h2 { color:var(--gold2); font-size:1.2rem; line-height:1.35; }
+  .quantita-close { border:0; background:transparent; color:var(--text2); font-size:1.5rem; cursor:pointer; line-height:1; padding:0 3px; }
+  .quantita-dialog .quantita-info { color:var(--text2); }
+  .quantita-dialog .quantita-info > div { padding:9px 0; border-bottom:1px solid var(--border); }
+  .quantita-dialog .quantita-info > div:last-child { border-bottom:0; }
+  .quantita-dialog strong { color:var(--gold); }
 </style>
 </head>
 <body>
@@ -640,6 +668,13 @@ tr[data-class-structure-row][hidden] {
   <div class="content" id="content"></div>
 </div>
 
+
+<div class="quantita-overlay" id="quantitaOverlay" onclick="chiudiPopupQuantita(event)" aria-hidden="true">
+  <section class="quantita-dialog" role="dialog" aria-modal="true" aria-labelledby="quantitaTitolo" onclick="event.stopPropagation()">
+    <div class="quantita-dialog-header"><h2 id="quantitaTitolo">Quantità e prezzi</h2><button type="button" class="quantita-close" onclick="chiudiPopupQuantita()" aria-label="Chiudi">×</button></div>
+    <div class="quantita-info" id="quantitaInfo"></div>
+  </section>
+</div>
 <script>
 // ═══════════════════════════════════════════════════════════════
 //  THEME
@@ -1620,6 +1655,34 @@ function infoResa(it) {
   </div>`;
 }
 
+function apriPopupQuantita(button) {
+  const overlay = document.getElementById('quantitaOverlay');
+  const titolo = document.getElementById('quantitaTitolo');
+  const info = document.getElementById('quantitaInfo');
+  if (!overlay || !titolo || !info) return;
+  try {
+    titolo.textContent = decodeURIComponent(button.dataset.item || 'Quantità e prezzi');
+    info.innerHTML = decodeURIComponent(button.dataset.info || '');
+  } catch (error) {
+    titolo.textContent = 'Quantità e prezzi';
+    info.textContent = 'Impossibile leggere i dettagli della resa.';
+  }
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+}
+
+function chiudiPopupQuantita(event) {
+  if (event && event.target !== event.currentTarget) return;
+  const overlay = document.getElementById('quantitaOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') chiudiPopupQuantita();
+});
+
 function matches(item, q) {
   if (!q) return true;
   const ql = q.toLowerCase();
@@ -2194,13 +2257,14 @@ const raggruppaSarto =
       <td>${it.mp || '—'}</td>
       <td>${it.ms || '—'}</td>
       <td>${tipBadge(it.tip)}</td>
-      <td><span class="desc-text">${it.desc || '—'}</span>${infoResa(it)}</td>
+      <td><span class="desc-text">${it.desc || '—'}</span></td>
       <td class="cost cost-craft" style="text-align:right">${fmtMO(it.costo)}</td>
       <td class="cost cost-sell" style="text-align:right">${fmtMO(it.vend)}</td>
       ${dtCells}
-      <td>${it.url
-        ? `<a href="${it.url}" target="_blank" rel="noopener noreferrer">${fonteDaUrl(it.url) || '5e.tools'} ↗</a>`
-        : '—'}</td>
+      <td>
+        ${it.resa ? `<button type="button" class="quantita-btn" data-item="${encodeURIComponent(it.n)}" data-info="${encodeURIComponent(infoResa(it))}" onclick="apriPopupQuantita(this)">Quantità</button>` : ''}
+        ${it.url ? `<a href="${it.url}" target="_blank" rel="noopener noreferrer">${fonteDaUrl(it.url) || '5e.tools'} ↗</a>` : (it.resa ? '' : '—')}
+      </td>
     </tr>`;
   };
 
