@@ -1414,6 +1414,12 @@ const MESTIERI = [
     materLav: [40,80,120,160,200],
     livelli: [
       { lv:1, items:[
+        {n:'Cuscino', mp:'1 MO Tessuto', ms:'—', tip:'Decorazioni e Tessili', desc:'Cuscino imbottito per sedute, letti o arredamento. Le varianti sono puramente estetiche.', varianti:['Cuscino decorativo','Cuscino da sedia'], costo:1, vend:2, dt:[1,1,1,1,1]},
+        {n:'Tenda', mp:'3 MO Tessuto', ms:'—', tip:'Decorazioni e Tessili', desc:'Tenda in tessuto per finestre, porte o separazioni leggere degli ambienti.', varianti:['Tenda da finestra','Tendaggio da porta'], costo:3, vend:6, dt:[1,1,1,1,1]},
+        {n:'Coperta', mp:'3 MO Tessuto', ms:'—', tip:'Decorazioni e Tessili', desc:'Coperta tessuta per riscaldarsi o decorare una stanza.', varianti:['Coperta semplice','Copriletto'], costo:3, vend:6, dt:[1,1,1,1,1]},
+        {n:'Tovaglia', mp:'2 MO Tessuto', ms:'—', tip:'Decorazioni e Tessili', desc:'Tovaglia da tavola, rifinita con orli semplici.', varianti:['Tovaglia','Runner da tavola'], costo:2, vend:4, dt:[1,1,1,1,1]},
+        {n:'Tappeto', mp:'5 MO Tessuto', ms:'—', tip:'Decorazioni e Tessili', desc:'Tessuto robusto da pavimento, decorativo e adatto a case, locande e botteghe.', varianti:['Tappeto da sala','Scendiletto','Passatoia'], costo:5, vend:10, dt:[1,1,1,1,1]},
+        {n:'Arazzo', mp:'8 MO Tessuto', ms:'—', tip:'Decorazioni e Tessili', desc:'Pannello tessile decorativo da appendere a una parete o esporre durante cerimonie.', varianti:['Arazzo da parete','Stendardo','Bandiera decorativa'], costo:8, vend:16, dt:[1,1,1,1,1]},
         {n:'Armatura di Cuoio', mp:'5 MO Cuoio', ms:'—', tip:'Armatura Leggera', desc:'CA: 11+Dex.', costo:5, vend:10, dt:[1,1,1,1,1]},
         {n:'Armatura di Cuoio Borchiato', mp:'23 MO Cuoio', ms:'—', tip:'Armatura Leggera', desc:'CA: 12+Dex.', costo:23, vend:45, dt:[3,1,1,1,1]},
         {n:'Frusta', mp:'1 MO Cuoio', ms:'—', tip:'Arma Marziale', desc:'1d4 Slashing, Finesse, Reach. Mastery: Slow.', costo:1, vend:2, dt:[1,1,1,1,1]},
@@ -2099,6 +2105,14 @@ const raggruppaSarto =
    if (raggruppaSarto) {
   const nome = it.n || '';
 
+  // Decorazioni e tessili per arredare gli ambienti.
+  if (/cuscino|tenda|coperta|tovaglia|tappeto|arazzo/i.test(nome) || /decorazioni e tessili/i.test(it.tip || '')) {
+    return {
+      key: 'decorazioni-sarto',
+      label: '🧵 Decorazioni e Tessili'
+    };
+  }
+
   // Armature e difese, inclusi i bracciali difensivi.
   if (
     /armatura|armor|bracers of defense/i.test(nome)
@@ -2465,6 +2479,7 @@ const raggruppaSarto =
   // Ordine personalizzato per i gruppi che devono mantenere
   // una posizione precisa; gli altri saranno ordinati per nome.
   const ordineGruppi = [
+    'decorazioni-sarto',
     'armature-sarto',
     'abiti-sarto',
     'indossabili-sarto',
