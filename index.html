@@ -1655,6 +1655,10 @@ function infoResa(it) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   }) + ' MO';
+  const fmtPrezzoUnita = valore => {
+    if (isBirra && valore < 1) return Number(valore * 10).toLocaleString('it-IT', { maximumFractionDigits: 2 }) + ' SP';
+    return fmtMO(valore);
+  };
   const costoPerLitro = costoTotale / litri;
   const venditaPerLitro = prezzoMassimo / litri;
 
@@ -1669,6 +1673,7 @@ function infoResa(it) {
       { nome: 'Botte da 50 L', litri: 50 },
       { nome: 'Botte da 10 L', litri: 10 },
       { nome: 'Boccale da 1 L', litri: 1 },
+      { nome: 'Boccale da 0,5 L', litri: 0.5 },
       { nome: 'Bottiglia da 0,5 L', litri: 0.5 }
     ];
     const matchBarile = formato.match(/(?:barile|botte)\s+da\s+(\d+(?:[,.]\d+)?)\s*L/i);
@@ -1727,7 +1732,7 @@ function infoResa(it) {
           quantita + ' unità · ' + fmtLitri(volumeVenduto) + ' L' +
           (residuo > 0 ? ' · ' + fmtLitri(residuo) + ' L residui' : '') +
         '</div></div>' +
-        '<div style="text-align:right;white-space:nowrap"><strong>' + fmtMO(prezzoUnitario) + '</strong>' +
+        '<div style="text-align:right;white-space:nowrap"><strong>' + fmtPrezzoUnita(prezzoUnitario) + '</strong>' +
           '<div style="font-size:.82rem;color:var(--text2)">' + fmtMO(ricavoFormato) + ' totali</div>' +
         '</div>' +
       '</div>' +
@@ -1749,7 +1754,7 @@ function infoResa(it) {
       '<div><strong>Costo materiale:</strong> ' + fmtMO(costoPerLitro) + '/L</div>' +
       '<div><strong>Prezzo massimo proporzionale:</strong> ' + fmtMO(venditaPerLitro) + '/L</div>' +
     '</div>' +
-    (isBirra ? '<div style="margin-top:8px"><strong>Riferimento:</strong> Un boccale di birra base da 1 L, si vende in Gilda a 3 SP</div>' : '') +
+    (isBirra ? '<div style="margin-top:8px"><strong>Riferimento Gilda:</strong> 3 SP per un boccale da 0,5 L. I prezzi del popup restano proporzionali al costo finale e non superano il prezzo massimo della produzione.</div>' : '') +
   '</div>';
 }
 
