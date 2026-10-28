@@ -10,7 +10,7 @@ function extractFunction(name) {
   assert.notEqual(start, -1, `Function ${name} must exist in index.html`);
 
   let end = start + 1;
-  while (end < lines.length && !/^function\\s+[A-Za-z_$][\\w$]*\\s*\\(/.test(lines[end])) end++;
+  while (end < lines.length && !/^function\s+[A-Za-z_$][\w$]*\s*\(/.test(lines[end])) end++;
   return lines.slice(start, end).join('\n');
 }
 
