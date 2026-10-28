@@ -17,7 +17,7 @@ function extractFunction(name) {
 function loadFunction(name, dependencies = {}) {
   const names = Object.keys(dependencies);
   const values = Object.values(dependencies);
-  return new Function(...names, extractFunction(name) + `; return ${name};`)(...values);
+  return new Function(...names, `return (${extractFunction(name)});`)(...values);
 }
 
 const escapeHTML = loadFunction('escapeHTML');
