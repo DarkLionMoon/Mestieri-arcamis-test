@@ -1692,6 +1692,7 @@ function infoResa(it) {
     ];
   } else if (/grog/.test(nome)) {
     unita = [
+      { nome: 'Bottiglia da ' + fmtLitri((volumeBottigliaDati || 0.5) * 1000) + ' ml', litri: volumeBottigliaDati || 0.5 },
       { nome: 'Bicchiere da 250 ml', litri: 0.25 }
     ];
   } else if (/liquor|liquore|whisk|distillat|rum/.test(nome)) {
