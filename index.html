@@ -2817,8 +2817,18 @@ function renderMat(m) {
   </div>`;
 }
 
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
 function renderSearch(m) {
-  let html = `<div style="margin-bottom:16px;color:var(--text2)">Risultati per <strong style="color:var(--gold)">"${searchQ}"</strong> in ${m.nome}:</div>`;
+  let html = `<div style="margin-bottom:16px;color:var(--text2)">Risultati per <strong style="color:var(--gold)">"${escapeHTML(searchQ)}"</strong> in ${m.nome}:</div>`;
   let found = false;
   m.livelli.forEach(lv => {
     const items = lv.items.filter(it => matches(it, searchQ));
