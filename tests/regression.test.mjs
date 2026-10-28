@@ -80,7 +80,7 @@ test('infoResa rifiuta rese e costi non validi', () => {
 
 test('HTML mantiene etichetta accessibile, tipi dei pulsanti e movimento ridotto', () => {
   assert.match(html, /<label class="sr-only" for="searchInput">/);
-  assert.match(html, /@media \\(prefers-reduced-motion: reduce\\)/);
-  const buttonsWithoutType = html.match(/<button\\b(?![^>]*\\btype=)[^>]*>/gi) || [];
+  assert.match(html, /@media \(prefers-reduced-motion: reduce\)/);
+  const buttonsWithoutType = html.match(/<button\b(?![^>]*\btype=)[^>]*>/gi) || [];
   assert.deepEqual(buttonsWithoutType, []);
 });
