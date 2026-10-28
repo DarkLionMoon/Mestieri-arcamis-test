@@ -1224,19 +1224,19 @@ const MESTIERI = [
     materLav: [10,25,100,500,750],
     livelli: [
       { lv:1, items:[
-        {n:'Sidro di Targon', mp:'3 MO Mele Celestiali', ms:'2 MO Erbe montane', tip:'Common', desc:'+1 ai TS Destrezza e prove Atletica (2h)', costo:5, vend:10, dt:[1,1,1,1,1]},
+        {n:'Sidro di Targon', mp:'3 MO Mele Celestiali', ms:'2 MO Erbe montane', tip:'Common', desc:'+1 ai TS Destrezza e prove Atletica (2h)', costo:5, vend:10, dt:[1,1,1,1,1], resa: { litri: 4.5, confezioni: 6, formato: '6 bottiglie da 0,75 L' } },
         {n:'Galletta Demaciana', mp:'3 MO Grano del Nord', ms:'2 MO Olio di Pietra', tip:'Common', desc:'PF temporanei pari al bonus competenza del cuoco (max 3 gallette).', costo:5, vend:10, dt:[1,1,1,1,1]},
-        {n:'Grog del Macello', mp:'3 MO Rum di Canna', ms:'2 MO Succo Calamaro', tip:'Common', desc:'Vantaggio ai TS contro Veleno e condizione avvelenato (10 min).', costo:5, vend:10, dt:[1,1,1,1,1]},
+        {n:'Grog del Macello', mp:'3 MO Rum di Canna', ms:'2 MO Succo Calamaro', tip:'Common', desc:'Vantaggio ai TS contro Veleno e condizione avvelenato (10 min).', costo:5, vend:10, dt:[1,1,1,1,1], resa: { litri: 3, confezioni: 6, formato: '6 bottiglie da 0,5 L' } },
         {n:'Zuppa di Radici Ioniana', mp:'5 MO Radice di Loto', ms:'3 MO Petali Spirito', tip:'Common', desc:'+1 alla percezione passiva (3h).', costo:8, vend:16, dt:[1,1,1,1,1]},
         {n:"Pane d'Orzo", mp:'3 MO Farina Grezza', ms:'2 MO Sale di Montagna', tip:'Common', desc:'Conta come 2 razioni, non marcisce mai.', costo:5, vend:10, dt:[1,1,1,1,1]},
         {n:'Zuppa del Viandante', mp:'3 MO Carne Secca', ms:'2 MO Radici Selvatiche', tip:'Common', desc:'Recuperi PF pari a un dado vita.', costo:5, vend:10, dt:[1,1,1,1,1]},
-        {n:'Birra di Frumento', mp:'3 MO Cereali Misti', ms:'2 MO Luppolo', tip:'Common', desc:'+1 ai TS contro paura e condizione spaventato (1h).', costo:5, vend:10, dt:[1,1,1,1,1]},
-        {n:'Vino dei Sogni', mp:'18 MO Uva di Ionia', ms:'7 MO Polvere di Stelle', tip:'Uncommon', desc:'Vantaggio ai TS contro Charme e Sonno (1h).', costo:25, vend:50, dt:[3,1,1,1,1]},
+        {n:'Birra di Frumento', mp:'3 MO Cereali Misti', ms:'2 MO Luppolo', tip:'Common', desc:'+1 ai TS contro paura e condizione spaventato (1h).', costo:5, vend:10, dt:[1,1,1,1,1], resa: { litri: 10, confezioni: 1, formato: '1 barile da 10 L' } },
+        {n:'Vino dei Sogni', mp:'18 MO Uva di Ionia', ms:'7 MO Polvere di Stelle', tip:'Uncommon', desc:'Vantaggio ai TS contro Charme e Sonno (1h).', costo:25, vend:50, dt:[3,1,1,1,1], resa: { litri: 3, confezioni: 4, formato: '4 bottiglie da 0,75 L' } },
         {n:'Pasta e Fagioli di Shurima', mp:'3 MO Pasta di Grano Arido', ms:'2 MO Fagioli del Deserto', tip:'Common', desc:'+2 PF extra per dado vita speso durante riposo breve.', costo:5, vend:10, dt:[1,1,1,1,1]},
         {n:'Bistecca di Ixtal', mp:'8 MO Lombata di Lucertola Gigante', ms:'2 MO Erbe della giungla', tip:'Common', desc:'Vantaggio alle prove di forza (10 min).', costo:10, vend:20, dt:[1,1,1,1,1]},
         {n:'Ramen delle Piogge d\'Oriente', prog:true, mp:'6 MO Carne di Cervo delle Nebbie', ms:'2 MO Funghi di Bambù Blu', tip:'Common', desc:'Recuperi 1d4 PF aggiuntivi per ogni dado vita speso al prossimo RB.', costo:8, vend:16, dt:[1,1,1,1,1]},
         {n:'Mochi ai Fiori di Loto', prog:true, mp:'4 MO Farina di Riso Lunare', ms:'3 MO Petali di Loto Dorato', tip:'Common', desc:'+1 ai tiri su Persuasione (8h).', costo:7, vend:14, dt:[1,1,1,1,1]},
-        {n:'Sake Caldo delle Lanterne', prog:true, mp:'5 MO Riso Fermentato del Sole Nascente', ms:'2 MO Spezie di Cannella Cremisi', tip:'Common', desc:'Vantaggio contro spaventato, svantaggio Furtività (4h).', costo:7, vend:14, dt:[1,1,1,1,1]},
+        {n:'Sake Caldo delle Lanterne', prog:true, mp:'5 MO Riso Fermentato del Sole Nascente', ms:'2 MO Spezie di Cannella Cremisi', tip:'Common', desc:'Vantaggio contro spaventato, svantaggio Furtività (4h).', costo:7, vend:14, dt:[1,1,1,1,1], resa: { litri: 3, confezioni: 6, formato: '6 bottiglie da 0,5 L' } },
         {n:'Onigiri del Viandante', prog:true, mp:'4 MO Riso delle Colline Ioniane', ms:'3 MO Salmone Affumicato delle Coste', tip:'Common', desc:'+1 ai tiri di Sopravvivenza e Natura (8h).', costo:7, vend:14, dt:[1,1,1,1,1]},
         {n:'Tè al Gelsomino della Prima Terra', prog:true, mp:'4 MO Foglie di Gelsomino Celeste', ms:'2 MO Miele dei Fiori di Alba', tip:'Common', desc:'+1 Intuizione, puoi ritirare un tiro di concentrazione fallito (4h).', costo:6, vend:12, dt:[1,1,1,1,1]},
         {n:'Spiedini Yakitori del Porto di Navori', prog:true, mp:'6 MO Pollo nero di Navori', ms:'1 MO Salsa di Soia Fermentata', tip:'Common', desc:'PF temporanei pari al doppio del bonus competenza (4h).', costo:7, vend:14, dt:[1,1,1,1,1]},
@@ -1251,30 +1251,30 @@ const MESTIERI = [
         {n:'Insalata del Cacciatore di Serpenti',mp:'6 MO Tentacoli di Kraken',ms:'3 MO Patate di Scogliera',tip:'Common',desc:'Anfibio: Puoi trattenere il respiro sott\'acqua il doppio dei minuti rispetto al normale (2h)',costo:9,vend:18,dt:[1,1,1,1,1]},
       ]},
       { lv:2, items:[
-        {n:'Whiskey Rabbioso', mp:'40 MO Sangue di Viverna', ms:'10 MO Bacche elementali', tip:'Rare', desc:'2d4 danni extra del tipo arma ai critici per 1h.', costo:50, vend:100, dt:[2,1,1,1]},
+        {n:'Whiskey Rabbioso', mp:'40 MO Sangue di Viverna', ms:'10 MO Bacche elementali', tip:'Rare', desc:'2d4 danni extra del tipo arma ai critici per 1h.', costo:50, vend:100, dt:[2,1,1,1], resa: { litri: 1, confezioni: 4, formato: '4 bottiglie da 0,25 L' } },
         {n:"Spezzatino d'Idra", mp:'15 MO Carne di Mostro', ms:'10 MO Spezie Naniche', tip:'Uncommon', desc:'2d10 PF Temporanei. Recuperi 1 PF/turno finché li hai (effetto recupero 1h, PF fino al prossimo RL).', costo:25, vend:50, dt:[1,1,1,1]},
-        {n:'Liquore di Fuoco', mp:'17 MO Peperoncino', ms:'8 MO Alcol Puro', tip:'Uncommon', desc:'Resistenza ai danni da Freddo per 1h.', costo:25, vend:50, dt:[1,1,1,1]},
-        {n:'Birra Baffo di Poro', mp:'12 MO Orzo dei Ghiacci', ms:'13 MO Briciole Snax', tip:'Uncommon', desc:'Rimuove un livello di Affaticamento.', costo:25, vend:50, dt:[1,1,1,1]},
+        {n:'Liquore di Fuoco', mp:'17 MO Peperoncino', ms:'8 MO Alcol Puro', tip:'Uncommon', desc:'Resistenza ai danni da Freddo per 1h.', costo:25, vend:50, dt:[1,1,1,1], resa: { litri: 1, confezioni: 4, formato: '4 bottiglie da 0,25 L' } },
+        {n:'Birra Baffo di Poro', mp:'12 MO Orzo dei Ghiacci', ms:'13 MO Briciole Snax', tip:'Uncommon', desc:'Rimuove un livello di Affaticamento.', costo:25, vend:50, dt:[1,1,1,1], resa: { litri: 10, confezioni: 1, formato: '1 barile da 10 L' } },
         {n:'Arrosto di Basilisco', mp:'18 MO Carne di Basilisco', ms:'7 MO Sale Nero', tip:'Uncommon', desc:'Vantaggio alle prove su Forza per 2h.', costo:25, vend:50, dt:[1,1,1,1]},
         {n:'Nettare di Zaun', mp:'10 MO Funghi Sump', ms:'15 MO Siero Chemtech', tip:'Uncommon', desc:'+3m (10ft) velocità per 10 minuti.', costo:25, vend:50, dt:[1,1,1,1]},
         {n:"Tè Foglie d'Oro", mp:'15 MO Tè del Deserto', ms:'10 MO Polvere Solare', tip:'Uncommon', desc:'Recuperi uno slot incantesimo di 1° livello. Bevibile 1/Riposo Breve.', costo:25, vend:50, dt:[1,1,1,1]},
-        {n:'Vino di Rose Nere', mp:'17 MO Rose Nere', ms:'8 MO Alcol Forte', tip:'Uncommon', desc:'Vantaggio alle prove di Intimidire e Inganno per 1h.', costo:25, vend:50, dt:[1,1,1,1]},
+        {n:'Vino di Rose Nere', mp:'17 MO Rose Nere', ms:'8 MO Alcol Forte', tip:'Uncommon', desc:'Vantaggio alle prove di Intimidire e Inganno per 1h.', costo:25, vend:50, dt:[1,1,1,1], resa: { litri: 3, confezioni: 4, formato: '4 bottiglie da 0,75 L' } },
         {n:'Muffin di Piltover', mp:'12 MO Farina Raffinata', ms:'13 MO Polvere Hextech', tip:'Uncommon', desc:'+2 alle prove di Intelligenza per 1h.', costo:25, vend:50, dt:[1,1,1,1]},
         {n:'Scagliapiedi al Salto', mp:'13 MO Placche di Scagliapiedi', ms:'12 MO Pasta Demaciana', tip:'Uncommon', desc:'+1 CA per 1h (non cumulabile).', costo:25, vend:50, dt:[1,1,1,1]},
       
         {n:'Spezzatino d\'Idra',mp:'15 MO Carne di Mostro',ms:'10 MO Spezie Naniche',tip:'Uncommon',desc:'Rigenerazione: Ottieni 2d10 PF Temporanei. Finchè li hai recuperi 1 PF a turno, l\'effetto di recupero dura solo 1h, i PF fino al prossimo Riposo Lungo',costo:25,vend:50,dt:[1,1,1,1]},
         {n:'Tè foglie d\'Oro',prog:true,mp:'15 MO Tè del Deserto',ms:'10 MO Polvere Solare',tip:'Uncommon',desc:'Saggezza di Azir: Recuperi uno slot Incantesimo di 1° livello speso, pui bere questo solo una volta per Riposo Breve',costo:25,vend:50,dt:[1,1,1,1]},
-        {n:'Liquore Teemo',prog:true,mp:'20 MO Funghi Velenosi',ms:'5 MO Miele Fatato',tip:'Uncommon',desc:'Tattica della Guerriglia: Vantaggio alle prova di Furtività per 1 ora',costo:25,vend:50,dt:[1,1,1,1]},
-        {n:'Fiamma di Pyrax (Barile / 164L)', mp:'50 MO Peperoncini Lingua di Drago (Ixtal)', ms:'30 MO Cacao magmatico, 20 MO Botti affumicate', tip:'Uncommon', desc:'Birra scura, viscosa e piccante per Dragonidi. Dona forte calore interno e alito fumante.', url:'#', costo:100, vend:200, dt:[4,1,1,1]},
+        {n:'Liquore Teemo',prog:true,mp:'20 MO Funghi Velenosi',ms:'5 MO Miele Fatato',tip:'Uncommon',desc:'Tattica della Guerriglia: Vantaggio alle prova di Furtività per 1 ora',costo:25,vend:50,dt:[1,1,1,1], resa: { litri: 1, confezioni: 4, formato: '4 bottiglie da 0,25 L' } },
+        {n:'Fiamma di Pyrax (Barile / 164L)', mp:'50 MO Peperoncini Lingua di Drago (Ixtal)', ms:'30 MO Cacao magmatico, 20 MO Botti affumicate', tip:'Uncommon', desc:'Birra scura, viscosa e piccante per Dragonidi. Dona forte calore interno e alito fumante.', url:'#', costo:100, vend:200, dt:[4,1,1,1], resa: { litri: 164, confezioni: 1, formato: '1 barile da 164 L' } },
       ]},
       { lv:3, items:[
         {n:'Ragù del Barile Esplosivo', prog:true, mp:'50 MO Salsicce Esplosive di Zaun', ms:'25 MO Spezie Caustiche', tip:'Rare', desc:'Resistenza al fuoco per 2h. Quando prendi danni da fuoco: piccola esplosione 1d6 (DC 14 Des).', costo:75, vend:150, dt:[3,1,1]},
-        {n:"Idromele di Targon", prog:true, mp:'40 MO Miele Celeste', ms:'35 MO Nettare di Luna', tip:'Rare', desc:'Per 1h: vedi l\'Invisibile e Vantaggio ai TS contro incantesimi.', costo:75, vend:150, dt:[3,1,1]},
+        {n:"Idromele di Targon", prog:true, mp:'40 MO Miele Celeste', ms:'35 MO Nettare di Luna', tip:'Rare', desc:'Per 1h: vedi l\'Invisibile e Vantaggio ai TS contro incantesimi.', costo:75, vend:150, dt:[3,1,1], resa: { litri: 3, confezioni: 4, formato: '4 bottiglie da 0,75 L' } },
         {n:'Zuppa del Lich Gourmet', prog:true, mp:'60 MO Osso di Non Morto', ms:'15 MO Funghi del Crepuscolo', tip:'Rare', desc:'Per 1h: parli con i morti entro 10m. 1/riposo lungo: Parlare con i Morti senza componenti.', costo:75, vend:150, dt:[3,1,1]},
         {n:'Filetto del Dragone Rosso', prog:true, mp:'60 MO Carne di Drago Rosso', ms:'15 MO Spezie Infernali', tip:'Rare', desc:'Immunità al fuoco per 1h. Attacchi: +2d6 fuoco per lo stesso periodo.', costo:75, vend:150, dt:[3,1,1]},
         {n:'Stufato del Cacciatore del Vuoto', prog:true, mp:'50 MO Carne di Creatura del Vuoto', ms:'25 MO Radici Abissali', tip:'Rare', desc:'Per 10 min: attacchi ignorano resistenza (non immunità). Poi DC 14 Cost. o 1 livello Esaurimento.', costo:75, vend:150, dt:[3,1,1]},
         {n:'Caffè di Zilean Blend', prog:true, mp:'45 MO Chicchi di Caffeina Pura', ms:'30 MO Polvere di Clessidra di Zilean', tip:'Rare', desc:'Per 1h: Reazione per ripetere qualsiasi tiro (tuo o alleato entro 9m) 1/turno.', costo:75, vend:150, dt:[3,1,1]},
-        {n:'Vino del Primo Nevicare', prog:true, mp:'40 MO Uva Glaciale del Freljord', ms:'35 MO Lacrime di Ashe', tip:'Rare', desc:'Immunità condizione Spento. Reazione: Spruzzo di Gelo 2d8 su chi ti colpisce.', costo:75, vend:150, dt:[3,1,1]},
+        {n:'Vino del Primo Nevicare', prog:true, mp:'40 MO Uva Glaciale del Freljord', ms:'35 MO Lacrime di Ashe', tip:'Rare', desc:'Immunità condizione Spento. Reazione: Spruzzo di Gelo 2d8 su chi ti colpisce.', costo:75, vend:150, dt:[3,1,1], resa: { litri: 3, confezioni: 4, formato: '4 bottiglie da 0,75 L' } },
         {n:'Banquet Reale di Arcamis (per 6)', prog:true, mp:'120 MO Ingredienti Pregiati Misti', ms:'30 MO Vino di Annata', tip:'Rare — Banchetto', desc:'Tutti i commensali: 2d10+10 PF Temporanei, Vantaggio ai TS per 24h, cura di una malattia o veleno.', costo:150, vend:300, dt:[4,2,1]},
       ]},
       { lv:4, items:[
@@ -1597,10 +1597,28 @@ function matRarBadge(r){
   return `<span class="badge ${m[r]||'b-other'}">${l[r]||r}</span>`;
 }
 
+function costoUnitarioMO(v) {
+  return Number(v).toLocaleString('it-IT', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }) + ' MO';
+}
+
+function infoResa(it) {
+  if (!it.resa || !it.resa.litri || !it.costo) return '';
+  const r = it.resa;
+  const perLitro = it.costo / r.litri;
+  const perConfezione = r.confezioni > 1 ? it.costo / r.confezioni : null;
+  return `<div style="margin-top:6px;font-size:.78rem;line-height:1.5;color:var(--text2)">
+    <div><strong>Resa:</strong> ${r.formato} · ${String(r.litri).replace('.', ',')} L totali</div>
+    <div><strong>Costo unitario:</strong> ${costoUnitarioMO(perLitro)}/L${perConfezione !== null ? ' · ' + costoUnitarioMO(perConfezione) + '/bottiglia' : ''}</div>
+  </div>`;
+}
+
 function matches(item, q) {
   if (!q) return true;
   const ql = q.toLowerCase();
-  return [item.n, item.mp, item.ms, item.tip, item.desc]
+  return [item.n, item.mp, item.ms, item.tip, item.desc, item.resa?.formato]
     .filter(Boolean)
     .some(s => s.toLowerCase().includes(ql));
 }
@@ -2171,7 +2189,7 @@ const raggruppaSarto =
       <td>${it.mp || '—'}</td>
       <td>${it.ms || '—'}</td>
       <td>${tipBadge(it.tip)}</td>
-      <td><span class="desc-text">${it.desc || '—'}</span></td>
+      <td><span class="desc-text">${it.desc || '—'}</span>${infoResa(it)}</td>
       <td class="cost cost-craft" style="text-align:right">${fmtMO(it.costo)}</td>
       <td class="cost cost-sell" style="text-align:right">${fmtMO(it.vend)}</td>
       ${dtCells}
