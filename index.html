@@ -1157,6 +1157,9 @@ const MESTIERI = [
     materLav: [10,25,100,500,750],
     livelli: [
       { lv:1, items:[
+        {n:'Sedia', mp:'2 MO Legno Comune', ms:'—', tip:'Mobili e Arredamento', desc:'Sedia semplice in legno lavorato, adatta a case, locande e botteghe.', varianti:['Sgabello','Panchina'], costo:2, vend:4, dt:[1,1,1,1,1]},
+        {n:'Tavolo', mp:'5 MO Legno Comune', ms:'—', tip:'Mobili e Arredamento', desc:'Tavolo semplice in legno, adatto a pasti, lavoro e uso quotidiano.', costo:5, vend:10, dt:[1,1,1,1,1]},
+        {n:'Letto', mp:'8 MO Legno Comune', ms:'—', tip:'Mobili e Arredamento', desc:'Letto semplice in legno con struttura e supporto per il materasso.', costo:8, vend:16, dt:[1,1,1,1,1]},
         {n:'Arco Lungo', mp:'25 MO Legno', ms:'—', tip:'Arma Marziale', desc:'1d8 Piercing, Range 150/600ft, Heavy, Two-Handed. Mastery: Slow.', costo:25, vend:50, dt:[2,1,1,1,1]},
         {n:'Arco Corto', mp:'13 MO Legno', ms:'—', tip:'Arma Semplice', desc:'1d6 Piercing, Range 80/320ft, Two-Handed. Mastery: Vex.', costo:13, vend:25, dt:[2,1,1,1,1]},
         {n:'Balestra Pesante', mp:'20 MO Legno', ms:'5 MO Metallo', tip:'Arma Marziale', desc:'1d10 Piercing, Range 100/400ft, Heavy, Loading, Two-Handed. Mastery: Push.', costo:25, vend:50, dt:[3,1,1,1,1]},
@@ -2292,6 +2295,14 @@ const raggruppaSarto =
       const nome = it.n || '';
       const testo = `${nome} ${it.tip || ''}`;
 
+      // Mobili e arredamento di base.
+      if (/^sedia$|^tavolo$|^letto$/i.test(nome) || /mobili e arredamento/i.test(it.tip || '')) {
+        return {
+          key: 'mobili-falegname',
+          label: '🪑 Mobili e Arredamento'
+        };
+      }
+
       // Armature e difese.
       if (/armatura|armor|shield|scudo/i.test(testo)) {
         return {
@@ -2444,7 +2455,8 @@ const raggruppaSarto =
       ${dtCells}
       <td>
         ${it.resa ? `<button type="button" class="quantita-btn" data-item="${encodeURIComponent(it.n)}" data-info="${encodeURIComponent(infoResa(it))}" onclick="apriPopupQuantita(this)">Quantità</button>` : ''}
-        ${it.url ? `<a href="${it.url}" target="_blank" rel="noopener noreferrer">${fonteDaUrl(it.url) || '5e.tools'} ↗</a>` : (it.resa ? '' : '—')}
+        ${it.varianti ? `<button type="button" class="quantita-btn" data-item="${encodeURIComponent('Varianti — ' + it.n)}" data-info="${encodeURIComponent('<div style="font-weight:700;margin-bottom:8px">Varianti disponibili</div><ul style="margin:0;padding-left:20px">' + it.varianti.map(v => '<li>' + v + '</li>').join('') + '</ul>')}" onclick="apriPopupQuantita(this)">Varianti</button>` : ''}
+        ${it.url ? `<a href="${it.url}" target="_blank" rel="noopener noreferrer">${fonteDaUrl(it.url) || '5e.tools'} ↗</a>` : (it.resa || it.varianti ? '' : '—')}
       </td>
     </tr>`;
   };
@@ -2460,6 +2472,7 @@ const raggruppaSarto =
     'creazioni-speciali-sarto',
     'bevande-oste',
     'cibo-oste',
+    'mobili-falegname',
     'armi-falegname',
     'difese-falegname',
     'munizioni-falegname',
