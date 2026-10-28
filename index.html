@@ -645,6 +645,72 @@ tr[data-class-structure-row][hidden] {
   .quantita-dialog .quantita-info > div { padding:9px 0; border-bottom:1px solid var(--border); }
   .quantita-dialog .quantita-info > div:last-child { border-bottom:0; }
   .quantita-dialog strong { color:var(--gold); }
+
+/* ARCAMIS VISUAL RESTYLE: dark fantasy / antique gold */
+:root{--bg:#111216;--bg2:#17181d;--bg3:#202127;--panel:#1b1c22;--panel2:#25262d;--border:#49402f;--border2:#80663a;--gold:#b99a58;--gold2:#d8b96e;--gold3:#f0d99a;--amber:#d4a45e;--text:#eee6d5;--text2:#c6b99d;--text3:#95876c;--shadow:0 10px 28px rgba(0,0,0,.38);--glow:0 0 22px rgba(216,185,110,.13);--header-bg-start:#0b0c10;--header-bg-end:#17171b;--guide-hero-end:#26231c}
+html{scroll-behavior:smooth}
+body{background-color:var(--bg);background-image:radial-gradient(ellipse at 50% -15%,rgba(133,104,52,.13),transparent 52%),radial-gradient(ellipse at 0% 55%,rgba(71,65,53,.07),transparent 35%);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;letter-spacing:.005em}
+header{background:linear-gradient(180deg,rgba(8,9,12,.98),rgba(22,22,26,.97));border-bottom:1px solid var(--border2);box-shadow:0 10px 34px rgba(0,0,0,.48),0 1px 0 rgba(216,185,110,.10);padding-top:24px;padding-bottom:20px}
+header::after{content:"✦  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ✦";display:block;color:rgba(185,154,88,.52);font-size:.62rem;letter-spacing:.2em;margin:12px auto -3px;max-width:min(420px,90%);overflow:hidden;white-space:nowrap}
+header h1{font-family:Georgia,"Palatino Linotype","Book Antiqua",serif;font-weight:700;font-size:clamp(1.65rem,4vw,2.75rem);letter-spacing:.075em;color:var(--gold3);text-shadow:0 2px 2px #000,0 0 26px rgba(216,185,110,.18);line-height:1.2}
+header p{color:#a99a7b;font-size:.75rem;letter-spacing:.18em}
+.search-wrap{max-width:620px;margin-top:18px}
+.search-wrap input{min-height:46px;background:rgba(29,30,36,.96);border:1px solid #5e5038;border-radius:7px;box-shadow:inset 0 1px 5px rgba(0,0,0,.28);font-family:"Segoe UI",system-ui,sans-serif;padding-left:18px}
+.search-wrap input:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(216,185,110,.12),0 0 20px rgba(216,185,110,.07)}
+.tabs{background:rgba(20,21,26,.97);border-bottom:1px solid #665435;padding-top:13px;gap:7px;box-shadow:0 8px 20px rgba(0,0,0,.18);backdrop-filter:blur(12px)}
+.tab-btn{background:linear-gradient(180deg,#24252b,#1a1b20);border:1px solid #49402f;border-bottom-color:#393329;border-radius:5px 5px 0 0;color:#c2b393;padding:9px 15px;font-size:.76rem;letter-spacing:.055em;transition:color .18s,background .18s,border-color .18s,box-shadow .18s}
+.tab-btn:hover{background:linear-gradient(180deg,#302c23,#222127);border-color:#8c7140;color:var(--gold3);box-shadow:0 0 14px rgba(216,185,110,.08)}
+.tab-btn.active{background:linear-gradient(180deg,#353024,#25231e);color:var(--gold3);border-color:var(--gold2);border-bottom-color:#25231e;box-shadow:inset 0 2px 0 rgba(240,217,154,.18),0 -4px 18px rgba(216,185,110,.08)}
+.sidenav{background:linear-gradient(90deg,#17181d,#191a20);border-right:1px solid #49402f;box-shadow:5px 0 24px rgba(0,0,0,.10)}
+.sidenav-title{color:#a38e62;font-size:.67rem;letter-spacing:.17em}
+.sidenav-btn{font-family:"Segoe UI",system-ui,sans-serif;font-size:.88rem;padding-top:9px;padding-bottom:9px;border-left-width:3px}
+.sidenav-btn:hover{color:var(--gold3);background:linear-gradient(90deg,rgba(216,185,110,.09),transparent)}
+.sidenav-btn.active{color:var(--gold3);background:linear-gradient(90deg,rgba(216,185,110,.13),rgba(216,185,110,.015));border-left-color:var(--gold2);box-shadow:inset 3px 0 12px rgba(216,185,110,.035)}
+.content{padding:clamp(18px,3vw,36px)}
+.intro-card,.guide-hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 100% 0%,rgba(185,154,88,.10),transparent 48%),linear-gradient(135deg,#24242a,#1a1b20 72%);border:1px solid #75603b;border-radius:9px;box-shadow:0 12px 30px rgba(0,0,0,.24),inset 0 1px 0 rgba(240,217,154,.055)}
+.intro-card::before,.guide-hero::after{content:"";position:absolute;top:0;right:0;width:100px;height:100px;pointer-events:none;opacity:.32;background:linear-gradient(135deg,transparent 48%,rgba(216,185,110,.13) 49%,transparent 50%)}
+.intro-card h2,.guide-hero h2{font-family:Georgia,"Palatino Linotype",serif;letter-spacing:.025em;color:var(--gold3);text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.intro-card .tagline{color:#b6a37d}
+.lv-header{border-bottom:1px solid #655236;padding-bottom:12px;margin-bottom:14px}
+.lv-header h3{font-family:Georgia,"Palatino Linotype",serif;color:var(--gold2);letter-spacing:.025em;font-size:clamp(1.1rem,2vw,1.35rem)}
+.lv-header p{color:#a99b80}
+.table-wrap{border:1px solid #4b4232;border-radius:7px;overflow:auto;box-shadow:0 8px 22px rgba(0,0,0,.14);background:rgba(23,24,29,.7)}
+table{border-collapse:separate;border-spacing:0}
+table thead th{background:linear-gradient(180deg,#302c23,#25242a);color:var(--gold2);border-bottom:1px solid #8a7040;letter-spacing:.07em}
+table tbody tr{transition:background .16s ease}
+table tbody tr:nth-child(even){background:rgba(255,255,255,.012)}
+table tbody tr:hover{background:rgba(216,185,110,.055)}
+table td{border-bottom-color:rgba(128,102,58,.22)}
+.mat-section h3,.guide-section h3{font-family:Georgia,"Palatino Linotype",serif;color:var(--gold2);letter-spacing:.025em}
+.guide-card{background:linear-gradient(145deg,rgba(42,41,44,.98),rgba(26,27,32,.98));border-color:#4e4432;border-radius:8px;box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 5px 16px rgba(0,0,0,.13)}
+.guide-card:hover{border-color:#80663a;box-shadow:0 8px 24px rgba(0,0,0,.25),0 0 18px rgba(216,185,110,.07)}
+.guide-card-clickable:hover{border-color:var(--gold2);box-shadow:0 10px 26px rgba(0,0,0,.28),0 0 22px rgba(216,185,110,.10);transform:translateY(-3px)}
+.guide-card h4{font-family:Georgia,"Palatino Linotype",serif;font-size:.98rem;color:var(--gold3)}
+.guide-card .tag{border-color:rgba(216,185,110,.28);background:rgba(216,185,110,.09);color:#d8bc7b;border-radius:3px}
+.dt-table th{background:#29272a;color:var(--gold2);border-bottom-color:#80663a}
+.dt-table td{border-bottom-color:rgba(128,102,58,.22)}
+.guide-note{background:rgba(185,132,55,.08);border-color:rgba(185,154,88,.32);border-radius:7px}
+.quantita-btn{background:linear-gradient(180deg,#302c23,#222127);border-color:#6d5936;border-radius:5px;color:var(--gold2);transition:background .18s,border-color .18s,box-shadow .18s,transform .18s}
+.quantita-btn:hover{background:#383124;border-color:var(--gold2);box-shadow:0 0 14px rgba(216,185,110,.09)}
+.quantita-overlay{background:rgba(4,5,8,.82);backdrop-filter:blur(7px) saturate(.75)}
+.quantita-dialog{position:relative;background:radial-gradient(ellipse at 100% 0%,rgba(185,154,88,.10),transparent 45%),linear-gradient(145deg,#24242a,#191a1f);border:1px solid #927443;border-radius:10px;box-shadow:0 24px 80px rgba(0,0,0,.72),inset 0 1px 0 rgba(240,217,154,.07)}
+.quantita-dialog h2{font-family:Georgia,"Palatino Linotype",serif;color:var(--gold3)}
+.quantita-dialog .quantita-info>div{border-bottom-color:rgba(128,102,58,.30)}
+.quantita-close:hover{color:var(--gold3)}
+.ornament{color:#8a7040;text-shadow:0 0 14px rgba(216,185,110,.12)}
+.section-anchor{scroll-margin-top:190px}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+button,input{accent-color:var(--gold2)}
+::selection{background:rgba(185,154,88,.34);color:#fff8e8}
+::-webkit-scrollbar-thumb{background:#665333}
+::-webkit-scrollbar-thumb:hover{background:#8a7040}
+.mobile-nav-btn{background:linear-gradient(145deg,#e0c27a,#a88747);color:#17171a;box-shadow:0 8px 24px rgba(0,0,0,.44),0 0 18px rgba(216,185,110,.14)}
+.mobile-drawer{background:linear-gradient(180deg,#1c1d23,#14151a);border-right-color:#80663a;box-shadow:16px 0 40px rgba(0,0,0,.38)}
+.mobile-drawer-header{border-bottom-color:#49402f}
+.mobile-drawer-header h3{font-family:Georgia,"Palatino Linotype",serif;color:var(--gold2)}
+@media(max-width:768px){header{padding:17px 14px 15px}header h1{font-size:clamp(1.35rem,5.5vw,1.8rem)}header p{letter-spacing:.08em;line-height:1.5}header::after{font-size:.5rem;letter-spacing:.08em}.content{padding:18px 13px 30px}.intro-card{padding:19px 17px}.tab-btn{padding:9px 12px}.quantita-dialog{padding:18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important}}
+
 </style>
 </head>
 <body>
