@@ -1652,14 +1652,15 @@ function fmtMO(v) {
 }
 
 function tipBadge(t) {
-  const tl = (t||'').toLowerCase();
+  const testo = escapeHTML(t || '—');
+  const tl = String(t || '').toLowerCase();
   let cls='b-other';
   if (tl.includes('common') && !tl.includes('un')) cls='b-common';
   else if (tl.includes('uncommon') || tl.includes('non comune')) cls='b-uncommon';
   else if (tl.includes('very rare') || tl.includes('very-rare')) cls='b-veryrare';
   else if (tl.includes('rare') || tl.includes('raro') || tl.includes('rara')) cls='b-rare';
   else if (tl.includes('legendary') || tl.includes('leggendario')) cls='b-legendary';
-  return `<span class="badge ${cls}">${t||'—'}</span>`;
+  return `<span class="badge ${cls}">${testo}</span>`;
 }
 
 function dtClass(v,i) {
@@ -1670,12 +1671,15 @@ function dtClass(v,i) {
   return 'dt-5';
 }
 
-function rarClass(r){return 'mat-card mat-'+r;}
+function rarClass(r) {
+  const raritaValide = ['common', 'uncommon', 'rare', 'very-rare', 'legendary'];
+  return 'mat-card mat-' + (raritaValide.includes(r) ? r : 'other');
+}
 
 function matRarBadge(r){
   const m={common:'b-common',uncommon:'b-uncommon',rare:'b-rare','very-rare':'b-veryrare',legendary:'b-legendary'};
   const l={common:'Comune',uncommon:'Non Comune',rare:'Raro','very-rare':'Very Rare',legendary:'Leggendario'};
-  return `<span class="badge ${m[r]||'b-other'}">${l[r]||r}</span>`;
+  return `<span class="badge ${m[r]||'b-other'}">${escapeHTML(l[r] || r || '—')}</span>`;
 }
 
 function costoUnitarioMO(v) {
@@ -1792,7 +1796,7 @@ function infoResa(it) {
   }).join('');
 
   return '<div style="font-size:.88rem;line-height:1.55;color:var(--text2)">' +
-    '<div><strong>Resa:</strong> ' + formato + ' · ' + fmtLitri(litri) + ' L totali</div>' +
+    '<div><strong>Resa:</strong> ' + escapeHTML(formato) + ' · ' + fmtLitri(litri) + ' L totali</div>' +
     '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px">' +
       '<div style="font-size:.82rem">Opzione alternativa: vendi l’intera produzione · lotto completo</div>' +
       '<div style="font-size:1.15rem;font-weight:700;color:var(--text)">Prezzo massimo: ' + fmtMO(prezzoMassimo) + '</div>' +
@@ -2519,6 +2523,7 @@ const raggruppaSarto =
 
   const renderItemRow = it => {
     const tempi = it.dt || [];
+    const urlSicuro = safeExternalUrl(it.url);
     // Se ci sono più tempi delle colonne disponibili per il livello,
     // mostra i valori finali, senza creare celle oltre LV5.
     const tempiVisibili =
@@ -2532,21 +2537,21 @@ const raggruppaSarto =
       .join('');
 
     return `<tr>
-      <td>${it.n}</td>
+      <td>${escapeHTML(it.n)}</td>
       <td>${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
       <td>${materialePrincipaleHTML(m, it)}</td>
-      <td>${it.ms || '—'}</td>
+      <td>${escapeHTML(it.ms || '—')}</td>
       <td>${tipBadge(it.tip)}</td>
-      <td><span class="desc-text">${it.desc || '—'}</span></td>
+      <td><span class="desc-text">${escapeHTML(it.desc || '—')}</span></td>
       <td class="cost cost-craft" style="text-align:right">${fmtMO(it.costo)}</td>
       <td class="cost cost-sell" style="text-align:right">${fmtMO(it.vend)}</td>
       ${dtCells}
       <td>
         ${it.resa ? `<button type="button" class="quantita-btn" data-item="${encodeURIComponent(it.n)}" data-info="${encodeURIComponent(infoResa(it))}" onclick="apriPopupQuantita(this)">Quantità</button>` : ''}
-        ${it.varianti ? `<button type="button" class="quantita-btn" data-item="${encodeURIComponent('Varianti — ' + it.n)}" data-info="${encodeURIComponent('<div style="font-weight:700;margin-bottom:8px">Varianti disponibili</div><ul style="margin:0;padding-left:20px">' + it.varianti.map(v => '<li>' + v + '</li>').join('') + '</ul>')}" onclick="apriPopupQuantita(this)">Varianti</button>` : ''}
-        ${it.url ? `<a href="${it.url}" target="_blank" rel="noopener noreferrer">${fonteDaUrl(it.url) || '5e.tools'} ↗</a>` : (it.resa || it.varianti ? '' : '—')}
+        ${it.varianti ? `<button type="button" class="quantita-btn" data-item="${encodeURIComponent('Varianti — ' + it.n)}" data-info="${encodeURIComponent('<div style="font-weight:700;margin-bottom:8px">Varianti disponibili</div><ul style="margin:0;padding-left:20px">' + it.varianti.map(v => '<li>' + escapeHTML(v) + '</li>').join('') + '</ul>')}" onclick="apriPopupQuantita(this)">Varianti</button>` : ''}
+        ${urlSicuro ? `<a href="${escapeHTML(urlSicuro)}" target="_blank" rel="noopener noreferrer">${escapeHTML(fonteDaUrl(urlSicuro) || '5e.tools')} ↗</a>` : (it.resa || it.varianti ? '' : '—')}
       </td>
     </tr>`;
   };
@@ -2814,7 +2819,7 @@ function renderMat(m) {
   <div class="lv-header">
     <div class="lv-badge">💎</div>
     <div>
-      <h3>${m.emoji} Materiali Speciali — ${m.nome}</h3>
+      <h3>${escapeHTML(m.emoji)} Materiali Speciali — ${escapeHTML(m.nome)}</h3>
       <p>Componenti rari e leggendari per il mestiere</p>
     </div>
   </div>
@@ -2828,11 +2833,11 @@ function renderMat(m) {
   )
   .map(mat => `
       <div class="${rarClass(mat.rarity)}">
-        <h4>${mat.nome}</h4>
+        <h4>${escapeHTML(mat.nome)}</h4>
         <div class="mat-rarity">${matRarBadge(mat.rarity)}</div>
-        <div class="mat-cost">💰 ${mat.costo}</div>
-        <p>${mat.desc}</p>
-        ${mat.prop && mat.prop.length ? `<div class="mat-prop">${mat.prop.map(p=>`<strong>${p.k}:</strong> ${p.v}`).join(' &nbsp;·&nbsp; ')}</div>` : ''}
+        <div class="mat-cost">💰 ${escapeHTML(mat.costo)}</div>
+        <p>${escapeHTML(mat.desc)}</p>
+        ${mat.prop && mat.prop.length ? `<div class="mat-prop">${mat.prop.map(p=>`<strong>${escapeHTML(p.k)}:</strong> ${escapeHTML(p.v)}`).join(' &nbsp;·&nbsp; ')}</div>` : ''}
       </div>
     `).join('')}
   </div>`;
@@ -2848,8 +2853,15 @@ function escapeHTML(value) {
   })[char]);
 }
 
+// Accetta solo collegamenti HTTPS al dominio di riferimento previsto dal catalogo.
+function safeExternalUrl(value) {
+  const url = String(value || '');
+  // Host esatto: rifiuta schemi diversi, sottodomini, porte e userinfo.
+  return /^https:\/\/5e\.tools(?:[/?#]|$)/i.test(url) ? url : null;
+}
+
 function renderSearch(m) {
-  let html = `<div style="margin-bottom:16px;color:var(--text2)">Risultati per <strong style="color:var(--gold)">"${escapeHTML(searchQ)}"</strong> in ${m.nome}:</div>`;
+  let html = `<div style="margin-bottom:16px;color:var(--text2)">Risultati per <strong style="color:var(--gold)">"${escapeHTML(searchQ)}"</strong> in ${escapeHTML(m.nome)}:</div>`;
   let found = false;
   m.livelli.forEach(lv => {
     const items = lv.items.filter(it => matches(it, searchQ));
