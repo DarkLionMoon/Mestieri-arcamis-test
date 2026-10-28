@@ -1770,27 +1770,7 @@ function infoResa(it) {
   '</div>';
 }
 
-function vaiAllaCucinaBase() {
-  chiudiPopupQuantita();
-  setSection('lv1');
-  vaiRicettaArchitetto('Cucina');
-}
 
-function apriPopupCucinaBase() {
-  const overlay = document.getElementById('quantitaOverlay');
-  const titolo = document.getElementById('quantitaTitolo');
-  const info = document.getElementById('quantitaInfo');
-  if (!overlay || !titolo || !info) return;
-
-  titolo.textContent = '🍲 Cucina professionale — Materiale principale';
-  info.innerHTML = `
-    <p style="margin-top:0">La <strong>Cucina Professionale</strong> si costruisce a partire da una <strong>Cucina</strong> di Livello 1, che funge da materiale principale.</p>
-    <p style="margin:10px 0 0">Apri la ricetta della cucina base per vedere materiali, costo e tempo di realizzazione.</p>
-    <button type="button" class="quantita-btn" onclick="vaiAllaCucinaBase()">🍳 Vai alla Cucina base ↗</button>
-  `;
-  overlay.classList.add('open');
-  overlay.setAttribute('aria-hidden', 'false');
-}
 
 function apriPopupGuidaArchitetto() {
   const overlay = document.getElementById('quantitaOverlay');
@@ -1827,8 +1807,11 @@ function apriPopupGuidaArchitetto() {
   overlay.setAttribute('aria-hidden', 'false');
 }
 
-function vaiRicettaArchitetto(nome) {
+function vaiRicettaArchitetto(nome, livello = null) {
   chiudiPopupQuantita();
+  if (livello !== null && currentSection !== 'lv' + livello) {
+    setSection('lv' + livello);
+  }
   const righe = [...document.querySelectorAll('#content tr')];
   const riga = righe.find(tr => tr.cells && tr.cells.length && tr.cells[0].textContent.trim() === nome);
   if (!riga) return;
@@ -2439,8 +2422,10 @@ const raggruppaSarto =
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
       <td>${m.id === 'architetto' && it.n === 'Cucina Professionale'
-        ? '<button type="button" class="quantita-btn" onclick="apriPopupCucinaBase()">Cucina ↗</button>'
-        : (it.mp || '—')}</td>
+        ? '<button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto(\'Cucina\', 1)">Cucina ↗</button>'
+        : (m.id === 'architetto' && it.n === 'Mura'
+          ? '<button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto(\'Recinzione\', 1)">Recinzione ↗</button>'
+          : (it.mp || '—'))}</td>
       <td>${it.ms || '—'}</td>
       <td>${tipBadge(it.tip)}</td>
       <td><span class="desc-text">${it.desc || '—'}</span></td>
