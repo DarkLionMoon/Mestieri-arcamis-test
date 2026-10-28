@@ -1663,7 +1663,7 @@ function infoResa(it) {
     <div><strong>Costo unitario:</strong> ${costoUnitarioMO(perLitroCosto)}/L${perConfezioneCosto !== null ? ' · ' + costoUnitarioMO(perConfezioneCosto) + '/' + tipoConfezione : ''}</div>
     <div><strong>Prezzo di vendita unitario:</strong> ${costoUnitarioMO(perLitroVendita)}/L${perConfezioneVendita !== null ? ' · ' + costoUnitarioMO(perConfezioneVendita) + '/' + tipoConfezione : ''}</div>
     <div><strong>Vendita totale della resa:</strong> ${fmtMO(it.vend)} (intera produzione)</div>
-    <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)"><strong>Valore di riferimento a prezzo di birra comune:</strong> ${fmtSP(valoreBirraSp)} (${fmtSP(3)} per litro; ${fmtSP(1.5)} per boccale da 0,5 L)</div>
+    <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)"><strong>Riferimento:</strong> Un boccale di birra base da 1 L, si vende in Gilda a 3 SP</div>
   </div>`;
 }
 
