@@ -1865,9 +1865,30 @@ function vaiRicettaArchitetto(nome, livello = null) {
   if (livello !== null && currentSection !== 'lv' + livello) {
     setSection('lv' + livello);
   }
+
   const righe = [...document.querySelectorAll('#content tr')];
-  const riga = righe.find(tr => tr.cells && tr.cells.length && tr.cells[0].textContent.trim() === nome);
-  if (!riga) return;
+  const riga = righe.find(tr =>
+    tr.cells && tr.cells.length &&
+    tr.cells[0].textContent.trim() === nome
+  );
+
+  if (!riga) {
+    alert('La ricetta "' + nome + '" non è stata trovata nel livello selezionato dell’Architetto.');
+    return;
+  }
+
+  // Le ricette di LV2 possono trovarsi in un gruppo inizialmente chiuso.
+  if (riga.hasAttribute('data-class-structure-row') && riga.hidden) {
+    let gruppo = riga.previousElementSibling;
+    while (gruppo && !gruppo.querySelector('.class-structures-button')) {
+      gruppo = gruppo.previousElementSibling;
+    }
+    const pulsanteGruppo = gruppo?.querySelector('.class-structures-button');
+    if (pulsanteGruppo && pulsanteGruppo.getAttribute('aria-expanded') !== 'true') {
+      toggleClassStructures(pulsanteGruppo);
+    }
+  }
+
   riga.scrollIntoView({ behavior: 'smooth', block: 'center' });
   const precedente = document.querySelector('.architetto-ricetta-focus');
   if (precedente) precedente.classList.remove('architetto-ricetta-focus');
