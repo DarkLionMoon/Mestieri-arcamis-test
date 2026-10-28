@@ -87,6 +87,13 @@ test('infoResa rifiuta rese e costi non validi', () => {
   assert.equal(infoResa({ n: 'Birra', resa: { litri: 1 }, costo: 'no', vend: 2 }), '');
 });
 
+test('HTML collega una favicon SVG locale valida', () => {
+  assert.match(html, /<link rel="icon" type="image\\/svg\\+xml" href="\\/favicon\\.svg">/);
+  const favicon = readFileSync(new URL('../favicon.svg', import.meta.url), 'utf8');
+  assert.match(favicon, /<svg\\b/);
+  assert.match(favicon, /viewBox="0 0 32 32"/);
+});
+
 test('HTML mantiene etichetta accessibile, tipi dei pulsanti e movimento ridotto', () => {
   assert.match(html, /<label class="sr-only" for="searchInput">/);
   assert.match(html, /@media \(prefers-reduced-motion: reduce\)/);
