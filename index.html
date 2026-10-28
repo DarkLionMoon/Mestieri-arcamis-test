@@ -1690,7 +1690,11 @@ function infoResa(it) {
       { nome: 'Bottiglia da 750 ml', litri: 0.75 },
       { nome: 'Calice da 150 ml', litri: 0.15 }
     ];
-  } else if (/liquor|liquore|whisk|distillat|rum|grog/.test(nome)) {
+  } else if (/grog/.test(nome)) {
+    unita = [
+      { nome: 'Bicchiere da 250 ml', litri: 0.25 }
+    ];
+  } else if (/liquor|liquore|whisk|distillat|rum/.test(nome)) {
     unita = [
       { nome: 'Bottiglia da ' + fmtLitri((volumeBottigliaDati || 0.5) * 1000) + ' ml', litri: volumeBottigliaDati || 0.5 },
       { nome: 'Bicchierino da 50 ml', litri: 0.05 }
