@@ -1656,7 +1656,7 @@ function infoResa(it) {
     maximumFractionDigits: 2
   }) + ' MO';
   const fmtPrezzoUnita = valore => {
-    if (isBirra && valore < 1) return Number(valore * 10).toLocaleString('it-IT', { maximumFractionDigits: 2 }) + ' SP';
+    if (valore < 1) return Number(valore * 10).toLocaleString('it-IT', { maximumFractionDigits: 2 }) + ' SP';
     return fmtMO(valore);
   };
   const costoPerLitro = costoTotale / litri;
