@@ -1723,11 +1723,8 @@ function infoResa(it) {
     const quantita = Math.floor((litri + 1e-9) / u.litri);
     const volumeVenduto = quantita * u.litri;
     const residuo = Math.round((litri - volumeVenduto) * 1000) / 1000;
-    const prezzoUnitario = Math.abs(u.litri - litri) < 1e-9
-      ? prezzoMassimo
-      : isBirra
-        ? Math.min(0.6 * u.litri, prezzoMassimo * u.litri / litri)
-        : prezzoMassimo * u.litri / litri;
+    // Ripartisce il prezzo massimo del lotto in base al volume: il riferimento Gilda è solo informativo.
+    const prezzoUnitario = prezzoMassimo * u.litri / litri;
     const costoUnitario = costoTotale * u.litri / litri;
     const ricavoFormato = prezzoUnitario * quantita;
     return '<div style="padding:8px 0;border-bottom:1px solid var(--border)">' +
