@@ -1807,6 +1807,20 @@ function apriPopupGuidaArchitetto() {
   overlay.setAttribute('aria-hidden', 'false');
 }
 
+function materialePrincipaleHTML(m, it) {
+  if (m.id !== 'architetto') return it.mp || '—';
+  const redirect = {
+    'Cucina Professionale': ['Cucina', 1],
+    'Mura': ['Recinzione', 1],
+    'Camera Doppia': ['Camera da Letto', 1],
+    'Deposito': ['Magazzino', 1],
+    'Laboratorio Alchemico Integrato': ['Scantinato', 1],
+    'Mura Rinforzate': ['Mura', 2]
+  }[it.n];
+  if (!redirect) return it.mp || '—';
+  return '<button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto(\'' + redirect[0] + '\', ' + redirect[1] + ')">' + redirect[0] + ' ↗</button>';
+}
+
 function vaiRicettaArchitetto(nome, livello = null) {
   chiudiPopupQuantita();
   if (livello !== null && currentSection !== 'lv' + livello) {
@@ -2421,15 +2435,7 @@ const raggruppaSarto =
       <td>${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
-      <td>${m.id === 'architetto' && it.n === 'Cucina Professionale'
-        ? '<button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto(\'Cucina\', 1)">Cucina ↗</button>'
-        : (m.id === 'architetto' && it.n === 'Mura'
-          ? '<button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto(\'Recinzione\', 1)">Recinzione ↗</button>'
-          : (m.id === 'architetto' && it.n === 'Camera Doppia'
-            ? '<button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto(\'Camera da Letto\', 1)">Camera da Letto ↗</button>'
-            : (m.id === 'architetto' && it.n === 'Deposito'
-              ? '<button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto(\'Magazzino\', 1)">Magazzino ↗</button>'
-              : (it.mp || '—'))))}</td>
+      <td>${materialePrincipaleHTML(m, it)}</td>
       <td>${it.ms || '—'}</td>
       <td>${tipBadge(it.tip)}</td>
       <td><span class="desc-text">${it.desc || '—'}</span></td>
