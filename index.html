@@ -1348,6 +1348,11 @@ const MESTIERI = [
     materLav: [10,40,80,160,200],
     livelli: [
       { lv:1, items:[
+        {n:'Quadro Decorativo', mp:'3 MO Tela e Pigmenti', ms:'—', tip:'Decorazioni e Arti Visive', desc:'Dipinto decorativo semplice, pensato per case, locande e botteghe.', varianti:['Paesaggio','Natura morta','Scena di vita quotidiana'], costo:3, vend:6, dt:[1,1,1,1,1]},
+        {n:'Ritratto', mp:'8 MO Tela e Pigmenti', ms:'—', tip:'Decorazioni e Arti Visive', desc:'Ritratto dipinto su commissione, con posa e dettagli concordati con il cliente.', varianti:['Ritratto singolo','Ritratto di coppia','Ritratto di famiglia'], costo:8, vend:16, dt:[1,1,1,1,1]},
+        {n:'Cornice Decorata', mp:'2 MO Legno e Pigmenti', ms:'—', tip:'Decorazioni e Arti Visive', desc:'Cornice dipinta e decorata per quadri, specchi o piccoli emblemi.', varianti:['Cornice floreale','Cornice geometrica','Cornice araldica'], costo:2, vend:4, dt:[1,1,1,1,1]},
+        {n:'Insegna Dipinta', mp:'5 MO Tavola e Pigmenti', ms:'—', tip:'Decorazioni e Arti Visive', desc:'Insegna dipinta a mano per identificare una bottega, una locanda o una proprietà.', varianti:['Insegna da bottega','Insegna da locanda','Targhetta dipinta'], costo:5, vend:10, dt:[1,1,1,1,1]},
+        {n:'Statuetta Decorativa', mp:'5 MO Materiali da Scultura', ms:'—', tip:'Decorazioni e Arti Visive', desc:'Piccola statuetta ornamentale scolpita e rifinita a mano.', varianti:['Statuetta animale','Statuetta simbolica','Busto decorativo'], costo:5, vend:10, dt:[1,1,1,1,1]},
         {n:'Enduring Spellbook', mp:'40 MO Carta', ms:'—', tip:'Comune', url:'https://5e.tools/items.html#enduring%20spellbook_xdmg', costo:40, vend:80, dt:[4,2,1,1,1]},
         {n:"Illuminator's Tattoo", mp:'40 MO Inchiostro', ms:'—', tip:'Comune', url:'https://5e.tools/', costo:40, vend:80, dt:[4,2,1,1,1]},
         {n:'Masquerade Tattoo', mp:'40 MO Inchiostro', ms:'—', tip:'Comune', url:'https://5e.tools/items.html#masquerade%20tattoo_tce', costo:40, vend:80, dt:[4,2,1,1,1]},
@@ -2166,6 +2171,14 @@ const raggruppaSarto =
       const nome = it.n || '';
       const testo = `${nome} ${it.tip || ''}`;
 
+      // Oggetti decorativi e opere visive non magiche.
+      if (/decorazioni e arti visive/i.test(it.tip || '') || /quadro decorativo|ritratto|cornice decorata|insegna dipinta|statuetta decorativa/i.test(nome)) {
+        return {
+          key: 'decorazioni-artista',
+          label: '🎨 Decorazioni e Arti Visive'
+        };
+      }
+
       // Pergamene magiche di qualsiasi livello.
       if (/pergamena|scroll/i.test(testo)) {
         return {
@@ -2495,6 +2508,7 @@ const raggruppaSarto =
     'strumenti-falegname',
     'bacchette-falegname',
     'attrezzature-falegname',
+    'decorazioni-artista',
     'pergamene-artista',
     'tatuaggi-artista',
     'grimori-artista',
