@@ -2114,7 +2114,8 @@ function renderTabs() {
   if (currentMestiere === -2) { el.innerHTML = ''; el.style.display = 'none'; return; }
   el.style.display = '';
   const guideActive = currentMestiere === -1;
-  let html = `<button type="button" class="tab-btn ${guideActive?'active guide-tab-active':''}" onclick="setGuide()">📖 Guida ai Mestieri</button>`;
+  let html = `<button type="button" class="tab-btn" onclick="setHome()">⌂ Home</button>`;
+  html += `<button type="button" class="tab-btn ${guideActive?'active guide-tab-active':''}" onclick="setGuide()">📖 Guida ai Mestieri</button>`;
   html += '<div style="width:1px;background:var(--border);margin:0 4px 0;align-self:stretch"></div>';
   html += MESTIERI.map((m,i) =>
     `<button type="button" class="tab-btn ${i===currentMestiere?'active':''}" onclick="setMestiere(${i})">${m.emoji} ${m.nome}</button>`
