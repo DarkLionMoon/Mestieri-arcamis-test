@@ -1605,13 +1605,18 @@ function costoUnitarioMO(v) {
 }
 
 function infoResa(it) {
-  if (!it.resa || !it.resa.litri || !it.costo) return '';
+  if (!it.resa || !it.resa.litri || !it.costo || !it.vend) return '';
   const r = it.resa;
-  const perLitro = it.costo / r.litri;
-  const perConfezione = r.confezioni > 1 ? it.costo / r.confezioni : null;
+  const perLitroCosto = it.costo / r.litri;
+  const perLitroVendita = it.vend / r.litri;
+  const perConfezioneCosto = r.confezioni ? it.costo / r.confezioni : null;
+  const perConfezioneVendita = r.confezioni ? it.vend / r.confezioni : null;
+  const tipoConfezione = /bottigli/i.test(r.formato) ? 'bottiglia' : /baril/i.test(r.formato) ? 'barile' : 'confezione';
   return `<div style="margin-top:6px;font-size:.78rem;line-height:1.5;color:var(--text2)">
     <div><strong>Resa:</strong> ${r.formato} · ${String(r.litri).replace('.', ',')} L totali</div>
-    <div><strong>Costo unitario:</strong> ${costoUnitarioMO(perLitro)}/L${perConfezione !== null ? ' · ' + costoUnitarioMO(perConfezione) + '/bottiglia' : ''}</div>
+    <div><strong>Costo unitario:</strong> ${costoUnitarioMO(perLitroCosto)}/L${perConfezioneCosto !== null ? ' · ' + costoUnitarioMO(perConfezioneCosto) + '/' + tipoConfezione : ''}</div>
+    <div><strong>Prezzo di vendita unitario:</strong> ${costoUnitarioMO(perLitroVendita)}/L${perConfezioneVendita !== null ? ' · ' + costoUnitarioMO(perConfezioneVendita) + '/' + tipoConfezione : ''}</div>
+    <div><strong>Vendita totale della resa:</strong> ${fmtMO(it.vend)} (intera produzione)</div>
   </div>`;
 }
 
