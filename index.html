@@ -1640,27 +1640,117 @@ function costoUnitarioMO(v) {
 }
 
 function infoResa(it) {
-  if (!it.resa || !it.resa.litri || !it.costo || !it.vend) return '';
+  if (!it.resa || !Number.isFinite(Number(it.resa.litri)) || Number(it.resa.litri) <= 0 ||
+      !Number.isFinite(Number(it.costo)) || !Number.isFinite(Number(it.vend))) return '';
+
   const r = it.resa;
   const litri = Number(r.litri);
-  const perLitroCosto = it.costo / litri;
-  const perLitroVendita = it.vend / litri;
-  const perConfezioneCosto = r.confezioni ? it.costo / r.confezioni : null;
-  const perConfezioneVendita = r.confezioni ? it.vend / r.confezioni : null;
-  const tipoConfezione = /bottigli/i.test(r.formato) ? 'bottiglia' : /baril/i.test(r.formato) ? 'barile' : 'confezione';
-  const boccaliDaLitro = Math.floor(litri);
-  const avanzoLitri = Math.round((litri - boccaliDaLitro) * 100) / 100;
-  const valoreBirraSp = litri * 3;
-  const fmtSP = valore => Number(valore).toLocaleString('it-IT', { minimumFractionDigits: Number.isInteger(valore) ? 0 : 1, maximumFractionDigits: 2 }) + ' SP';
-  const dettaglioBoccaliLitro = `${boccaliDaLitro} Boccali da 1L${avanzoLitri > 0 ? ' + ' + String(avanzoLitri).replace('.', ',') + ' L residui' : ''}`;
-  return `<div style="font-size:.88rem;line-height:1.55;color:var(--text2)">
-    <div><strong>Resa:</strong> ${r.formato} · ${String(litri).replace('.', ',')} L totali</div>
-    <div>${dettaglioBoccaliLitro}</div>
-    <div><strong>Costo unitario:</strong> ${costoUnitarioMO(perLitroCosto)}/L${perConfezioneCosto !== null ? ' · ' + costoUnitarioMO(perConfezioneCosto) + '/' + tipoConfezione : ''}</div>
-    <div><strong>Prezzo di vendita unitario:</strong> ${costoUnitarioMO(perLitroVendita)}/L${perConfezioneVendita !== null ? ' · ' + costoUnitarioMO(perConfezioneVendita) + '/' + tipoConfezione : ''}</div>
-    <div><strong>Vendita totale della resa:</strong> ${fmtMO(it.vend)} (intera produzione)</div>
-    <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)"><strong>Riferimento:</strong> Un boccale di birra base da 1 L, si vende in Gilda a 3 SP</div>
-  </div>`;
+  const costoTotale = Number(it.costo);
+  const prezzoMassimo = Number(it.vend);
+  const nome = String(it.n || '').toLowerCase();
+  const formato = String(r.formato || '');
+  const formatoLower = formato.toLowerCase();
+  const fmtLitri = valore => Number(valore).toLocaleString('it-IT', { maximumFractionDigits: 2 });
+  const fmtMO = valore => Number(valore).toLocaleString('it-IT', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }) + ' MO';
+  const costoPerLitro = costoTotale / litri;
+  const venditaPerLitro = prezzoMassimo / litri;
+
+  // Le unità vengono proposte solo se la resa permette almeno un'unità completa.
+  const matchBottiglia = formato.match(/bottiglie?\s+da\s+(\d+(?:[,.]\d+)?)\s*L/i);
+  const volumeBottigliaDati = matchBottiglia ? Number(matchBottiglia[1].replace(',', '.')) : null;
+  const isBirra = /birra/.test(nome) || /barile|botte/.test(formatoLower);
+  let unita = [];
+
+  if (isBirra) {
+    unita = [
+      { nome: 'Botte da 50 L', litri: 50 },
+      { nome: 'Botte da 10 L', litri: 10 },
+      { nome: 'Boccale da 1 L', litri: 1 },
+      { nome: 'Bottiglia da 0,5 L', litri: 0.5 }
+    ];
+    const matchBarile = formato.match(/(?:barile|botte)\s+da\s+(\d+(?:[,.]\d+)?)\s*L/i);
+    const volumeBarileDati = matchBarile ? Number(matchBarile[1].replace(',', '.')) : null;
+    if (volumeBarileDati && volumeBarileDati > 50) {
+      unita.push({ nome: 'Barile da ' + fmtLitri(volumeBarileDati) + ' L', litri: volumeBarileDati });
+    }
+  } else if (/sake/.test(nome)) {
+    unita = [
+      { nome: 'Bottiglia da 720 ml', litri: 0.72 },
+      { nome: 'Coppa da 180 ml', litri: 0.18 }
+    ];
+  } else if (/vino/.test(nome)) {
+    unita = [
+      { nome: 'Bottiglia da 750 ml', litri: 0.75 },
+      { nome: 'Calice da 150 ml', litri: 0.15 }
+    ];
+  } else if (/liquor|liquore|whisk|distillat|rum|grog/.test(nome)) {
+    unita = [
+      { nome: 'Bottiglia da ' + fmtLitri((volumeBottigliaDati || 0.5) * 1000) + ' ml', litri: volumeBottigliaDati || 0.5 },
+      { nome: 'Bicchierino da 50 ml', litri: 0.05 }
+    ];
+  } else {
+    const volumeBottiglia = volumeBottigliaDati || (volumeBottigliaDati === 0 ? null : null);
+    if (volumeBottiglia) {
+      unita.push({
+        nome: 'Bottiglia da ' + fmtLitri(volumeBottiglia * 1000) + ' ml',
+        litri: volumeBottiglia
+      });
+    }
+    unita.push({ nome: 'Bicchiere da 250 ml', litri: 0.25 });
+  }
+
+  // Evita doppioni e mostra soltanto i formati di cui si può riempire almeno un'unità.
+  const visti = new Set();
+  unita = unita
+    .filter(u => u.litri > 0 && Math.floor((litri + 1e-9) / u.litri) >= 1)
+    .filter(u => {
+      const chiave = String(u.litri);
+      if (visti.has(chiave)) return false;
+      visti.add(chiave);
+      return true;
+    })
+    .sort((a, b) => b.litri - a.litri);
+
+  const righeUnita = unita.map(u => {
+    const quantita = Math.floor((litri + 1e-9) / u.litri);
+    const volumeVenduto = quantita * u.litri;
+    const residuo = Math.round((litri - volumeVenduto) * 1000) / 1000;
+    const prezzoUnitario = prezzoMassimo * u.litri / litri;
+    const costoUnitario = costoTotale * u.litri / litri;
+    const ricavoFormato = prezzoUnitario * quantita;
+    return '<div style="padding:8px 0;border-bottom:1px solid var(--border)">' +
+      '<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">' +
+        '<div><strong>' + u.nome + '</strong><div style="font-size:.82rem;color:var(--text2)">' +
+          quantita + ' unità · ' + fmtLitri(volumeVenduto) + ' L' +
+          (residuo > 0 ? ' · ' + fmtLitri(residuo) + ' L residui' : '') +
+        '</div></div>' +
+        '<div style="text-align:right;white-space:nowrap"><strong>' + fmtMO(prezzoUnitario) + '</strong>' +
+          '<div style="font-size:.82rem;color:var(--text2)">' + fmtMO(ricavoFormato) + ' totali</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:.8rem;color:var(--text2)">Costo materiale proporzionale: ' + fmtMO(costoUnitario) + ' per unità</div>' +
+    '</div>';
+  }).join('');
+
+  return '<div style="font-size:.88rem;line-height:1.55;color:var(--text2)">' +
+    '<div><strong>Resa:</strong> ' + formato + ' · ' + fmtLitri(litri) + ' L totali</div>' +
+    '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px">' +
+      '<div style="font-size:.82rem">Vendi intera produzione · lotto completo</div>' +
+      '<div style="font-size:1.15rem;font-weight:700;color:var(--text)">Prezzo massimo: ' + fmtMO(prezzoMassimo) + '</div>' +
+      '<div style="font-size:.82rem">Include anche eventuali residui non sufficienti a riempire un altro contenitore.</div>' +
+    '</div>' +
+    '<div style="font-weight:700;color:var(--text);margin:10px 0 2px">Formati disponibili</div>' +
+    (righeUnita || '<div>Nessuna unità standard completa disponibile; puoi vendere l’intera produzione.</div>') +
+    '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border)">' +
+      '<div><strong>Costo materiale totale:</strong> ' + fmtMO(costoTotale) + '</div>' +
+      '<div><strong>Costo materiale:</strong> ' + fmtMO(costoPerLitro) + '/L</div>' +
+      '<div><strong>Prezzo massimo proporzionale:</strong> ' + fmtMO(venditaPerLitro) + '/L</div>' +
+    '</div>' +
+    (isBirra ? '<div style="margin-top:8px"><strong>Riferimento:</strong> Un boccale di birra base da 1 L, si vende in Gilda a 3 SP</div>' : '') +
+  '</div>';
 }
 
 function apriPopupQuantita(button) {
