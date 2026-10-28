@@ -1792,16 +1792,11 @@ function infoResa(it) {
     const quantita = Math.floor((litri + 1e-9) / u.litri);
     const volumeVenduto = quantita * u.litri;
     const residuo = Math.round((litri - volumeVenduto) * 1000) / 1000;
-    // Ripartisce il prezzo massimo del lotto in base al volume: il riferimento Gilda è solo informativo.
-    // Fiamma di Pyrax: prezzo al dettaglio concordato, distinto dalla vendita del lotto intero.
-    const prezzoUnitario = nome.includes('fiamma di pyrax')
-      ? (u.litri === 1 ? 1.2 : u.litri === 0.5 ? 0.6 : prezzoMassimo * u.litri / litri)
-      : prezzoMassimo * u.litri / litri;
+    // Ripartisce il prezzo massimo del lotto in base al volume, come per le altre birre.
+    const prezzoUnitario = prezzoMassimo * u.litri / litri;
     const costoUnitario = costoTotale * u.litri / litri;
     const ricavoFormato = prezzoUnitario * quantita;
-    const prezzoUnitarioLabel = nome.includes('fiamma di pyrax') && (u.litri === 1 || u.litri === 0.5)
-      ? Number(prezzoUnitario * 10).toLocaleString('it-IT', { maximumFractionDigits: 2 }) + ' SP'
-      : fmtPrezzoUnita(prezzoUnitario);
+    const prezzoUnitarioLabel = fmtPrezzoUnita(prezzoUnitario);
     return '<div style="padding:8px 0;border-bottom:1px solid var(--border)">' +
       '<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">' +
         '<div><strong>' + u.nome + '</strong><div style="font-size:.82rem;color:var(--text2)">' +
