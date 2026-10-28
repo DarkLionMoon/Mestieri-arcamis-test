@@ -834,11 +834,6 @@ const MESTIERI = [
         {n:'Cucina', mp:'60 MO Pietra', ms:'10 MO Ferro', tip:'Struttura Generale', desc:'Permette di cucinare alimenti. Richiede 4 MO di combustibile/mese.', costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:'Magazzino', mp:'120 MO Pietra', ms:'30 MO Legno', tip:'Struttura Generale', desc:'Immagazzina materiali fino a 500 MO di valore.', costo:150, vend:300, dt:[15,6,2,1,1]},
 
-        {n:'Disegno in Scala', mp:'1 MO Pergamena e Inchiostro', ms:'—', tip:'Servizio Professionale', desc:'Disegno quotato e in scala di un ambiente o di una piccola struttura, utile per pianificare lavori e arredi.', costo:1, vend:2, dt:[1,1,1,1,1]},
-        {n:'Rilievo di una Stanza', mp:'1 MO Pergamena e Inchiostro', ms:'—', tip:'Servizio Professionale', desc:'Misurazione e registrazione delle dimensioni di una stanza esistente, con porte, finestre e caratteristiche principali.', costo:1, vend:2, dt:[1,1,1,1,1]},
-        {n:'Planimetria di una Stanza', mp:'2 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione', desc:'Planimetria dettagliata di una singola stanza, con misure e disposizione degli accessi.', costo:2, vend:4, dt:[1,1,1,1,1]},
-        {n:'Progetto di Disposizione degli Arredi', mp:'2 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione', desc:'Schema per organizzare tavoli, letti, scaffali, banconi e postazioni di lavoro in un ambiente.', costo:2, vend:4, dt:[1,1,1,1,1]},
-        {n:'Perizia Immobiliare', mp:'2 MO Pergamena e Inchiostro', ms:'—', tip:'Servizio Professionale', desc:'Valutazione generale di un immobile: dimensioni, stato apparente, funzionalità e stima orientativa del valore.', costo:2, vend:4, dt:[1,1,1,1,1]},
       ]},
       { lv:2, items:[
         {n:'Mura', mp:'Recinzione', ms:'130 MO Pietra', tip:'Abitazione', desc:'Difende da animali medi o grandi.', costo:130, vend:400, dt:[6,2,1,1]},
@@ -864,12 +859,6 @@ const MESTIERI = [
         {n:'Stanza degli esperimenti',mp:'175 MO Componenti Meccanici Piltoveriani',ms:'75 MO Reagenti chimici di Zaun',tip:'-',desc:'Una volta per riposo lungo un Artefice può mettersi ad armeggiare on i suoi strumenti in questo luogo. Quando lo fa può tirare un d20 più il suo bonus competenza contro una Classe difficoltà di 20 - il suo livello da Artefice. In caso di successo fino al prossimo riposo lungo ottiene d4 extra al tiro con gli strumenti di cui dispone competenza e un +1 ai tiri per colpire e tiri salvezza dei suoi incantesimi da Artefice.',costo:250,vend:500,dt:[7,3,1,1]},
         {n:'Covo del fuorilegge',mp:'175 MO Metallo di recupero di Zaun',ms:'75 MO Meccanismi a scatto di Piltover',tip:'-',desc:'Una volta per riposo lungo un Ladro può rintanarsi nel suo covo prima di un colpo. Quando lo fa può tirare un d20 più il suo bonus competenza contro una Classe difficoltà di 20 - il suo livello da Ladro. In caso di successo il ladro ottiene un d4 extra nel tiro di iniziativa e nelle prove con gli strumenti da scasso fino al prossimo riposo lungo. Inoltre ottiene un +1 ai tiri per colpire e ai danni.',costo:250,vend:500,dt:[7,3,1,1]},
 
-        {n:'Rilievo di un Edificio', mp:'4 MO Pergamena e Inchiostro', ms:'—', tip:'Servizio Professionale', desc:'Rilievo delle dimensioni e della distribuzione degli ambienti di un edificio esistente.', costo:4, vend:8, dt:[2,1,1,1,1]},
-        {n:'Perizia Strutturale', mp:'5 MO Pergamena e Inchiostro', ms:'—', tip:'Servizio Professionale', desc:'Ispezione tecnica per individuare danni visibili, cedimenti e possibili interventi di consolidamento. Non garantisce l\'individuazione di pericoli nascosti.', costo:5, vend:10, dt:[2,1,1,1,1]},
-        {n:'Progetto di una Facciata', mp:'4 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione', desc:'Disegno della facciata di una casa o attività commerciale, con ingressi, finestre e dettagli architettonici.', costo:4, vend:8, dt:[2,1,1,1,1]},
-        {n:'Progetto di una Bottega', mp:'5 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione', desc:'Progetto di una bottega con area vendita, banco di lavoro, deposito e accessi funzionali.', costo:5, vend:10, dt:[2,1,1,1,1]},
-        {n:'Progetto di un Magazzino', mp:'5 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione', desc:'Piano di organizzazione di un magazzino con aree di stoccaggio, passaggi e zona di carico e scarico.', costo:5, vend:10, dt:[2,1,1,1,1]},
-        {n:'Progetto di Riconversione di un Locale', mp:'6 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione', desc:'Adattamento progettuale di un ambiente esistente a una nuova funzione, per esempio da deposito a laboratorio o da abitazione a ufficio.', costo:6, vend:12, dt:[2,1,1,1,1]},
       ]},
       { lv:3, items:[
         {n:'Mura Rinforzate', mp:'Mura', ms:'500 MO Ferro Rinforzato', tip:'Abitazione', desc:'Resistenza ai danni da incantesimo. CA 20, 100 PF.', costo:500, vend:1000, dt:[6,2,1]},
@@ -880,12 +869,6 @@ const MESTIERI = [
         {n:'Laboratorio Alchemico Integrato', mp:'Scantinato', ms:'400 MO Distillatori Piltoveriani', tip:'Struttura Speciale', desc:'-25% costi materiali e dimezza DT per oggetti Alchimista LV1/LV2.', costo:500, vend:1000, dt:[6,2,1]},
         {n:'Giardino Incantato di Ixtal', prog:true, mp:'400 MO Terra Magica di Ixtal', ms:'100 MO Semi di Piante Senzienti', tip:'Struttura Generale', desc:'Produce 50 MO di materiali rari/mese. Chi riposa qui recupera 1d6 PF extra per dado vita.', costo:500, vend:1000, dt:[6,2,1]},
 
-        {n:'Progetto di una Locanda', mp:'12 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione', desc:'Progetto completo per una locanda con sala comune, cucina, camere, servizi e spazi di deposito.', costo:12, vend:24, dt:[4,2,1,1,1]},
-        {n:'Progetto di una Sede di Gilda', mp:'20 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione', desc:'Progetto di una sede con sala riunioni, uffici, archivio, alloggi e magazzino, adattato alle esigenze della gilda.', costo:20, vend:40, dt:[5,2,1,1,1]},
-        {n:'Progetto di Ristrutturazione', mp:'10 MO Pergamena e Inchiostro', ms:'—', tip:'Servizio Professionale', desc:'Piano dettagliato di lavori per riparare o riorganizzare un edificio esistente, con priorità e stima dei materiali necessari.', costo:10, vend:20, dt:[3,1,1,1,1]},
-        {n:'Valutazione di una Rovina', mp:'10 MO Pergamena e Inchiostro', ms:'—', tip:'Servizio Professionale', desc:'Esame di una struttura abbandonata per stimare stabilità, recuperabilità e principali costi di ripristino.', costo:10, vend:20, dt:[3,1,1,1,1]},
-        {n:'Progetto di Difese Perimetrali', mp:'25 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Difensiva', desc:'Piano per organizzare recinzioni, mura, cancelli e punti di osservazione attorno a una proprietà.', costo:25, vend:50, dt:[5,2,1,1,1]},
-        {n:'Piano di Sicurezza di un Edificio', mp:'12 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Difensiva', desc:'Analisi degli accessi e piano per migliorare porte, finestre, percorsi interni e protezione dei locali importanti. Non crea trappole o bonus automatici.', costo:12, vend:24, dt:[4,2,1,1,1]},
       ]},
       { lv:4, items:[
         {n:'Fortezza Personale', prog:true, mp:'2000 MO Pietra di Demacia', ms:'1000 MO Ferro Incantato', tip:'Struttura Difensiva', desc:'CA 22, 300 PF. Genera campo Guardia Magica (come Alarm) entro 60m.', costo:3000, vend:6000, dt:[12,4]},
@@ -893,19 +876,12 @@ const MESTIERI = [
         {n:'Cantiere Navale', prog:true, mp:'1500 MO Quercia di Ixtal', ms:'1000 MO Ferro Marino', tip:'Struttura Generale', desc:'-50% DT per costruire/riparare veicoli acquatici LV1-3.', costo:2500, vend:5000, dt:[10,3]},
         {n:'Sala del Trono Arcana', prog:true, mp:'2000 MO Marmo di Demacia', ms:'1000 MO Pietra Magica di Ionia', tip:'Struttura di Prestigio', desc:'Vantaggio a Persuasione, Intimidire e Inganno nella sala. +2 CA passiva al proprietario.', costo:3000, vend:6000, dt:[12,4]},
 
-        {n:'Progetto di un Avamposto', mp:'100 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Avanzata', desc:'Progetto coordinato di un piccolo avamposto con alloggi, magazzino, area di servizio e difese di base.', costo:100, vend:200, dt:[8,4,2,1,1]},
-        {n:'Piano di Fortificazione Avanzata', mp:'150 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Difensiva', desc:'Progetto integrato per migliorare la difesa di una proprietà importante, coordinando mura, torri, accessi e linee di rifornimento.', costo:150, vend:300, dt:[10,4,2,1,1]},
-        {n:'Progetto di Restauro Monumentale', mp:'100 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Avanzata', desc:'Piano di recupero per un edificio storico o di grandi dimensioni, con rilievi, interventi strutturali e fasi di cantiere.', costo:100, vend:200, dt:[8,4,2,1,1]},
-        {n:'Progetto di Complesso Commerciale', mp:'125 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Avanzata', desc:'Progetto coordinato per più botteghe, laboratori e depositi, con percorsi di servizio e aree comuni.', costo:125, vend:250, dt:[9,4,2,1,1]},
       ]},
       { lv:5, items:[
         {n:'Castello Auto-Riparante', prog:true, mp:'5000 MO Pietra Vivente di Ionia', ms:'2000 MO Cristalli Runati di Demacia', tip:'Struttura Leggendaria', desc:'Recupera 20 PF strutturali/turno. CA 22, 500 PF. 1/giorno: Muro di Pietra (LV9) senza componenti.', costo:7000, vend:14000, dt:[30]},
         {n:'Nexus della Terra', prog:true, mp:'8000 MO Frammento di Nexus Primordiale', ms:'2000 MO Anima della Terra di Ixtal', tip:'Struttura Leggendaria — Unica', desc:'Raggio 500m: incantatori +1 slot/riposo breve. Controllo Meteorologico 1/giorno. Strutture +4 CA.', costo:10000, vend:20000, dt:[40]},
         {n:'Torre di Avvistamento Omnisciente', prog:true, mp:'6000 MO Occhio del Vuoto Stabilizzato', ms:'1000 MO Lenti di Targon', tip:'Struttura Leggendaria', desc:'Visione 5km. Comunione 3/giorno. Creature nel raggio immuni da Scrying.', costo:7000, vend:14000, dt:[28]},
 
-        {n:'Piano Regolatore di un Distretto', mp:'500 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Leggendaria', desc:'Piano generale per sviluppare un intero distretto, organizzando strade, lotti, piazze, servizi, attività e future espansioni.', costo:500, vend:1000, dt:[20,10,5,2,1]},
-        {n:'Progetto di una Grande Fortezza', mp:'750 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Leggendaria', desc:'Progetto complessivo per una fortezza maggiore, con quartieri interni, magazzini, difese stratificate, accessi e infrastrutture di supporto.', costo:750, vend:1500, dt:[25,12,6,3,1]},
-        {n:'Piano di Ricostruzione di una Cittadella', mp:'600 MO Pergamena e Inchiostro', ms:'—', tip:'Progettazione Leggendaria', desc:'Piano di ricostruzione su larga scala per una cittadella danneggiata o abbandonata, suddiviso in fasi di lavoro e priorità strutturali.', costo:600, vend:1200, dt:[22,11,5,2,1]},
       ]},
     ],
     materialiSpeciali: [
