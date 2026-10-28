@@ -1653,7 +1653,6 @@ function infoResa(it) {
   const valoreBirraSp = litri * 3;
   const fmtSP = valore => Number(valore).toLocaleString('it-IT', { minimumFractionDigits: Number.isInteger(valore) ? 0 : 1, maximumFractionDigits: 2 }) + ' SP';
   const dettaglioBoccaliLitro = `${boccaliDaLitro} Boccali da 1L${avanzoLitri > 0 ? ' + ' + String(avanzoLitri).replace('.', ',') + ' L residui' : ''}`;
-    : `${boccaliDaLitro} boccali pieni${avanzoLitri > 0 ? ' + ' + String(avanzoLitri).replace('.', ',') + ' L residui' : ''}`;
   return `<div style="font-size:.88rem;line-height:1.55;color:var(--text2)">
     <div><strong>Resa:</strong> ${r.formato} · ${String(litri).replace('.', ',')} L totali</div>
     <div>${dettaglioBoccaliLitro}</div>
