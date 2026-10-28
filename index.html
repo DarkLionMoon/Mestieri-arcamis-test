@@ -1729,9 +1729,7 @@ function infoResa(it) {
   if (isBirra) {
     unita = nome.includes('fiamma di pyrax')
       ? [
-          { nome: 'Barile da 50 L', litri: 50 },
-          { nome: 'Boccale da 1 L', litri: 1 },
-          { nome: 'Boccale da 0,5 L', litri: 0.5 }
+          { nome: 'Barile da 50 L', litri: 50 }
         ]
       : [
           { nome: 'Botte da 50 L', litri: 50 },
@@ -1816,13 +1814,14 @@ function infoResa(it) {
 
   return '<div style="font-size:.88rem;line-height:1.55;color:var(--text2)">' +
     '<div><strong>Resa:</strong> ' + escapeHTML(formato) + ' · ' + fmtLitri(litri) + ' L totali</div>' +
-    '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px">' +
-      '<div style="font-size:.82rem">Opzione alternativa: vendi l’intera produzione · lotto completo</div>' +
-      intestazionePrezzo +
-      '<div style="font-size:.82rem">Include anche eventuali residui non sufficienti a riempire un altro contenitore.</div>' +
-    '</div>' +
+    (nome.includes('fiamma di pyrax') ? intestazionePrezzo :
+      '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px">' +
+        '<div style="font-size:.82rem">Opzione alternativa: vendi l’intera produzione · lotto completo</div>' +
+        intestazionePrezzo +
+        '<div style="font-size:.82rem">Include anche eventuali residui non sufficienti a riempire un altro contenitore.</div>' +
+      '</div>') +
     '<div style="font-weight:700;color:var(--text);margin:10px 0 2px">Formati disponibili</div>' +
-    (righeUnita || '<div>Nessuna unità standard completa disponibile; puoi vendere l’intera produzione.</div>') +
+    (righeUnita || (nome.includes('fiamma di pyrax') ? '<div>Formato non disponibile.</div>' : '<div>Nessuna unità standard completa disponibile; puoi vendere l’intera produzione.</div>')) +
     '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border)">' +
       '<div><strong>Costo materiale totale:</strong> ' + fmtMO(costoTotale) + '</div>' +
       '<div><strong>Costo materiale:</strong> ' + fmtMO(costoPerLitro) + '/L</div>' +
