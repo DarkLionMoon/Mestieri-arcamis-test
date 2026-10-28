@@ -33,7 +33,7 @@ const matches = loadFunction('matches');
 const infoResa = loadFunction('infoResa', { escapeHTML });
 
 test('escapeHTML neutralizza markup e caratteri speciali', () => {
-  assert.match(escapeHTMLSource, /return String\\(value\\)\\.replace/);
+  assert.ok(escapeHTMLSource.includes("return String(value).replace"));
   assert.match(escapeHTMLSource, /&#39;/);
   assert.equal(escapeHTML('<img src=x onerror=alert(1)>'), '&lt;img src=x onerror=alert(1)&gt;');
   assert.equal(escapeHTML('A & B "test"'), 'A &amp; B &quot;test&quot;');
