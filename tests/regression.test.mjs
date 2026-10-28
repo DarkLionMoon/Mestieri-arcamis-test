@@ -88,10 +88,10 @@ test('infoResa rifiuta rese e costi non validi', () => {
 });
 
 test('HTML collega una favicon SVG locale valida', () => {
-  assert.match(html, /<link rel="icon" type="image\\/svg\\+xml" href="\\/favicon\\.svg">/);
+  assert.ok(html.includes('<link rel="icon" type="image/svg+xml" href="/favicon.svg">'));
   const favicon = readFileSync(new URL('../favicon.svg', import.meta.url), 'utf8');
-  assert.match(favicon, /<svg\\b/);
-  assert.match(favicon, /viewBox="0 0 32 32"/);
+  assert.ok(favicon.includes('<svg'));
+  assert.ok(favicon.includes('viewBox="0 0 32 32"'));
 });
 
 test('HTML mantiene etichetta accessibile, tipi dei pulsanti e movimento ridotto', () => {
