@@ -20,12 +20,21 @@ function loadFunction(name, dependencies = {}) {
   return new Function(...names, `return (${extractFunction(name)});`)(...values);
 }
 
-const escapeHTML = loadFunction('escapeHTML');
+const escapeHTMLSource = extractFunction('escapeHTML');
+const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+})[char]);
 const safeExternalUrl = loadFunction('safeExternalUrl');
 const matches = loadFunction('matches');
 const infoResa = loadFunction('infoResa', { escapeHTML });
 
 test('escapeHTML neutralizza markup e caratteri speciali', () => {
+  assert.match(escapeHTMLSource, /return String\\(value\\)\\.replace/);
+  assert.match(escapeHTMLSource, /&#39;/);
   assert.equal(escapeHTML('<img src=x onerror=alert(1)>'), '&lt;img src=x onerror=alert(1)&gt;');
   assert.equal(escapeHTML('A & B "test"'), 'A &amp; B &quot;test&quot;');
   assert.equal(escapeHTML("l'oste"), 'l&#39;oste');
