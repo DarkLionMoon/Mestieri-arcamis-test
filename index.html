@@ -834,6 +834,8 @@ const MESTIERI = [
         {n:'Mura', mp:'Recinzione', ms:'130 MO Pietra', tip:'Abitazione', desc:'Difende da animali medi o grandi.', costo:130, vend:400, dt:[6,2,1,1]},
         {n:'Torre Difensiva', mp:'200 MO Ferro', ms:'50 MO Cristallo Elettrico', tip:'Difensiva', desc:'Torretta automatizzata. Azione bonus: dardo di energia (Gittata 60/120ft, +6 colpire, 2d6 fulmine).', costo:200, vend:400, dt:[6,2,2,2]},
         {n:'Cucina Professionale', mp:'Cucina', ms:'75 MO Acciaio', tip:'Struttura Generale', desc:'Permette piatti speciali da oste. Richiede 8 MO carbone/mese.', costo:75, vend:150, dt:[3,1,1,1]},
+        {n:'Camera Doppia', mp:'70 MO Legno', ms:'70 MO Pietra', tip:'Abitazione', desc:'Camera più ampia con due posti letto; permette a due persone di beneficiare di un riposo lungo.', costo:140, vend:280, dt:[3,1,1,1]},
+        {n:'Deposito', mp:'240 MO Pietra', ms:'60 MO Legno', tip:'Struttura Generale', desc:'Versione ampliata del Magazzino: può contenere materiali fino a 1.500 MO di valore.', costo:300, vend:600, dt:[6,2,2,2]},
         {n:'Forgia Noxiana', mp:'175 MO Ghisa Noxiana', ms:'75 MO Cemento', tip:'Officina', desc:'Ripara armature/armi durante riposo breve. 1/giorno: conferisce "Distruttrice" (+2 danni vs oggetti) per 24h.', costo:250, vend:500, dt:[7,3,1,1]},
         {n:'Altare del Devoto', mp:'175 MO Pietra Bianca di Demacia', ms:'75 MO Essenza Celestiale', tip:'Struttura Classe — Paladino', desc:'1/Riposo Lungo: meditazione (d20+prof vs 20-LvPaladino). Successo: +1 attacchi, d4 Carisma in aura fino al prossimo RL.', costo:250, vend:500, dt:[7,3,1,1]},
         {n:"Antro del Cacciatore", mp:'175 MO Legno di Quercia di Ixtal', ms:'75 MO Cuoio di Mostro del Vuoto', tip:'Struttura Classe — Ranger', desc:'1/RL: connessione natura (d20+prof vs 20-LvRanger). Successo: vantaggio sopravvivenza 500m, +1 attacchi e incantesimi.', costo:250, vend:500, dt:[7,3,1,1]},
@@ -1768,6 +1770,22 @@ function infoResa(it) {
   '</div>';
 }
 
+function apriPopupCucinaBase() {
+  const overlay = document.getElementById('quantitaOverlay');
+  const titolo = document.getElementById('quantitaTitolo');
+  const info = document.getElementById('quantitaInfo');
+  if (!overlay || !titolo || !info) return;
+
+  titolo.textContent = '🍲 Cucina professionale — Materiale principale';
+  info.innerHTML = `
+    <p style="margin-top:0">La <strong>Cucina Professionale</strong> si costruisce a partire da una <strong>Cucina</strong> di Livello 1, che funge da materiale principale.</p>
+    <p style="margin:10px 0 0">Apri la ricetta della cucina base per vedere materiali, costo e tempo di realizzazione.</p>
+    <button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Cucina')">🍳 Vai alla Cucina base ↗</button>
+  `;
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+}
+
 function apriPopupGuidaArchitetto() {
   const overlay = document.getElementById('quantitaOverlay');
   const titolo = document.getElementById('quantitaTitolo');
@@ -2414,7 +2432,9 @@ const raggruppaSarto =
       <td>${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
-      <td>${it.mp || '—'}</td>
+      <td>${m.id === 'architetto' && it.n === 'Cucina Professionale'
+        ? '<button type="button" class="quantita-btn" onclick="apriPopupCucinaBase()">Cucina ↗</button>'
+        : (it.mp || '—')}</td>
       <td>${it.ms || '—'}</td>
       <td>${tipBadge(it.tip)}</td>
       <td><span class="desc-text">${it.desc || '—'}</span></td>
