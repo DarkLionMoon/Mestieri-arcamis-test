@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="description" content="Compendio dei mestieri di Arcamis per D&amp;D 5e: crafting, downtime, materiali speciali e oggetti per la tua campagna.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>⚗️ Mestieri di Arcamis</title>
@@ -1019,6 +1022,127 @@ header {
     .lv-header { padding-bottom: 14px; }
     .home-section-heading { padding-bottom: 12px; }
     .home-section-heading::before { left: 18px; }
+  }
+
+
+  /* ── TIPOGRAFIA — GERARCHIA EDITORIALE ── */
+  :root {
+    --font-reading: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --font-display: "Cormorant Garamond", Georgia, "Palatino Linotype", serif;
+  }
+  body,
+  button, input, select, textarea {
+    font-family: var(--font-reading);
+    font-optical-sizing: auto;
+  }
+  header h1,
+  .home-hero h2,
+  .home-section-heading h2,
+  .home-profession h3,
+  .home-utility h3,
+  .intro-card h2,
+  .lv-header h2,
+  .lv-header h3,
+  .guide-hero h2,
+  .guide-section h3,
+  .mat-section h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: .015em;
+    text-wrap: balance;
+  }
+  header h1 {
+    font-size: clamp(1.8rem, 4.2vw, 2.8rem);
+    line-height: 1.05;
+    letter-spacing: .045em;
+  }
+  header p {
+    font-family: var(--font-reading);
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .16em;
+    line-height: 1.5;
+  }
+  .home-hero h2 {
+    font-size: clamp(2.5rem, 5.4vw, 4.4rem);
+    line-height: .98;
+    letter-spacing: -.015em;
+    max-width: 14ch;
+    margin-bottom: 20px;
+  }
+  .home-hero p {
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.8;
+    max-width: 58ch;
+  }
+  .home-kicker,
+  .home-eyebrow {
+    font-family: var(--font-reading);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .19em;
+    line-height: 1.5;
+  }
+  .home-section-heading h2 {
+    font-size: clamp(1.8rem, 3.2vw, 2.45rem);
+    line-height: 1.05;
+  }
+  .home-profession h3 {
+    font-size: 1.42rem;
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .home-profession p,
+  .home-utility p {
+    font-size: .94rem;
+    line-height: 1.65;
+  }
+  .home-profession-tools .tag {
+    font-family: var(--font-reading);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+  .intro-card h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    line-height: 1.08;
+  }
+  .intro-card .tagline {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1.35;
+  }
+  .guide-section h3,
+  .mat-section h3 {
+    font-family: var(--font-reading);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .13em;
+    line-height: 1.5;
+  }
+  .guide-section p,
+  .guide-card,
+  .mat-card,
+  .rule-box,
+  .content {
+    line-height: 1.7;
+  }
+  .tab-btn,
+  .sidenav-title,
+  .sidenav-btn {
+    font-family: var(--font-reading);
+  }
+  .tab-btn { font-weight: 600; letter-spacing: .035em; }
+  .sidenav-title { font-weight: 700; }
+  .sidenav-btn { font-size: .98rem; }
+  @media (max-width: 600px) {
+    header h1 { letter-spacing: .025em; }
+    .home-hero h2 { font-size: clamp(2.2rem, 10vw, 3.25rem); }
+    .home-profession h3 { font-size: 1.3rem; }
+    .home-profession p, .home-utility p { font-size: .92rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body { scroll-behavior: auto; }
   }
 
 </style>
