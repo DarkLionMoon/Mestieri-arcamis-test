@@ -9,8 +9,11 @@ test('homepage renders its title, search and profession cards', async ({ page })
   await expect(page.locator('#searchInput')).toBeVisible();
   await expect(page.locator('.home-profession')).not.toHaveCount(0);
   await expect(page.locator('#content .home-page')).toBeVisible();
-  // The navigation tabs intentionally appear only after choosing a profession or the guide.
-  await expect(page.locator('#tabs')).toBeHidden();
+  // Top navigation is available on the homepage as well as inside profession sheets.
+  await expect(page.locator('#tabs')).toBeVisible();
+  await expect(page.locator('#tabs .tab-btn', { hasText: 'Home' })).toHaveClass(/active/);
+  await expect(page.locator('#tabs .tab-btn', { hasText: 'Guida ai Mestieri' })).toBeVisible();
+  await expect(page.locator('#tabs .tab-btn', { hasText: 'Alchimista' })).toBeVisible();
 });
 
 test('profession navigation switches content and keeps the selected tab active', async ({ page }) => {
