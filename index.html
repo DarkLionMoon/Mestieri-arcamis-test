@@ -1372,8 +1372,17 @@ function closeDrawer() {
   drawer.classList.remove('open');
   overlay.classList.remove('open');
   document.body.style.overflow = '';
-  if (drawerTrigger instanceof HTMLElement && drawerTrigger.isConnected) drawerTrigger.focus();
+
+  // Ripristina il focus dopo che il drawer ha iniziato a chiudersi.
+  const trigger = drawerTrigger;
   drawerTrigger = null;
+  requestAnimationFrame(() => {
+    if (trigger instanceof HTMLElement && trigger.isConnected) {
+      trigger.focus({ preventScroll: true });
+      return;
+    }
+    document.getElementById('mobileNavBtn')?.focus({ preventScroll: true });
+  });
 }
 
 document.addEventListener('keydown', event => {
@@ -2630,10 +2639,15 @@ function chiudiPopupQuantita(event) {
   if (!overlay || !overlay.classList.contains('open')) return;
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
-  if (quantitaTrigger instanceof HTMLElement && quantitaTrigger.isConnected) {
-    quantitaTrigger.focus();
-  }
+
+  // Aspetta l'aggiornamento visivo dell'overlay prima di restituire il focus.
+  const trigger = quantitaTrigger;
   quantitaTrigger = null;
+  requestAnimationFrame(() => {
+    if (trigger instanceof HTMLElement && trigger.isConnected) {
+      trigger.focus({ preventScroll: true });
+    }
+  });
 }
 
 document.addEventListener('keydown', event => {
