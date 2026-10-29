@@ -793,6 +793,78 @@ header {
 @media(max-width:600px) { .home-page { padding:16px 12px 38px; } .home-hero { min-height:0; padding:30px 22px; margin-bottom:22px; } .home-hero::before { right:-7%; top:23%; font-size:10rem; } .home-hero::after { inset:7px; } .home-hero h2 { font-size:2.25rem; } .home-hero p { font-size:.98rem; } .home-actions { display:grid; grid-template-columns:1fr; } .home-action { width:100%; } .home-professions { grid-template-columns:1fr; gap:10px; } .home-profession { min-height:0; padding:16px; } .home-section-heading { align-items:flex-start; flex-direction:column; gap:4px; } }
 
 
+  
+  /* ── SCHEDE MESTIERI — IDENTITÀ VISIVA ── */
+  .home-profession {
+    --profession-accent: #c8a050;
+    isolation: isolate;
+    overflow: hidden;
+    border-color: color-mix(in srgb, var(--profession-accent) 34%, #49402f);
+    background:
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+  .home-profession::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--profession-accent) 24%, color-mix(in srgb, var(--profession-accent) 38%, transparent) 78%, transparent 100%);
+    opacity: .9;
+  }
+  .home-profession::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -27px;
+    top: -31px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid color-mix(in srgb, var(--profession-accent) 18%, transparent);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  .home-profession:hover {
+    border-color: color-mix(in srgb, var(--profession-accent) 78%, #b49456);
+    box-shadow: 0 12px 28px rgba(0,0,0,.24), 0 0 20px color-mix(in srgb, var(--profession-accent) 12%, transparent);
+  }
+  .home-profession-icon {
+    position: relative;
+    border-color: color-mix(in srgb, var(--profession-accent) 52%, #675334);
+    border-radius: 50% 50% 44% 44%;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--profession-accent) 17%, #373025), #24242a);
+    box-shadow: inset 0 0 0 3px rgba(0,0,0,.13), 0 0 16px color-mix(in srgb, var(--profession-accent) 10%, transparent);
+  }
+  .home-profession-icon::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border: 1px solid color-mix(in srgb, var(--profession-accent) 28%, transparent);
+    border-radius: 50% 50% 44% 44%;
+    pointer-events: none;
+  }
+  .home-profession h3 { color: color-mix(in srgb, var(--profession-accent) 48%, #e8cd8a); }
+  .home-profession-tools .tag {
+    border-color: color-mix(in srgb, var(--profession-accent) 28%, #5b503c);
+    background: color-mix(in srgb, var(--profession-accent) 7%, rgba(180,148,86,.09));
+  }
+  .home-profession .home-card-arrow { color: var(--profession-accent); }
+  .home-profession-alchimista { --profession-accent: #79b6a0; }
+  .home-profession-oste { --profession-accent: #d5a65b; }
+  .home-profession-falegname { --profession-accent: #9eae75; }
+  .home-profession-sarto { --profession-accent: #c78391; }
+  .home-profession-metallurgo { --profession-accent: #9eafc6; }
+  .home-profession-architetto { --profession-accent: #b6a58b; }
+  .home-profession-artista { --profession-accent: #b8a0d8; }
+  .home-profession-artigiano { --profession-accent: #d6a77c; }
+  .home-profession-meccanico { --profession-accent: #c8b46a; }
+  @media (prefers-reduced-motion: reduce) {
+    .home-profession { transition: none; }
+  }
+
   /* ── ORNAMENTI SEZIONI — RESTYLING ── */
   .lv-header {
     position: relative;
@@ -3169,7 +3241,7 @@ function renderHome() {
   const cards = MESTIERI.map((m, i) => {
     const strumenti = strumentiPerMestiere[m.id] || [];
     return `
-    <button type="button" class="home-profession" onclick="setMestiere(${i})" aria-label="Apri il mestiere ${escapeHTML(m.nome)}">
+    <button type="button" class="home-profession home-profession-${escapeHTML(m.id)}" onclick="setMestiere(${i})" aria-label="Apri il mestiere ${escapeHTML(m.nome)}">
       <span class="home-profession-icon" aria-hidden="true">${escapeHTML(m.emoji)}</span>
       <span class="home-profession-copy">
         <h3>${escapeHTML(m.nome)}</h3>
