@@ -2969,7 +2969,7 @@ const MESTIERI = [
         {n:'Gloves of Missile Snaring',prog:true,mp:'200 MO Cuoio',ms:'—',tip:'Oggetto Magico Non Comune',url:'https://5e.tools/items.html#gloves%20of%20missile%20snaring_xdmg',costo:200,vend:400,dt:[8,2,1,1]},
         {n:'Gloves of Swimming and Climbing',mp:'200 MO Pelle',ms:'—',tip:'Oggetto Magico Non Comune',url:'https://5e.tools/items.html#gloves%20of%20swimming%20and%20climbing_xdmg',costo:200,vend:400,dt:[8,2,1,1]},
         {n:'Mariner\'s Armor',mp:'200 MO Cuoio',ms:'Armatura da incantare',tip:'Armatura',url:'https://5e.tools/items.html#mariner%27s%20armor_xdmg',costo:200,vend:400,dt:[8,2,1,1]},
-        {n:'Serpent Scale Armor',mp:'100 MO Scaglie di Serpente',ms:'100 MO Armatura a Scaglie da Incantare',tip:'Armatura Media Non Comune',desc:'Armatura a scaglie magica: puoi aggiungere l’intero modificatore di Destrezza alla CA e non impone svantaggio alle prove di Furtività.',url:'https://5e.tools/items.html#serpent%20scale%20armor_cm',costo:200,vend:400,dt:[8,2,1,1]},
+        {n:'Serpent Scale Armor',mp:'Armatura a Scaglie',ms:'150 MO Scaglie di Serpente',tip:'Armatura Media Non Comune',desc:'Armatura a scaglie magica: puoi aggiungere l’intero modificatore di Destrezza alla CA e non impone svantaggio alle prove di Furtività.',url:'https://5e.tools/items.html#serpent%20scale%20armor_cm',costo:200,vend:400,dt:[8,2,1,1]},
         {n:'Nature\'s Mantle',prog:true,mp:'200 MO Tessuto',ms:'—',tip:'Oggetto Magico Non Comune',url:'https://5e.tools/items.html#nature%27s%20mantle_xdmg',costo:200,vend:400,dt:[8,2,1,1]},
         {n:'Robe of Useful Items',prog:true,mp:'200 MO Tessuto',ms:'—',tip:'Oggetto Magico Non Comune',url:'https://5e.tools/items.html#robe%20of%20useful%20items_xdmg',costo:200,vend:400,dt:[8,2,1,1]},
         {n:'Saddle of the Cavalier',mp:'200 MO Cuoio',ms:'—',tip:'Oggetto Magico Non Comune',url:'https://5e.tools/items.html#saddle%20of%20the%20cavalier_xdmg',costo:200,vend:400,dt:[8,2,1,1]},
@@ -3326,6 +3326,9 @@ function apriPopupGuidaArchitetto() {
 }
 
 function materialePrincipaleHTML(m, it) {
+  if (m.id === 'sarto' && it.n === 'Serpent Scale Armor') {
+    return '<button type="button" class="quantita-btn" onclick="vaiRicettaMestiere(\'metallurgo\', \'Armatura a Scaglie\', 1)">Armatura a Scaglie ↗</button>';
+  }
   if (m.id !== 'architetto') return it.mp || '—';
   const redirect = {
     'Cucina Professionale': ['Cucina', 1],
@@ -3337,6 +3340,40 @@ function materialePrincipaleHTML(m, it) {
   }[it.n];
   if (!redirect) return it.mp || '—';
   return '<button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto(\'' + redirect[0] + '\', ' + redirect[1] + ')">' + redirect[0] + ' ↗</button>';
+}
+
+function vaiRicettaMestiere(mestiereId, nome, livello = 1) {
+  const indiceMestiere = MESTIERI.findIndex(m => m.id === mestiereId);
+  if (indiceMestiere < 0) return;
+
+  setMestiere(indiceMestiere);
+  setSection('lv' + livello);
+
+  const righe = [...document.querySelectorAll('#content tr')];
+  const riga = righe.find(tr =>
+    tr.cells && tr.cells.length &&
+    tr.cells[0].textContent.trim() === nome
+  );
+
+  if (!riga) {
+    alert('La ricetta "' + nome + '" non è stata trovata nel livello selezionato.');
+    return;
+  }
+
+  if (riga.hasAttribute('data-class-structure-row') && riga.hidden) {
+    let gruppo = riga.previousElementSibling;
+    while (gruppo && !gruppo.querySelector('.class-structures-button')) {
+      gruppo = gruppo.previousElementSibling;
+    }
+    const pulsanteGruppo = gruppo?.querySelector('.class-structures-button');
+    if (pulsanteGruppo && pulsanteGruppo.getAttribute('aria-expanded') !== 'true') {
+      toggleClassStructures(pulsanteGruppo);
+    }
+  }
+
+  riga.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  riga.classList.add('architetto-ricetta-focus');
+  setTimeout(() => riga.classList.remove('architetto-ricetta-focus'), 2200);
 }
 
 function vaiRicettaArchitetto(nome, livello = null) {
