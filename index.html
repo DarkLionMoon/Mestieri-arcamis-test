@@ -1327,6 +1327,306 @@ header {
     display: none !important;
   }
 
+
+  /* ── RESTYLING 01: SCHEDE MESTIERI PIÙ IMMERSIVE ── */
+  .home-professions {
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .home-profession {
+    min-height: 204px;
+    height: 100%;
+    gap: 18px;
+    padding: 24px 22px;
+    border-width: 1px;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 8px 22px rgba(0,0,0,.16);
+    background:
+      radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--profession-accent) 13%, transparent), transparent 46%),
+      radial-gradient(ellipse at 0% 100%, rgba(255,255,255,.018), transparent 52%),
+      linear-gradient(145deg, #27272d 0%, #1d1e24 68%, #18191e 100%);
+  }
+
+  .home-profession::before {
+    height: 3px;
+    opacity: .95;
+  }
+
+  .home-profession::after {
+    right: 12px;
+    top: 12px;
+    font-size: 76px;
+    opacity: .09;
+    transition: opacity .2s ease, transform .25s ease;
+  }
+
+  .home-profession:hover::after {
+    opacity: .16;
+    transform: rotate(-7deg) scale(1.04);
+  }
+
+  .home-profession-icon {
+    flex: 0 0 56px;
+    width: 56px;
+    height: 56px;
+    margin-top: 2px;
+    font-size: 1.8rem;
+    box-shadow:
+      inset 0 0 0 4px rgba(0,0,0,.16),
+      0 5px 14px rgba(0,0,0,.2),
+      0 0 18px color-mix(in srgb, var(--profession-accent) 12%, transparent);
+  }
+
+  .home-profession-copy {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-self: stretch;
+    padding-right: 3px;
+  }
+
+  .home-profession h3 {
+    position: relative;
+    z-index: 1;
+    max-width: 20ch;
+    margin: 1px 0 9px;
+    font-size: clamp(1.2rem, 1.45vw, 1.45rem);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  .home-profession p {
+    position: relative;
+    z-index: 1;
+    max-width: 42ch;
+    margin-bottom: 2px;
+    line-height: 1.62;
+  }
+
+  .home-profession-tools {
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 13px;
+    padding-right: 8px;
+  }
+
+  .home-profession-tools .tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    line-height: 1.35;
+    background: color-mix(in srgb, var(--profession-accent) 8%, rgba(20,21,26,.6));
+  }
+
+  .home-profession .home-card-arrow {
+    right: 13px;
+    bottom: 12px;
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border: 1px solid color-mix(in srgb, var(--profession-accent) 38%, transparent);
+    border-radius: 50%;
+    background: rgba(12,13,16,.65);
+    font-size: .9rem;
+    opacity: .82;
+    transition: transform .2s ease, opacity .2s ease, background .2s ease;
+  }
+
+  .home-profession:hover .home-card-arrow {
+    transform: translate(2px,-2px);
+    opacity: 1;
+    background: rgba(12,13,16,.9);
+  }
+
+  .home-profession:focus-visible {
+    outline: 2px solid var(--profession-accent);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 900px) {
+    .home-professions { gap: 13px; }
+    .home-profession { min-height: 190px; padding: 20px; }
+  }
+
+  @media (max-width: 600px) {
+    .home-professions { gap: 11px; }
+    .home-profession { min-height: 0; padding: 18px 17px; gap: 14px; }
+    .home-profession-icon { flex-basis: 48px; width: 48px; height: 48px; font-size: 1.55rem; }
+    .home-profession h3 { font-size: 1.24rem; }
+    .home-profession-tools { padding-top: 10px; }
+    .home-profession::after { right: 5px; top: 6px; font-size: 62px; }
+  }
+
+  /* ── RESTYLING 02: RICETTE, COSTI E MENU PIÙ LEGGIBILI ── */
+  .table-wrap {
+    border-color: color-mix(in srgb, var(--border2) 72%, #35343a);
+    box-shadow: 0 10px 26px rgba(0,0,0,.17), inset 0 1px 0 rgba(255,255,255,.018);
+  }
+
+  .table-wrap table {
+    font-size: .91rem;
+  }
+
+  .table-wrap thead th {
+    padding: 13px 14px;
+    line-height: 1.35;
+    background: linear-gradient(180deg, #343027 0%, #26262c 100%);
+    color: #e0c681;
+    border-bottom-color: #927744;
+  }
+
+  .table-wrap tbody tr.recipe-row td {
+    padding: 12px 14px;
+    line-height: 1.55;
+    border-bottom-color: rgba(160,135,101,.24);
+  }
+
+  .table-wrap tbody tr.recipe-row td.recipe-name {
+    color: #f1e4c8;
+    font-weight: 700;
+    letter-spacing: .005em;
+  }
+
+  .table-wrap tbody tr.recipe-row td[data-label="Descrizione"] {
+    min-width: 230px;
+    max-width: 390px;
+    color: #cfc3aa;
+    line-height: 1.6;
+  }
+
+  .table-wrap tbody tr.recipe-row td.cost-craft,
+  .table-wrap tbody tr.recipe-row td.cost-sell {
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: .92rem;
+    font-weight: 700;
+  }
+
+  .table-wrap tbody tr.recipe-row td.cost-craft {
+    color: #e2a09a;
+    background-image: linear-gradient(90deg, rgba(192,64,64,.055), transparent);
+  }
+
+  .table-wrap tbody tr.recipe-row td.cost-sell {
+    color: #e5c878;
+    background-image: linear-gradient(90deg, rgba(200,160,80,.08), transparent);
+  }
+
+  .table-wrap tbody tr.recipe-row td .badge {
+    margin-top: 1px;
+    line-height: 1.45;
+  }
+
+  .table-wrap tbody tr.class-structures-toggle td {
+    background: linear-gradient(90deg, rgba(200,160,80,.09), transparent 72%), #202127;
+    border-top: 1px solid rgba(200,160,80,.34);
+    border-bottom: 1px solid rgba(200,160,80,.24);
+  }
+
+  .class-structures-button {
+    min-height: 50px;
+    gap: 12px;
+    padding: 14px 16px;
+    color: #e2c77f;
+    letter-spacing: .01em;
+  }
+
+  .class-structures-button:hover {
+    background: linear-gradient(90deg, rgba(216,185,110,.12), rgba(216,185,110,.025));
+  }
+
+  .class-structures-chevron {
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(200,160,80,.35);
+    border-radius: 50%;
+    background: rgba(10,11,14,.32);
+    color: var(--gold2);
+  }
+
+  .class-structures-count {
+    padding: 3px 9px;
+    border: 1px solid rgba(200,160,80,.25);
+    border-radius: 999px;
+    background: rgba(200,160,80,.07);
+    color: #d3c19a;
+    font-size: .78rem;
+    white-space: nowrap;
+  }
+
+  .table-wrap tbody tr.class-structure-detail td {
+    background-color: rgba(255,255,255,.012);
+  }
+
+  @media (min-width: 769px) {
+    /* Mantiene il nome dell'oggetto visibile mentre si scorre una tabella larga. */
+    .table-wrap tbody tr.recipe-row td.recipe-name {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      background: linear-gradient(90deg, #24242a, #202127);
+      box-shadow: 5px 0 9px rgba(0,0,0,.12);
+    }
+
+    .table-wrap tbody tr.recipe-row:hover td.recipe-name {
+      background: linear-gradient(90deg, #302c23, #29272a);
+    }
+
+    .table-wrap tbody tr.class-structure-detail td {
+      border-top: 1px solid rgba(200,160,80,.11);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .table-wrap tbody tr.recipe-row td {
+      padding: 10px 11px;
+      line-height: 1.5;
+    }
+
+    .table-wrap tbody tr.recipe-row td.recipe-name {
+      border-bottom-color: rgba(200,160,80,.28);
+      background: linear-gradient(90deg, rgba(200,160,80,.10), transparent), var(--panel2);
+    }
+
+    .table-wrap tbody tr.recipe-row td.cost-craft,
+    .table-wrap tbody tr.recipe-row td.cost-sell {
+      justify-content: center;
+      min-height: 62px;
+    }
+
+    .table-wrap tbody tr.recipe-row td.cost-craft::before {
+      color: #d99b94;
+    }
+
+    .table-wrap tbody tr.recipe-row td.cost-sell::before {
+      color: #e0c681;
+    }
+
+    .class-structures-button {
+      align-items: flex-start;
+      gap: 9px;
+      padding: 13px 12px;
+    }
+
+    .class-structures-count {
+      margin-left: auto;
+      font-size: .72rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-profession,
+    .home-profession::after,
+    .home-profession .home-card-arrow {
+      transition: none !important;
+    }
+  }
+
+
 </style>
 </head>
 <body>
