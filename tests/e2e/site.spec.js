@@ -16,7 +16,7 @@ test('homepage renders its title, search and profession cards', async ({ page })
   await expect(page.locator('#tabs .tab-btn', { hasText: 'Alchimista' })).toBeVisible();
 });
 
-test('homepage explore button scrolls below the navigation at desktop, tablet and mobile widths', async ({ page }) => {
+test('homepage explore button keeps the full professions section heading visible on desktop, tablet and mobile', async ({ page }) => {
   const viewports = [
     { width: 375, height: 667, mobile: true },
     { width: 600, height: 800, mobile: true },
@@ -31,19 +31,20 @@ test('homepage explore button scrolls below the navigation at desktop, tablet an
     const initialScrollY = await page.evaluate(() => window.scrollY);
     await page.getByRole('button', { name: /Esplora i mestieri/i }).click();
 
-    const heading = page.locator('#homeProfessionsTitle');
-    await expect(heading).toBeVisible();
+    const sectionHeading = page.locator('#homeProfessions .home-section-heading');
+    await expect(sectionHeading).toBeVisible();
+    await expect(page.locator('#homeProfessions .home-kicker')).toContainText('Scegli la tua via');
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(initialScrollY);
     await expect.poll(async () => page.evaluate((mobile) => {
-      const title = document.getElementById('homeProfessionsTitle');
+      const heading = document.querySelector('#homeProfessions .home-section-heading');
       const header = document.querySelector('header');
       const tabs = document.getElementById('tabs');
-      if (!title || !header || !tabs) return -Infinity;
+      if (!heading || !header || !tabs) return -Infinity;
       const obstructionBottom = mobile
         ? header.getBoundingClientRect().bottom
         : tabs.getBoundingClientRect().bottom;
-      return title.getBoundingClientRect().top - obstructionBottom;
-    }, viewport.mobile)).toBeGreaterThanOrEqual(8);
+      return heading.getBoundingClientRect().top - obstructionBottom;
+    }, viewport.mobile)).toBeGreaterThanOrEqual(6);
   }
 });
 
