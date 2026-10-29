@@ -4453,10 +4453,21 @@ function scrollToHomeProfessions() {
   const target = document.getElementById('homeProfessionsTitle');
   if (!target) return;
 
-  // Il titolo deve restare sotto header e navigazione sticky, su desktop e mobile.
-  const headerHeight = document.querySelector('header')?.getBoundingClientRect().height || 0;
-  const tabsHeight = document.getElementById('tabs')?.getBoundingClientRect().height || 0;
-  const top = window.scrollY + target.getBoundingClientRect().top - headerHeight - tabsHeight + 12;
+  const header = document.querySelector('header');
+  const tabs = document.getElementById('tabs');
+  const headerHeight = header?.getBoundingClientRect().height || 0;
+  const tabsHeight = tabs?.getBoundingClientRect().height || 0;
+  const tabsStyle = tabs ? window.getComputedStyle(tabs) : null;
+
+  // Su mobile le tabs scorrono nel flusso della pagina; su desktop restano sticky.
+  // Calcoliamo l'ingombro reale in viewport, senza sommare elementi che non sono sticky.
+  const stickyTabsBottom = tabs && tabsStyle?.position === 'sticky'
+    ? (Number.parseFloat(tabsStyle.top) || 0) + tabsHeight
+    : 0;
+  const stickyOffset = Math.max(headerHeight, stickyTabsBottom);
+  const targetTop = window.scrollY + target.getBoundingClientRect().top;
+  const top = targetTop - stickyOffset - 12;
+
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
 }
 

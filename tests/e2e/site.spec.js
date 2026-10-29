@@ -16,19 +16,35 @@ test('homepage renders its title, search and profession cards', async ({ page })
   await expect(page.locator('#tabs .tab-btn', { hasText: 'Alchimista' })).toBeVisible();
 });
 
-test('homepage explore button scrolls to the professions heading below sticky navigation', async ({ page }) => {
-  const initialScrollY = await page.evaluate(() => window.scrollY);
-  await page.getByRole('button', { name: /Esplora i mestieri/i }).click();
+test('homepage explore button scrolls below the navigation at desktop, tablet and mobile widths', async ({ page }) => {
+  const viewports = [
+    { width: 375, height: 667, mobile: true },
+    { width: 600, height: 800, mobile: true },
+    { width: 768, height: 900, mobile: true },
+    { width: 900, height: 700, mobile: false },
+    { width: 1280, height: 800, mobile: false },
+  ];
 
-  const heading = page.locator('#homeProfessionsTitle');
-  await expect(heading).toBeVisible();
-  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(initialScrollY);
-  await expect.poll(async () => page.evaluate(() => {
-    const title = document.getElementById('homeProfessionsTitle');
-    const tabs = document.getElementById('tabs');
-    if (!title || !tabs) return -Infinity;
-    return title.getBoundingClientRect().top - tabs.getBoundingClientRect().bottom;
-  })).toBeGreaterThanOrEqual(-2);
+  for (const viewport of viewports) {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.goto('/');
+    const initialScrollY = await page.evaluate(() => window.scrollY);
+    await page.getByRole('button', { name: /Esplora i mestieri/i }).click();
+
+    const heading = page.locator('#homeProfessionsTitle');
+    await expect(heading).toBeVisible();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(initialScrollY);
+    await expect.poll(async () => page.evaluate((mobile) => {
+      const title = document.getElementById('homeProfessionsTitle');
+      const header = document.querySelector('header');
+      const tabs = document.getElementById('tabs');
+      if (!title || !header || !tabs) return -Infinity;
+      const obstructionBottom = mobile
+        ? header.getBoundingClientRect().bottom
+        : tabs.getBoundingClientRect().bottom;
+      return title.getBoundingClientRect().top - obstructionBottom;
+    }, viewport.mobile)).toBeGreaterThanOrEqual(8);
+  }
 });
 
 test('profession navigation switches content and keeps the selected tab active', async ({ page }) => {
