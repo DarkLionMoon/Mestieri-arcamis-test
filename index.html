@@ -235,7 +235,19 @@
   .lv-header p { font-size: .88rem; color: var(--text3); }
 
   /* ── TABLE ── */
-  .table-wrap { overflow-x: auto; margin-bottom: 32px; }
+  .table-wrap { overflow-x: auto; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 7px; background: rgba(20,16,13,.28); }
+  .table-wrap table { min-width: 1050px; }
+  .recipe-row { border-bottom: 1px solid rgba(160,135,101,.2); }
+  .recipe-row:nth-child(even) { background: rgba(255,255,255,.018); }
+  .recipe-row:hover { background: rgba(201,168,76,.065); }
+  .recipe-row td.recipe-name { color: var(--text); font-weight: 650; min-width: 155px; }
+  .recipe-row td.cost-craft { color: var(--text2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .recipe-row td.cost-sell { color: var(--gold2); font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .recipe-row td[data-label="Descrizione"] { min-width: 210px; line-height: 1.5; }
+  .recipe-row td[data-label="Materiale principale"],
+  .recipe-row td[data-label="Materiale secondario"] { min-width: 145px; }
+  .recipe-row td.dt-cell { text-align: center; font-variant-numeric: tabular-nums; }
+  .recipe-row .badge { vertical-align: middle; }
   table {
     width: 100%; border-collapse: collapse;
     font-size: .88rem;
@@ -545,6 +557,27 @@
     table { font-size: .8rem; }
     thead th { font-size: .62rem; padding: 8px 8px; }
     tbody td { padding: 7px 8px; }
+
+    /* Le ricette diventano schede leggibili su schermi stretti. */
+    .table-wrap { overflow: visible; border: 0; background: transparent; }
+    .table-wrap table { min-width: 0; width: 100%; border-collapse: separate; border-spacing: 0 10px; }
+    .table-wrap thead { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .table-wrap tbody tr.recipe-row,
+    .table-wrap tbody tr.class-structure-detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--border2); border-radius: 7px; overflow: hidden; background: var(--panel); box-shadow: 0 3px 12px rgba(0,0,0,.14); }
+    .table-wrap tbody tr.recipe-row td,
+    .table-wrap tbody tr.class-structure-detail td { min-width: 0; padding: 9px 10px; border-bottom: 1px solid rgba(160,135,101,.16); display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left !important; overflow-wrap: anywhere; }
+    .table-wrap tbody tr.recipe-row td::before,
+    .table-wrap tbody tr.class-structure-detail td::before { content: attr(data-label); color: var(--text3); font-size: .62rem; line-height: 1.3; letter-spacing: .07em; text-transform: uppercase; font-weight: 700; }
+    .table-wrap tbody tr.recipe-row td.recipe-name { grid-column: 1 / -1; background: var(--panel2); color: var(--gold2); font-size: .98rem; padding: 12px; }
+    .table-wrap tbody tr.recipe-row td[data-label="Descrizione"] { grid-column: 1 / -1; line-height: 1.45; }
+    .table-wrap tbody tr.recipe-row td[data-label="Riferimenti"] { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; }
+    .table-wrap tbody tr.recipe-row td.dt-cell { display: flex; flex-direction: row; align-items: baseline; justify-content: space-between; }
+    .table-wrap tbody tr.recipe-row td.dt-cell::before { content: attr(data-label); }
+    .table-wrap tbody tr.class-structure-detail td[colspan] { grid-column: 1 / -1; }
+    .table-wrap tbody tr.class-structures-toggle { display: table-row; }
+    .table-wrap tbody tr.class-structures-toggle td { display: table-cell; }
+    .table-wrap tbody tr.class-structures-toggle .class-structures-button { flex-wrap: wrap; padding: 12px; }
+    .table-wrap tbody tr.class-structures-toggle .class-structures-count { margin-left: auto; }
 
     .lv-badge { width: 38px; height: 38px; font-size: .95rem; }
     .lv-header h3 { font-size: .95rem; }
@@ -3305,23 +3338,23 @@ const raggruppaSarto =
         : tempi;
     const dtCells = tempiVisibili
       .map((v, i) =>
-        `<td class="dt-cell ${dtClass(v, i)}">${v}</td>`
+        `<td class="dt-cell ${dtClass(v, i)}" data-label="${escapeHTML(dtHeaders[i] || 'Downtime')}">${v}</td>`
       )
       .join('');
 
-    return `<tr>
-      <td>${escapeHTML(it.n)}</td>
-      <td>${it.prog
+    return `<tr class="recipe-row">
+      <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}</td>
+      <td data-label="Progressione">${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
-      <td>${materialePrincipaleHTML(m, it)}</td>
-      <td>${escapeHTML(it.ms || '—')}</td>
-      <td>${tipBadge(it.tip)}</td>
-      <td><span class="desc-text">${escapeHTML(it.desc || '—')}</span></td>
-      <td class="cost cost-craft" style="text-align:right">${fmtMO(it.costo)}</td>
-      <td class="cost cost-sell" style="text-align:right">${fmtMO(it.vend)}</td>
+      <td data-label="Materiale principale">${materialePrincipaleHTML(m, it)}</td>
+      <td data-label="Materiale secondario">${escapeHTML(it.ms || '—')}</td>
+      <td data-label="Tipologia">${tipBadge(it.tip)}</td>
+      <td data-label="Descrizione"><span class="desc-text">${escapeHTML(it.desc || '—')}</span></td>
+      <td class="cost cost-craft" data-label="Costo materiali" style="text-align:right">${fmtMO(it.costo)}</td>
+      <td class="cost cost-sell" data-label="Costo finale" style="text-align:right">${fmtMO(it.vend)}</td>
       ${dtCells}
-      <td>
+      <td data-label="Riferimenti">
         ${it.resa ? `<button type="button" class="quantita-btn" data-item="${encodeURIComponent(it.n)}" data-info="${encodeURIComponent(infoResa(it))}" onclick="apriPopupQuantita(this)">Quantità</button>` : ''}
         ${it.varianti ? `<button type="button" class="quantita-btn" data-item="${encodeURIComponent('Varianti — ' + it.n)}" data-info="${encodeURIComponent('<div style="font-weight:700;margin-bottom:8px">Varianti disponibili</div><ul style="margin:0;padding-left:20px">' + it.varianti.map(v => '<li>' + escapeHTML(v) + '</li>').join('') + '</ul>')}" onclick="apriPopupQuantita(this)">Varianti</button>` : ''}
         ${urlSicuro ? `<a href="${escapeHTML(urlSicuro)}" target="_blank" rel="noopener noreferrer">${escapeHTML(fonteDaUrl(urlSicuro) || '5e.tools')} ↗</a>` : (it.resa || it.varianti ? '' : '—')}
