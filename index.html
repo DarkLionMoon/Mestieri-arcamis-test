@@ -852,6 +852,91 @@ header {
     background: color-mix(in srgb, var(--profession-accent) 7%, rgba(180,148,86,.09));
   }
   .home-profession .home-card-arrow { color: var(--profession-accent); }
+  /* Motivi distintivi per ogni mestiere: decorativi, discreti e senza immagini esterne. */
+  .home-profession::after {
+    content: "✦";
+    display: block;
+    width: auto;
+    height: auto;
+    right: 15px;
+    top: 9px;
+    border: 0;
+    transform: rotate(-10deg);
+    color: var(--profession-accent);
+    font-family: Georgia, serif;
+    font-size: 66px;
+    line-height: 1;
+    font-weight: 400;
+    opacity: .085;
+  }
+  .home-profession-alchimista::after { content: "⚗"; font-size: 72px; right: 17px; top: 7px; }
+  .home-profession-oste::after { content: "♨"; font-size: 68px; }
+  .home-profession-falegname::after { content: "⌁"; font-size: 94px; right: 12px; top: 0; transform: rotate(90deg); }
+  .home-profession-sarto::after { content: "✂"; font-size: 70px; }
+  .home-profession-metallurgo::after { content: "⚒"; font-size: 70px; }
+  .home-profession-architetto::after { content: "⌂"; font-size: 78px; }
+  .home-profession-artista::after { content: "✿"; font-size: 72px; }
+  .home-profession-artigiano::after { content: "◈"; font-size: 82px; }
+  .home-profession-meccanico::after { content: "⚙"; font-size: 76px; }
+
+  .home-profession-alchimista {
+    background:
+      radial-gradient(circle at 88% 18%, rgba(121,182,160,.12), transparent 24%),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+  .home-profession-oste {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 17px, rgba(213,166,91,.025) 18px 19px),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+  .home-profession-falegname {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 12px, rgba(158,174,117,.035) 13px 14px),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+  .home-profession-sarto {
+    background:
+      repeating-linear-gradient(135deg, transparent 0 10px, rgba(199,131,145,.028) 11px 12px),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+  .home-profession-metallurgo {
+    background:
+      repeating-linear-gradient(45deg, transparent 0 15px, rgba(158,175,198,.025) 16px 17px),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+  .home-profession-architetto {
+    background:
+      linear-gradient(90deg, transparent 49.5%, rgba(182,165,139,.035) 50%, transparent 50.5%),
+      linear-gradient(transparent 49.5%, rgba(182,165,139,.035) 50%, transparent 50.5%),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+    background-size: 28px 28px, 28px 28px, auto, auto;
+  }
+  .home-profession-artista {
+    background:
+      radial-gradient(circle at 90% 20%, rgba(184,160,216,.12), transparent 28%),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+  .home-profession-artigiano {
+    background:
+      repeating-linear-gradient(135deg, transparent 0 19px, rgba(214,167,124,.025) 20px 21px),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+  .home-profession-meccanico {
+    background:
+      radial-gradient(circle at 90% 18%, rgba(200,180,106,.12) 0 2px, transparent 3px 12px),
+      radial-gradient(circle at 90% 18%, transparent 0 17px, rgba(200,180,106,.045) 18px 19px, transparent 20px),
+      radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--profession-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, #26252a, #1b1c21 78%);
+  }
+
   .home-profession-alchimista { --profession-accent: #79b6a0; }
   .home-profession-oste { --profession-accent: #d5a65b; }
   .home-profession-falegname { --profession-accent: #9eae75; }
