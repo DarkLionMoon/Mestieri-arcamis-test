@@ -3552,14 +3552,6 @@ function renderPatenteBadge(m, livello = null) {
 function renderIntro(m) {
   const LV_LABELS = ['LV1+','LV2+','LV3+','LV4+','LV5+'];
   return `
-  ${m.id === 'meccanico' ? `
-  <div style="background:rgba(212,149,74,.12);border:2px solid var(--amber);border-radius:6px;padding:12px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px">
-    <span style="font-size:1.4rem;flex-shrink:0">🚧</span>
-    <div>
-      <strong style="color:var(--amber);font-size:.95rem;letter-spacing:.04em">Work In Progress</strong>
-      <p style="color:var(--text2);font-size:.85rem;margin-top:3px">Gli oggetti presenti potrebbero essere rimossi o subire modifiche.</p>
-    </div>
-  </div>` : ''}
   <div class="intro-card profession-intro profession-intro-${m.id}">
     <div class="profession-art" aria-hidden="true"><span class="profession-art-symbol">${m.emoji}</span><span class="profession-art-label">${m.nome}</span><span class="profession-art-ornament">✦　✧　✦</span></div>
     <h2 class="profession-intro-title">${m.emoji} ${m.nome}</h2>
