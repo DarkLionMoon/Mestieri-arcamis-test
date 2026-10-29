@@ -2472,9 +2472,12 @@ function renderTabs() {
   let html = `<button type="button" class="tab-btn" onclick="setHome()">⌂ Home</button>`;
   html += `<button type="button" class="tab-btn ${guideActive?'active guide-tab-active':''}" onclick="setGuide()">📖 Guida ai Mestieri</button>`;
   html += '<div style="width:1px;background:var(--border);margin:0 4px 0;align-self:stretch"></div>';
-  html += MESTIERI.map((m,i) =>
-    `<button type="button" class="tab-btn ${i===currentMestiere?'active':''}" onclick="setMestiere(${i})">${m.emoji} ${m.nome}</button>`
-  ).join('');
+  html += MESTIERI
+    .map((m, i) => ({ m, i }))
+    .sort((a, b) => a.m.nome.localeCompare(b.m.nome, 'it'))
+    .map(({ m, i }) =>
+      `<button type="button" class="tab-btn ${i===currentMestiere?'active':''}" onclick="setMestiere(${i})">${m.emoji} ${m.nome}</button>`
+    ).join('');
   el.innerHTML = html;
 }
 
