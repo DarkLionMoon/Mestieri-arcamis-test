@@ -4450,7 +4450,9 @@ function renderGlobalSearch() {
 
 
 function scrollToHomeProfessions() {
-  const target = document.getElementById('homeProfessionsTitle');
+  // Ancoriamo l'intera intestazione della sezione, così anche "Scegli la tua via"
+  // rimane visibile invece di finire parzialmente dietro la navigazione.
+  const target = document.querySelector('#homeProfessions .home-section-heading');
   if (!target) return;
 
   const header = document.querySelector('header');
@@ -4458,15 +4460,14 @@ function scrollToHomeProfessions() {
   const headerHeight = header?.getBoundingClientRect().height || 0;
   const tabsHeight = tabs?.getBoundingClientRect().height || 0;
   const tabsStyle = tabs ? window.getComputedStyle(tabs) : null;
+  const tabsTop = tabsStyle ? Number.parseFloat(tabsStyle.top) || 0 : 0;
 
-  // Su mobile le tabs scorrono nel flusso della pagina; su desktop restano sticky.
-  // Calcoliamo l'ingombro reale in viewport, senza sommare elementi che non sono sticky.
-  const stickyTabsBottom = tabs && tabsStyle?.position === 'sticky'
-    ? (Number.parseFloat(tabsStyle.top) || 0) + tabsHeight
-    : 0;
-  const stickyOffset = Math.max(headerHeight, stickyTabsBottom);
+  // Desktop: header e tabs sono entrambi sticky. Mobile: le tabs sono nel flusso.
+  const stickyOffset = tabs && tabsStyle?.position === 'sticky'
+    ? Math.max(headerHeight, tabsTop) + tabsHeight
+    : headerHeight;
   const targetTop = window.scrollY + target.getBoundingClientRect().top;
-  const top = targetTop - stickyOffset - 12;
+  const top = targetTop - stickyOffset - 8;
 
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
 }
