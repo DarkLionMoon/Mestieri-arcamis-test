@@ -16,11 +16,13 @@ test('homepage renders its title, search and profession cards', async ({ page })
   await expect(page.locator('#tabs .tab-btn', { hasText: 'Alchimista' })).toBeVisible();
 });
 
-test('homepage explore button aligns the professions heading below sticky navigation', async ({ page }) => {
+test('homepage explore button scrolls to the professions heading below sticky navigation', async ({ page }) => {
+  const initialScrollY = await page.evaluate(() => window.scrollY);
   await page.getByRole('button', { name: /Esplora i mestieri/i }).click();
 
   const heading = page.locator('#homeProfessionsTitle');
   await expect(heading).toBeVisible();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(initialScrollY);
   await expect.poll(async () => page.evaluate(() => {
     const title = document.getElementById('homeProfessionsTitle');
     const tabs = document.getElementById('tabs');
