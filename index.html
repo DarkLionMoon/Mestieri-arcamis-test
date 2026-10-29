@@ -792,6 +792,78 @@ header {
 @media(max-width:900px) { .home-professions { grid-template-columns:repeat(2,minmax(0,1fr)); } .home-utility-grid { grid-template-columns:1fr; } }
 @media(max-width:600px) { .home-page { padding:16px 12px 38px; } .home-hero { min-height:0; padding:30px 22px; margin-bottom:22px; } .home-hero::before { right:-7%; top:23%; font-size:10rem; } .home-hero::after { inset:7px; } .home-hero h2 { font-size:2.25rem; } .home-hero p { font-size:.98rem; } .home-actions { display:grid; grid-template-columns:1fr; } .home-action { width:100%; } .home-professions { grid-template-columns:1fr; gap:10px; } .home-profession { min-height:0; padding:16px; } .home-section-heading { align-items:flex-start; flex-direction:column; gap:4px; } }
 
+
+  /* ── ORNAMENTI SEZIONI — RESTYLING ── */
+  .lv-header {
+    position: relative;
+    border-bottom: 0;
+    padding-bottom: 17px;
+  }
+  .lv-header::after,
+  .home-section-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(122,84,40,.65) 12%, rgba(224,184,96,.85) 50%, rgba(122,84,40,.65) 88%, transparent);
+  }
+  .lv-header::before,
+  .home-section-heading::before {
+    content: "◆";
+    position: absolute;
+    z-index: 1;
+    bottom: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 9px;
+    background: var(--bg);
+    color: var(--gold2);
+    font-size: 9px;
+    line-height: 14px;
+    text-shadow: 0 0 8px rgba(224,184,96,.22);
+  }
+  .mat-section h3,
+  .guide-section h3 {
+    position: relative;
+    border-bottom: 0;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  .mat-section h3::after,
+  .guide-section h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(122,84,40,.7), rgba(224,184,96,.75) 38%, rgba(122,84,40,.22) 100%);
+  }
+  .mat-section h3::before,
+  .guide-section h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 5px;
+    height: 5px;
+    background: var(--gold2);
+    transform: rotate(45deg);
+    box-shadow: 0 0 7px rgba(224,184,96,.2);
+  }
+  .home-section-heading {
+    position: relative;
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 600px) {
+    .lv-header { padding-bottom: 14px; }
+    .home-section-heading { padding-bottom: 12px; }
+    .home-section-heading::before { left: 18px; }
+  }
+
 </style>
 </head>
 <body>
