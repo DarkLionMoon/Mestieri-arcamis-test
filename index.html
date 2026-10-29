@@ -636,8 +636,9 @@
   font-size: .82em;
 }
 
-.class-structure-detail[hidden],
-tr[data-class-structure-row][hidden] {
+/* Supera la specificità del display:grid applicato alle schede su mobile. */
+.table-wrap tbody tr.class-structure-detail[hidden],
+.table-wrap tbody tr[data-class-structure-row][hidden] {
   display: none !important;
 }
 
