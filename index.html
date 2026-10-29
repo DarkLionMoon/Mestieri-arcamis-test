@@ -637,8 +637,9 @@ tr[data-class-structure-row][hidden] {
   }
   .quantita-overlay.open { display: flex; }
   .quantita-btn.focus-restored {
-  outline: 2px solid var(--gold2);
+  outline: 3px solid var(--gold2) !important;
   outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(224, 184, 96, .22);
 }
 
 .quantita-dialog {
@@ -1363,7 +1364,8 @@ function openDrawer() {
   const drawer = document.getElementById('mobileDrawer');
   const overlay = document.getElementById('drawerOverlay');
   if (!drawer || !overlay) return;
-  drawerTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  // Il click del mouse non rende sempre activeElement il pulsante su tutti i browser.
+  drawerTrigger = document.getElementById('mobileNavBtn');
   drawer.classList.add('open');
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
