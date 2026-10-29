@@ -4449,6 +4449,17 @@ function renderGlobalSearch() {
 
 
 
+function scrollToHomeProfessions() {
+  const target = document.getElementById('homeProfessionsTitle');
+  if (!target) return;
+
+  // Il titolo deve restare sotto header e navigazione sticky, su desktop e mobile.
+  const headerHeight = document.querySelector('header')?.getBoundingClientRect().height || 0;
+  const tabsHeight = document.getElementById('tabs')?.getBoundingClientRect().height || 0;
+  const top = window.scrollY + target.getBoundingClientRect().top - headerHeight - tabsHeight - 12;
+  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+}
+
 function renderHome() {
   const totalItems = MESTIERI.reduce((sum, m) => sum + m.livelli.reduce((lvSum, lv) => lvSum + lv.items.length, 0), 0);
   // Recupera le sezioni della vecchia homepage/guida senza duplicare la griglia dei mestieri, già presente sopra.
@@ -4493,7 +4504,7 @@ function renderHome() {
         <h2 id="homeTitle">L'arte di creare.<br>Il sapere di Arcamis.</h2>
         <p>Esplora le professioni, scopri le ricette e pianifica le tue lavorazioni: dai materiali necessari ai costi, fino ai tempi di Downtime.</p>
         <div class="home-actions">
-          <button type="button" class="home-action" onclick="document.getElementById('homeProfessions').scrollIntoView({behavior:'smooth',block:'start'})">⚒ Esplora i mestieri <span aria-hidden="true">↓</span></button>
+          <button type="button" class="home-action" onclick="document.getElementById('homeProfessions').scrollToHomeProfessions()">⚒ Esplora i mestieri <span aria-hidden="true">↓</span></button>
           <button type="button" class="home-action secondary" onclick="setGuide()">📖 Leggi la guida</button>
         </div>
       </div>
