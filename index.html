@@ -4468,7 +4468,7 @@ function scrollToHomeProfessions() {
     ? Math.max(headerBottom, tabsRect?.bottom || 0)
     : headerBottom;
   const targetTop = window.scrollY + target.getBoundingClientRect().top;
-  const top = targetTop - stickyBottom + 16;
+  const top = targetTop - stickyBottom + 24;
 
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
 }
