@@ -17,11 +17,14 @@ while (Date.now() < deadline) {
     const response = await fetch(url, { headers: { 'cache-control': 'no-cache' } });
     const html = await response.text();
     const missing = requiredHeaders.filter((name) => !response.headers.get(name));
-    if (response.ok && html.includes('Mestieri di Arcamis') && missing.length === 0) {
+    const faviconProbe = await fetch(new URL('/favicon.svg', url), { headers: { 'cache-control': 'no-cache' } });
+    const faviconPolicy = faviconProbe.headers.get('cache-control') || '';
+    const faviconPolicyReady = /max-age=86400/i.test(faviconPolicy) && !/no-cache|no-store/i.test(faviconPolicy);
+    if (response.ok && html.includes('Mestieri di Arcamis') && missing.length === 0 && faviconProbe.ok && faviconPolicyReady) {
       firstResponse = { response, html, missing };
       break;
     }
-    console.log(`Waiting for the new deployment: status=${response.status}, missing headers=${missing.join(',') || 'none'}`);
+    console.log(`Waiting for the new deployment: status=${response.status}, missing headers=${missing.join(',') || 'none'}, favicon policy=${faviconPolicy || 'missing'}`);
   } catch (error) {
     console.log(`Waiting for the site: ${error.message}`);
   }
@@ -48,7 +51,7 @@ const faviconCacheControl = faviconResponse.headers.get('cache-control') || '';
 if (!faviconResponse.ok || faviconBytes.byteLength === 0) {
   throw new Error(`Favicon check failed: status=${faviconResponse.status}, bytes=${faviconBytes.byteLength}`);
 }
-if (!/max-age=86400/i.test(faviconCacheControl)) {
+if (!/max-age=86400/i.test(faviconCacheControl) || /no-cache|no-store/i.test(faviconCacheControl)) {
   throw new Error(`Unexpected favicon Cache-Control: ${faviconCacheControl || '(missing)'}`);
 }
 if (!faviconResponse.headers.get('content-type')?.includes('image/svg+xml')) {
