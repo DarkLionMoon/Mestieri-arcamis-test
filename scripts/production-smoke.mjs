@@ -41,6 +41,20 @@ if (!response.headers.get('content-type')?.includes('text/html')) {
   throw new Error(`Unexpected content type: ${response.headers.get('content-type')}`);
 }
 
+const faviconUrl = new URL('/favicon.svg', url).toString();
+const faviconResponse = await fetch(faviconUrl);
+const faviconBytes = await faviconResponse.arrayBuffer();
+const faviconCacheControl = faviconResponse.headers.get('cache-control') || '';
+if (!faviconResponse.ok || faviconBytes.byteLength === 0) {
+  throw new Error(`Favicon check failed: status=${faviconResponse.status}, bytes=${faviconBytes.byteLength}`);
+}
+if (!/max-age=86400/i.test(faviconCacheControl)) {
+  throw new Error(`Unexpected favicon Cache-Control: ${faviconCacheControl || '(missing)'}`);
+}
+if (!faviconResponse.headers.get('content-type')?.includes('image/svg+xml')) {
+  throw new Error(`Unexpected favicon content type: ${faviconResponse.headers.get('content-type')}`);
+}
+
 console.log('Production smoke test passed.');
 console.log(JSON.stringify({
   url,
@@ -48,6 +62,7 @@ console.log(JSON.stringify({
   htmlBytes: Buffer.byteLength(html),
   securityHeaders: Object.fromEntries(requiredHeaders.map((name) => [name, response.headers.get(name)])),
   cacheControl,
+  favicon: { status: faviconResponse.status, bytes: faviconBytes.byteLength, cacheControl: faviconCacheControl },
   contentEncoding: response.headers.get('content-encoding'),
   cfCacheStatus: response.headers.get('cf-cache-status'),
   cfRay: response.headers.get('cf-ray'),
