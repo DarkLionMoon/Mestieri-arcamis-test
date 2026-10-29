@@ -4457,17 +4457,18 @@ function scrollToHomeProfessions() {
 
   const header = document.querySelector('header');
   const tabs = document.getElementById('tabs');
-  const headerHeight = header?.getBoundingClientRect().height || 0;
-  const tabsHeight = tabs?.getBoundingClientRect().height || 0;
+  const headerBottom = header?.getBoundingClientRect().bottom || 0;
+  const tabsRect = tabs?.getBoundingClientRect();
   const tabsStyle = tabs ? window.getComputedStyle(tabs) : null;
-  const tabsTop = tabsStyle ? Number.parseFloat(tabsStyle.top) || 0 : 0;
 
-  // Desktop: header e tabs sono entrambi sticky. Mobile: le tabs sono nel flusso.
-  const stickyOffset = tabs && tabsStyle?.position === 'sticky'
-    ? Math.max(headerHeight, tabsTop) + tabsHeight
-    : headerHeight;
+  // Le tabs desktop hanno top:107px e possono sovrapporsi all'header:
+  // sommare headerHeight + tabsHeight sposta troppo poco la pagina.
+  // Usiamo il bordo inferiore reale dell'elemento sticky più basso.
+  const stickyBottom = tabs && tabsStyle?.position === 'sticky'
+    ? Math.max(headerBottom, tabsRect?.bottom || 0)
+    : headerBottom;
   const targetTop = window.scrollY + target.getBoundingClientRect().top;
-  const top = targetTop - stickyOffset - 8;
+  const top = targetTop - stickyBottom - 8;
 
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
 }
