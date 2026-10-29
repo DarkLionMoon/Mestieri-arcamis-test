@@ -1145,6 +1145,142 @@ header {
     body { scroll-behavior: auto; }
   }
 
+
+  /* ── RIFINITURE UI: pagine interne, popup e navigazione ── */
+  .intro-card,
+  .rule-box,
+  .guide-card,
+  .mat-card {
+    border-color: color-mix(in srgb, var(--border2) 72%, transparent);
+  }
+
+  .intro-card {
+    box-shadow: inset 0 1px 0 rgba(240,217,154,.035), var(--shadow);
+  }
+
+  .rule-box {
+    background: linear-gradient(145deg, rgba(255,255,255,.018), transparent 72%), var(--panel2);
+    border-radius: 7px;
+  }
+
+  .lv-header {
+    margin-bottom: 22px;
+  }
+
+  .lv-header h2,
+  .lv-header h3 {
+    line-height: 1.12;
+  }
+
+  .content table {
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+  }
+
+  .content th {
+    letter-spacing: .025em;
+  }
+
+  .content tbody tr {
+    transition: background-color .15s ease;
+  }
+
+  .content tbody tr:hover td {
+    background-color: rgba(216,185,110,.045);
+  }
+
+  .tabs {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border2) transparent;
+    overscroll-behavior-x: contain;
+  }
+
+  .tab-btn,
+  .sidenav-btn,
+  .quantita-btn,
+  .quantita-close {
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+
+  .tab-btn:focus-visible,
+  .sidenav-btn:focus-visible,
+  .quantita-btn:focus-visible,
+  .quantita-close:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--gold2);
+    outline-offset: 2px;
+  }
+
+  .quantita-dialog {
+    border-color: var(--border2);
+    background:
+      linear-gradient(145deg, rgba(216,185,110,.035), transparent 42%),
+      var(--panel);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border2) transparent;
+  }
+
+  .quantita-dialog-header {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .quantita-dialog h2 {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 700;
+  }
+
+  .quantita-close:hover {
+    color: var(--gold2);
+  }
+
+  .quantita-dialog .quantita-info > div {
+    border-color: color-mix(in srgb, var(--border) 75%, transparent);
+  }
+
+  @media (max-width: 600px) {
+    .intro-card {
+      padding: 18px;
+    }
+
+    .intro-card .tagline {
+      font-size: 1.2rem;
+    }
+
+    .rule-box {
+      padding: 12px;
+    }
+
+    .quantita-overlay {
+      align-items: flex-end;
+      padding: 10px;
+    }
+
+    .quantita-dialog {
+      width: 100%;
+      max-height: min(86dvh, 720px);
+      padding: 18px;
+      border-radius: 10px 10px 6px 6px;
+    }
+
+    .content table {
+      font-size: .9rem;
+    }
+  }
+
+  @media (hover: none) {
+    .content tbody tr:hover td {
+      background-color: transparent;
+    }
+  }
+
 </style>
 </head>
 <body>
