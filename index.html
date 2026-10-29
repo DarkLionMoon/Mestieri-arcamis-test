@@ -206,6 +206,47 @@
   .rule-box ul { padding-left: 14px; }
   .rule-box li { margin-bottom: 2px; }
 
+
+
+  /* HERO ILLUSTRATO PER LE SINGOLE PROFESSIONI */
+  .profession-art {
+    --art-accent: var(--intro-accent, var(--gold));
+    min-height: 178px;
+    margin: -24px -28px 24px;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border-bottom: 1px solid color-mix(in srgb, var(--art-accent) 55%, transparent);
+    background: radial-gradient(ellipse at 50% 120%, color-mix(in srgb, var(--art-accent) 24%, transparent), transparent 58%), linear-gradient(115deg, #100d0a, #282016 48%, #100d0a);
+  }
+  .profession-art::before, .profession-art::after { content: ""; position: absolute; z-index: -1; pointer-events: none; }
+  .profession-art::before { inset: 12px; border: 1px solid color-mix(in srgb, var(--art-accent) 28%, transparent); clip-path: polygon(0 0, 22% 0, 22% 2px, 0 2px, 0 22%, 2px 22%, 2px 0, 100% 0, 100% 22%, calc(100% - 2px) 22%, calc(100% - 2px) 2px, 78% 2px, 78% 0, 100% 0, 100% 100%, 78% 100%, 78% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 78%, 100% 78%, 100% 100%, 0 100%, 0 78%, 2px 78%, 2px calc(100% - 2px), 22% calc(100% - 2px), 22% 100%); }
+  .profession-art::after { width: 210px; height: 210px; border: 1px solid color-mix(in srgb, var(--art-accent) 20%, transparent); border-radius: 50%; box-shadow: 0 0 0 15px color-mix(in srgb, var(--art-accent) 4%, transparent), 0 0 0 34px color-mix(in srgb, var(--art-accent) 3%, transparent); }
+  .profession-art-symbol { font-size: clamp(3.4rem, 7vw, 5.4rem); line-height: 1.1; filter: drop-shadow(0 0 18px color-mix(in srgb, var(--art-accent) 42%, transparent)); }
+  .profession-art-label { margin-top: 8px; color: var(--art-accent); font: 700 .72rem/1.2 'Source Sans 3', sans-serif; letter-spacing: .28em; text-transform: uppercase; text-align: center; }
+  .profession-art-ornament { margin-top: 8px; color: color-mix(in srgb, var(--art-accent) 72%, #d8c7a4); letter-spacing: .38em; font-size: .8rem; }
+  .profession-intro-alchimista .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(71,166,137,.28), transparent 60%), linear-gradient(115deg,#0b1715,#1b3029 50%,#0b1715); }
+  .profession-intro-oste .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(213,166,91,.25), transparent 60%), linear-gradient(115deg,#1b1009,#382416 50%,#1b1009); }
+  .profession-intro-falegname .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(158,174,117,.24), transparent 60%), linear-gradient(115deg,#10170d,#26301b 50%,#10170d); }
+  .profession-intro-sarto .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(201,142,170,.24), transparent 60%), linear-gradient(115deg,#1b1019,#34202e 50%,#1b1019); }
+  .profession-intro-metallurgo .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(166,178,194,.24), transparent 60%), linear-gradient(115deg,#101318,#252c36 50%,#101318); }
+  .profession-intro-architetto .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(197,168,217,.24), transparent 60%), linear-gradient(115deg,#17111d,#2b2037 50%,#17111d); }
+  .profession-intro-artista .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(217,185,110,.24), transparent 60%), linear-gradient(115deg,#1b160b,#332a17 50%,#1b160b); }
+  .profession-intro-artigiano .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(214,164,106,.24), transparent 60%), linear-gradient(115deg,#1b130b,#33251a 50%,#1b130b); }
+  .profession-intro-meccanico .profession-art { background: radial-gradient(ellipse at 50% 120%, rgba(208,138,98,.24), transparent 60%), linear-gradient(115deg,#1b100b,#342117 50%,#1b100b); }
+  @media (max-width: 600px) {
+    .profession-art { min-height: 140px; margin: -20px -18px 20px; padding: 18px; }
+    .profession-art::before { inset: 8px; }
+    .profession-art::after { width: 155px; height: 155px; }
+    .profession-art-symbol { font-size: 3.5rem; }
+    .profession-art-label { font-size: .65rem; letter-spacing: .2em; }
+  }
+
   /* ── LIVELLO HEADER ── */
   .lv-header {
     display: flex; align-items: center; gap: 14px;
@@ -3520,6 +3561,7 @@ function renderIntro(m) {
     </div>
   </div>` : ''}
   <div class="intro-card profession-intro profession-intro-${m.id}">
+    <div class="profession-art" aria-hidden="true"><span class="profession-art-symbol">${m.emoji}</span><span class="profession-art-label">${m.nome}</span><span class="profession-art-ornament">✦　✧　✦</span></div>
     <h2 class="profession-intro-title">${m.emoji} ${m.nome}</h2>
     <p class="tagline">${m.tagline}</p>
     <p style="color:var(--text2);font-size:.95rem;margin-bottom:12px">${m.desc}</p>
