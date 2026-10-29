@@ -1331,8 +1331,12 @@ header {
 //  THEME
 // ═══════════════════════════════════════════════════════════════
 (function() {
-  const saved = localStorage.getItem('arcamis-theme') || 'light';
-  if (saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
+  try {
+    const saved = window.localStorage.getItem('arcamis-theme') || 'light';
+    if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  } catch (error) {
+    // Il tema predefinito resta utilizzabile anche se lo storage è bloccato.
+  }
 })();
 
 
@@ -2560,11 +2564,16 @@ function vaiRicettaArchitetto(nome, livello = null) {
   setTimeout(() => riga.classList.remove('architetto-ricetta-focus'), 2200);
 }
 
+let quantitaTrigger = null;
+
 function apriPopupQuantita(button) {
   const overlay = document.getElementById('quantitaOverlay');
+  const dialog = overlay?.querySelector('[role="dialog"]');
+  const closeButton = overlay?.querySelector('.quantita-close');
   const titolo = document.getElementById('quantitaTitolo');
   const info = document.getElementById('quantitaInfo');
-  if (!overlay || !titolo || !info) return;
+  if (!overlay || !dialog || !titolo || !info) return;
+  quantitaTrigger = button instanceof HTMLElement ? button : document.activeElement;
   try {
     titolo.textContent = decodeURIComponent(button.dataset.item || 'Quantità e prezzi');
     info.innerHTML = decodeURIComponent(button.dataset.info || '');
@@ -2574,18 +2583,47 @@ function apriPopupQuantita(button) {
   }
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
+  closeButton?.focus();
 }
 
 function chiudiPopupQuantita(event) {
   if (event && event.target !== event.currentTarget) return;
   const overlay = document.getElementById('quantitaOverlay');
-  if (!overlay) return;
+  if (!overlay || !overlay.classList.contains('open')) return;
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
+  if (quantitaTrigger instanceof HTMLElement && quantitaTrigger.isConnected) {
+    quantitaTrigger.focus();
+  }
+  quantitaTrigger = null;
 }
 
 document.addEventListener('keydown', event => {
-  if (event.key === 'Escape') chiudiPopupQuantita();
+  const overlay = document.getElementById('quantitaOverlay');
+  if (!overlay?.classList.contains('open')) return;
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    chiudiPopupQuantita();
+    return;
+  }
+  if (event.key !== 'Tab') return;
+  const dialog = overlay.querySelector('[role="dialog"]');
+  const focusable = [...dialog.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter(el => el.getClientRects().length > 0);
+  if (!focusable.length) {
+    event.preventDefault();
+    dialog.focus();
+    return;
+  }
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) {
+    event.preventDefault();
+    first.focus();
+  }
 });
 
 function matches(item, q) {
