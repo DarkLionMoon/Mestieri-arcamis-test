@@ -40,9 +40,14 @@ test('homepage explore button keeps the full professions section heading visible
       const header = document.querySelector('header');
       const tabs = document.getElementById('tabs');
       if (!heading || !header || !tabs) return -Infinity;
-      const obstructionBottom = mobile
-        ? header.getBoundingClientRect().bottom
-        : tabs.getBoundingClientRect().bottom;
+      const headerBottom = header.getBoundingClientRect().bottom;
+      const tabsStyle = window.getComputedStyle(tabs);
+      const tabsBottom = tabsStyle.position === 'sticky'
+        ? tabs.getBoundingClientRect().bottom
+        : 0;
+      // L'header ha z-index maggiore delle tabs: in caso di sovrapposizione
+      // il titolo deve stare sotto il bordo inferiore di entrambi.
+      const obstructionBottom = mobile ? headerBottom : Math.max(headerBottom, tabsBottom);
       return heading.getBoundingClientRect().top - obstructionBottom;
     }, viewport.mobile)).toBeGreaterThanOrEqual(6);
   }
