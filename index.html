@@ -4450,23 +4450,25 @@ function renderGlobalSearch() {
 
 
 function scrollToHomeProfessions() {
-  const target = document.getElementById('homeProfessionsTitle');
+  // Ancoriamo l'intera intestazione della sezione, così anche "Scegli la tua via"
+  // rimane visibile invece di finire parzialmente dietro la navigazione.
+  const target = document.querySelector('#homeProfessions .home-section-heading');
   if (!target) return;
 
   const header = document.querySelector('header');
   const tabs = document.getElementById('tabs');
-  const headerHeight = header?.getBoundingClientRect().height || 0;
-  const tabsHeight = tabs?.getBoundingClientRect().height || 0;
+  const headerBottom = header?.getBoundingClientRect().bottom || 0;
+  const tabsRect = tabs?.getBoundingClientRect();
   const tabsStyle = tabs ? window.getComputedStyle(tabs) : null;
 
-  // Su mobile le tabs scorrono nel flusso della pagina; su desktop restano sticky.
-  // Calcoliamo l'ingombro reale in viewport, senza sommare elementi che non sono sticky.
-  const stickyTabsBottom = tabs && tabsStyle?.position === 'sticky'
-    ? (Number.parseFloat(tabsStyle.top) || 0) + tabsHeight
-    : 0;
-  const stickyOffset = Math.max(headerHeight, stickyTabsBottom);
+  // Le tabs desktop hanno top:107px e possono sovrapporsi all'header:
+  // sommare headerHeight + tabsHeight sposta troppo poco la pagina.
+  // Usiamo il bordo inferiore reale dell'elemento sticky più basso.
+  const stickyBottom = tabs && tabsStyle?.position === 'sticky'
+    ? Math.max(headerBottom, tabsRect?.bottom || 0)
+    : headerBottom;
   const targetTop = window.scrollY + target.getBoundingClientRect().top;
-  const top = targetTop - stickyOffset - 12;
+  const top = targetTop - stickyBottom - 8;
 
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
 }
