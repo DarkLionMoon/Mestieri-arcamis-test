@@ -2,3 +2,10 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Frame-Options: DENY
+  Cross-Origin-Opener-Policy: same-origin
+  Cache-Control: no-cache
+
+/favicon.svg
+  X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=86400
