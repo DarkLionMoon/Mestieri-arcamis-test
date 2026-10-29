@@ -1627,6 +1627,64 @@ header {
   }
 
 
+
+  /* Intestazioni dei mestieri: insegna fantasy con accento cromatico per professione. */
+  .profession-intro {
+    --intro-accent: #c8a050;
+    isolation: isolate;
+    border-color: color-mix(in srgb, var(--intro-accent) 48%, #49402f);
+    background:
+      radial-gradient(ellipse at 92% 0%, color-mix(in srgb, var(--intro-accent) 13%, transparent), transparent 48%),
+      linear-gradient(135deg, #24242a 0%, #1b1c22 62%, #17181d 100%);
+  }
+  .profession-intro .profession-intro-title {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px 12px;
+    padding: 0 0 17px;
+    margin: 0 0 15px;
+    border-bottom: 1px solid color-mix(in srgb, var(--intro-accent) 44%, transparent);
+    font-size: clamp(1.85rem, 3.5vw, 2.65rem);
+    line-height: 1.12;
+    letter-spacing: .015em;
+    text-wrap: balance;
+  }
+  .profession-intro .profession-intro-title::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: min(170px, 42%);
+    height: 3px;
+    background: linear-gradient(90deg, var(--intro-accent), color-mix(in srgb, var(--intro-accent) 18%, transparent), transparent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--intro-accent) 22%, transparent);
+  }
+  .profession-intro .profession-intro-title > span {
+    flex-shrink: 0;
+  }
+  .profession-intro .profession-intro-title + .tagline {
+    margin-top: 0;
+  }
+  .profession-intro-alchimista { --intro-accent: #79b6a0; }
+  .profession-intro-oste { --intro-accent: #d5a65b; }
+  .profession-intro-falegname { --intro-accent: #9eae75; }
+  .profession-intro-sarto { --intro-accent: #c98eaa; }
+  .profession-intro-metallurgo { --intro-accent: #a6b2c2; }
+  .profession-intro-architetto { --intro-accent: #c5a8d9; }
+  .profession-intro-artista { --intro-accent: #d9b96e; }
+  .profession-intro-artigiano { --intro-accent: #d6a46a; }
+  .profession-intro-meccanico { --intro-accent: #d08a62; }
+  @media (max-width: 600px) {
+    .profession-intro .profession-intro-title {
+      gap: 8px;
+      padding-bottom: 13px;
+      margin-bottom: 12px;
+      font-size: clamp(1.65rem, 7.2vw, 2.1rem);
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -3118,8 +3176,8 @@ function renderIntro(m) {
       <p style="color:var(--text2);font-size:.85rem;margin-top:3px">Gli oggetti presenti potrebbero essere rimossi o subire modifiche.</p>
     </div>
   </div>` : ''}
-  <div class="intro-card">
-    <h2>${m.emoji} ${m.nome}${m.patente ? ` <span style="font-size:.6em;font-weight:400;background:rgba(90,138,216,.15);color:var(--uncommon);border:1px solid rgba(90,138,216,.3);padding:3px 10px;border-radius:12px;vertical-align:middle;letter-spacing:.08em">${m.patente}</span>` : ''}</h2>
+  <div class="intro-card profession-intro profession-intro-${m.id}">
+    <h2 class="profession-intro-title">${m.emoji} ${m.nome}${m.patente ? ` <span style="font-size:.6em;font-weight:400;background:rgba(90,138,216,.15);color:var(--uncommon);border:1px solid rgba(90,138,216,.3);padding:3px 10px;border-radius:12px;vertical-align:middle;letter-spacing:.08em">${m.patente}</span>` : ''}</h2>
     <p class="tagline">${m.tagline}</p>
     <p style="color:var(--text2);font-size:.95rem;margin-bottom:12px">${m.desc}</p>
     <div class="rules-grid">
