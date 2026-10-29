@@ -777,6 +777,8 @@ header {
 .home-profession-copy { min-width:0; }
 .home-profession h3 { color:#e8cd8a; font-family:Georgia,"Palatino Linotype",serif; font-size:1.12rem; margin:1px 0 6px; }
 .home-profession p { color:#b8ad99; font-size:.88rem; line-height:1.5; }
+.home-profession-tools { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; padding-right:12px; }
+.home-profession-tools .tag { display:inline-flex; align-items:center; padding:3px 7px; border:1px solid #5b503c; border-radius:999px; background:rgba(180,148,86,.09); color:#c8b58e; font-size:.68rem; line-height:1.35; }
 .home-profession .home-card-arrow { position:absolute; right:14px; bottom:10px; color:#9e8149; font-size:1.1rem; }
 .home-utility-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
 .home-utility { display:flex; gap:14px; align-items:flex-start; padding:19px; border:1px solid #3f3a2e; border-radius:8px; background:#1c1d22; }
@@ -3074,15 +3076,32 @@ function renderGlobalSearch() {
 
 function renderHome() {
   const totalItems = MESTIERI.reduce((sum, m) => sum + m.livelli.reduce((lvSum, lv) => lvSum + lv.items.length, 0), 0);
-  const cards = MESTIERI.map((m, i) => `
+  const strumentiPerMestiere = {
+    alchimista: ["Alchemist's Supplies", "Herbalism Kit", "Poisoner's Kit"],
+    oste: ["Brewer's Supplies", "Cook's Utensils"],
+    falegname: ["Carpenter's Tools", "Woodcarver's Tools"],
+    sarto: ["Cobbler's Tools", "Weaver's Tools", "Leatherworker's Tools"],
+    metallurgo: ["Forgery Kit", "Tinker's Tools"],
+    architetto: ["Mason's Tools"],
+    artista: ["Cartographer's Supplies", "Calligrapher's Tools", "Painter's Supplies"],
+    artigiano: ["Jeweler's Tools", "Glassblower's Tools", "Potter's Tools"],
+    meccanico: ["Orologeria", "Trappole", "Protesi meccaniche", "Automi"]
+  };
+  const cards = MESTIERI.map((m, i) => {
+    const strumenti = strumentiPerMestiere[m.id] || [];
+    return `
     <button type="button" class="home-profession" onclick="setMestiere(${i})" aria-label="Apri il mestiere ${escapeHTML(m.nome)}">
       <span class="home-profession-icon" aria-hidden="true">${escapeHTML(m.emoji)}</span>
       <span class="home-profession-copy">
         <h3>${escapeHTML(m.nome)}</h3>
         <p>${escapeHTML(m.desc || m.tagline || 'Scopri ricette, materiali e lavorazioni di questo mestiere.')}</p>
+        <span class="home-profession-tools" aria-label="Strumenti associati">
+          ${strumenti.map(strumento => `<span class="tag">${escapeHTML(strumento)}</span>`).join('')}
+        </span>
       </span>
       <span class="home-card-arrow" aria-hidden="true">↗</span>
-    </button>`).join('');
+    </button>`;
+  }).join('');
 
   return `
   <div class="home-page">
