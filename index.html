@@ -3453,10 +3453,10 @@ const raggruppaSarto =
         </td>
       </tr>
       ${ricetteOrdinate.map(ricetta => `
-        <tr class="class-structure-detail"
+        <tr class="class-structure-detail recipe-row"
             data-class-structure-row
             hidden>
-          ${renderItemRow(ricetta).replace(/^<tr>|<\/tr>$/g, '')}
+          ${renderItemRow(ricetta).replace(/^<tr[^>]*>|<\/tr>$/g, '')}
         </tr>
       `).join('')}
     `;
