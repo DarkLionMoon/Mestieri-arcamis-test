@@ -1677,7 +1677,32 @@ header {
   .profession-intro-artigiano { --intro-accent: #d6a46a; }
   .profession-intro-meccanico { --intro-accent: #d08a62; }
   @media (max-width: 600px) {
-    .profession-intro .profession-intro-title {
+    .patente-badge {
+     display:inline-flex;
+     align-items:center;
+     margin-left:10px;
+     padding:4px 10px;
+     border:1px solid rgba(201,168,76,.48);
+     border-radius:999px;
+     background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(90,138,216,.08));
+     color:var(--gold2);
+     font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+     font-size:.58em;
+     font-weight:700;
+     line-height:1.4;
+     letter-spacing:.06em;
+     vertical-align:middle;
+     white-space:normal;
+   }
+   .lv-header .patente-badge { margin-left:auto; flex-shrink:0; }
+   .patent-rule-box { border-color:rgba(201,168,76,.4); }
+   @media(max-width:600px) {
+     .profession-intro-title .patente-badge { display:table; margin:9px 0 0; font-size:.55em; }
+     .lv-header .patente-badge { margin-left:0; }
+     .lv-header { flex-wrap:wrap; }
+   }
+
+   .profession-intro .profession-intro-title {
       gap: 8px;
       padding-bottom: 13px;
       margin-bottom: 12px;
@@ -3332,6 +3357,32 @@ function renderContent() {
   el.innerHTML = html;
 }
 
+const PATENTI_MESTIERI = {
+  alchimista: { sigla: 'P.A.S.V.', nome: 'Patente di Alchimia e Sostanze Vincolate' },
+  oste: { sigla: 'P.M.C.', nome: 'Patente di Manifattura Comune' },
+  sarto: { sigla: 'P.M.C.', nome: 'Patente di Manifattura Comune' },
+  falegname: { sigla: 'P.M.C.', nome: 'Patente di Manifattura Comune' },
+  artista: { sigla: 'P.M.C.', nome: 'Patente di Manifattura Comune' },
+  architetto: { sigla: 'P.M.T.', nome: 'Patente di Manifattura Tecnica' },
+  metallurgo: { sigla: 'P.M.T.', nome: 'Patente di Manifattura Tecnica' },
+  meccanico: { sigla: 'P.M.T.', nome: 'Patente di Manifattura Tecnica' },
+  artigiano: { sigla: 'P.M.T.', nome: 'Patente di Manifattura Tecnica' }
+};
+
+function renderPatenteBadge(m, livello = null) {
+  const patente = PATENTI_MESTIERI[m.id];
+  if (!patente) return '';
+  const testo = livello === null
+    ? `${patente.sigla} → P.O.E. dal livello 4`
+    : livello >= 4 ? 'P.O.E.' : patente.sigla;
+  const titolo = livello === null
+    ? `${patente.nome}; sostituita dalla Patente di Opere Eccezionali ai livelli 4 e 5`
+    : livello >= 4
+      ? 'Patente di Opere Eccezionali: sostituisce la patente ordinaria'
+      : patente.nome;
+  return `<span class="patente-badge" title="${titolo}">${testo}</span>`;
+}
+
 function renderIntro(m) {
   const LV_LABELS = ['LV1+','LV2+','LV3+','LV4+','LV5+'];
   return `
@@ -3344,10 +3395,14 @@ function renderIntro(m) {
     </div>
   </div>` : ''}
   <div class="intro-card profession-intro profession-intro-${m.id}">
-    <h2 class="profession-intro-title">${m.emoji} ${m.nome}${m.patente ? ` <span style="font-size:.6em;font-weight:400;background:rgba(90,138,216,.15);color:var(--uncommon);border:1px solid rgba(90,138,216,.3);padding:3px 10px;border-radius:12px;vertical-align:middle;letter-spacing:.08em">${m.patente}</span>` : ''}</h2>
+    <h2 class="profession-intro-title">${m.emoji} ${m.nome}${renderPatenteBadge(m)}</h2>
     <p class="tagline">${m.tagline}</p>
     <p style="color:var(--text2);font-size:.95rem;margin-bottom:12px">${m.desc}</p>
     <div class="rules-grid">
+      <div class="rule-box patent-rule-box">
+        <h4>📜 Patente professionale</h4>
+        <p>Ai livelli 1–3 si applica la patente ordinaria indicata accanto al mestiere. Dal livello 4, la <strong style="color:var(--gold)">P.O.E.</strong> la sostituisce e ne amplia le autorizzazioni; resta la patente di riferimento anche al livello 5.</p>
+      </div>
       <div class="rule-box">
         <h4>📈 Livello Personaggio → Mestiere</h4>
         <ul>
@@ -4003,6 +4058,7 @@ const raggruppaSarto =
     <div class="lv-badge">${lv.lv}</div>
     <div>
       <h3>${m.emoji} ${m.nome} — Livello ${lv.lv}</h3>
+      ${renderPatenteBadge(m, lv.lv)}
       <p>${items.length} oggetti craftabili</p>
     </div>
     ${m.id === 'architetto' && lv.lv === 1 ? '<button type="button" class="quantita-btn" style="margin-left:auto;align-self:center" onclick="apriPopupGuidaArchitetto()">🏠 Come comporre una casa</button>' : ''}
