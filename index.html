@@ -1685,6 +1685,75 @@ header {
     }
   }
 
+
+  
+  /* ── LEGGIBILITÀ TIPOGRAFICA ── */
+  :root {
+    --text2: #d3c09f;
+    --text3: #b5a080;
+  }
+  body {
+    font-family: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 16.5px;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+  }
+  header h1,
+  .intro-card h2,
+  .lv-header h3,
+  .guide-hero h2,
+  .home-hero h2,
+  .home-section-heading h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: .025em;
+    line-height: 1.15;
+  }
+  header h1 { font-size: clamp(2rem, 4.2vw, 3rem); }
+  header p { font-family: 'Source Sans 3', sans-serif; }
+  .search-wrap input,
+  .tab-btn,
+  .sidenav-title,
+  .sidenav-btn,
+  .rule-box h4,
+  thead th,
+  .badge,
+  .mat-section h3,
+  .guide-section h3,
+  .dt-table th,
+  .dt-table td:first-child,
+  .mobile-drawer-header h3 {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+  }
+  .search-wrap input { font-size: 1.05rem; }
+  .tab-btn { font-size: .88rem; letter-spacing: .035em; }
+  .sidenav-title { font-size: .75rem; }
+  .sidenav-btn { font-size: 1rem; line-height: 1.45; }
+  .intro-card { line-height: 1.7; }
+  .intro-card .tagline { line-height: 1.55; }
+  .rule-box p, .rule-box li,
+  .mat-card p,
+  .guide-card p,
+  .guide-card li,
+  .guide-hero p,
+  .guide-note,
+  .desc-text,
+  .recipe-row td[data-label="Descrizione"] {
+    line-height: 1.65;
+  }
+  table, .dt-table { font-size: .95rem; }
+  thead th, .dt-table th { font-size: .78rem; letter-spacing: .055em; }
+  tbody td, .dt-table td { line-height: 1.5; }
+  .mat-card .mat-prop { font-size: .86rem; line-height: 1.6; }
+  .desc-text { font-size: .92rem; }
+  a { font-size: .9rem; }
+  @media (max-width: 768px) {
+    body { font-size: 16px; }
+    header h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+    .content { line-height: 1.65; }
+    table, .dt-table { font-size: .92rem; }
+  }
+
 </style>
 </head>
 <body>
