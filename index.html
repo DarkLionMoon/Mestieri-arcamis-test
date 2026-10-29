@@ -636,9 +636,9 @@
   font-size: .82em;
 }
 
-/* Supera la specificità del display:grid applicato alle schede su mobile. */
-.table-wrap tbody tr.class-structure-detail[hidden],
-.table-wrap tbody tr[data-class-structure-row][hidden] {
+/* L'attributo HTML hidden deve prevalere su ogni display esplicito delle righe,
+   sia nel layout desktop (table-row) sia nelle schede responsive (grid). */
+.table-wrap tbody tr[hidden] {
   display: none !important;
 }
 
