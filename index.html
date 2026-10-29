@@ -278,6 +278,13 @@
   /* ── TABLE ── */
   .table-wrap { overflow-x: auto; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 7px; background: rgba(20,16,13,.28); }
   .table-wrap table { min-width: 1050px; }
+  /* Il Metallurgo ha nomi e descrizioni lunghi: impedisce alla tabella di
+     allargarsi oltre le altre e distribuisce lo spazio tra le colonne. */
+  .table-wrap table.metallurgo-table { width: 100%; table-layout: fixed; }
+  .table-wrap table.metallurgo-table th,
+  .table-wrap table.metallurgo-table td { overflow-wrap: anywhere; }
+  .table-wrap table.metallurgo-table td.cost-craft,
+  .table-wrap table.metallurgo-table td.cost-sell { overflow-wrap: normal; }
   .recipe-row { border-bottom: 1px solid rgba(160,135,101,.2); }
   .recipe-row:nth-child(even) { background: rgba(255,255,255,.018); }
   .recipe-row:hover { background: rgba(201,168,76,.065); }
@@ -4211,6 +4218,19 @@ const raggruppaSarto =
   const righe = righeGruppi +
     itemsSenzaGruppo.map(renderItemRow).join('');
 
+  // Colonne proporzionate solo per il Metallurgo, per evitare che le
+  // descrizioni e i nomi lunghi allarghino la tabella rispetto agli altri mestieri.
+  const pesiColonneMetallurgo = [
+    1.3, 0.45, 1, 1, 0.9, 1.8, 0.7, 0.7,
+    ...dtHeaders.map(() => 0.42),
+    0.55
+  ];
+  const totalePesiMetallurgo = pesiColonneMetallurgo.reduce((tot, peso) => tot + peso, 0);
+  const colonneMetallurgo = m.id === 'metallurgo'
+    ? `<colgroup>${pesiColonneMetallurgo.map(peso =>
+        `<col style="width:${(peso / totalePesiMetallurgo * 100).toFixed(3)}%">`
+      ).join('')}</colgroup>`
+    : '';
 
   return `
   <div class="lv-header">
@@ -4223,7 +4243,8 @@ const raggruppaSarto =
     ${m.id === 'architetto' && lv.lv === 1 ? '<button type="button" class="quantita-btn" style="margin-left:auto;align-self:center" onclick="apriPopupGuidaArchitetto()">🏠 Come comporre una casa</button>' : ''}
   </div>
   <div class="table-wrap">
-  <table>
+  <table class="${m.id === 'metallurgo' ? 'metallurgo-table' : ''}">
+    ${colonneMetallurgo}
     <thead><tr>
       <th>Nome</th>
       <th>Prog.</th>
