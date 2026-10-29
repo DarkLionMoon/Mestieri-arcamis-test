@@ -4456,7 +4456,7 @@ function scrollToHomeProfessions() {
   // Il titolo deve restare sotto header e navigazione sticky, su desktop e mobile.
   const headerHeight = document.querySelector('header')?.getBoundingClientRect().height || 0;
   const tabsHeight = document.getElementById('tabs')?.getBoundingClientRect().height || 0;
-  const top = window.scrollY + target.getBoundingClientRect().top - headerHeight - tabsHeight - 8;
+  const top = window.scrollY + target.getBoundingClientRect().top - headerHeight - tabsHeight + 12;
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
 }
 
