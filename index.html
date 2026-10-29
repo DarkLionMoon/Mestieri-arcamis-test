@@ -4253,7 +4253,18 @@ const raggruppaSarto =
     return !famiglia || !gruppi.has(famiglia.key);
   });
 
+  // La sezione "Altro" esiste solo quando ci sono menu a tendina
+  // e almeno un oggetto che non appartiene a nessuno di essi.
+  const intestazioneAltro = gruppi.size > 0 && itemsSenzaGruppo.length > 0
+    ? `<tr class="class-structures-toggle altro-section-label">
+        <td colspan="${colspan}">
+          <span class="class-structures-button">📦 Altro</span>
+        </td>
+      </tr>`
+    : '';
+
   const righe = righeGruppi +
+    intestazioneAltro +
     itemsSenzaGruppo.map(renderItemRow).join('');
 
   // Colonne proporzionate solo per il Metallurgo, per evitare che le
