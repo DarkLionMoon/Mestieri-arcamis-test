@@ -3077,7 +3077,10 @@ function renderGlobalSearch() {
 function renderHome() {
   const totalItems = MESTIERI.reduce((sum, m) => sum + m.livelli.reduce((lvSum, lv) => lvSum + lv.items.length, 0), 0);
   // Recupera le sezioni della vecchia homepage/guida senza duplicare la griglia dei mestieri, già presente sopra.
-  const guidaStorica = renderGuide().replace(/<div class="guide-section">\s*<h3>🏗️ I Mestieri Disponibili<\/h3>[\s\S]*?(?=<div class="guide-section">)/, '');
+  const guidaStorica = renderGuide()
+    .replace(/<div class="guide-hero">[\s\S]*?<\/div>\s*/, '')
+    .replace(/<div class="guide-section">\s*<h3>⏱️ Tabella Produzione Downtime<\/h3>[\s\S]*?(?=<div class="guide-section">)/, '')
+    .replace(/<div class="guide-section">\s*<h3>🏗️ I Mestieri Disponibili<\/h3>[\s\S]*?(?=<div class="guide-section">)/, '');
   const strumentiPerMestiere = {
     alchimista: ["Alchemist's Supplies", "Herbalism Kit", "Poisoner's Kit"],
     oste: ["Brewer's Supplies", "Cook's Utensils"],
