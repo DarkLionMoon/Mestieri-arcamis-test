@@ -2072,25 +2072,39 @@ header {
   }
 
 
-  /* Indicatore visivo: segnala che i pulsanti aprono un popup. */
-  .quantita-btn:not(.bonus-info-btn) {
+  /* Indicatore elegante solo sui pulsanti che aprono un popup.
+     I pulsanti che portano a un'altra ricetta (senza data-info) restano invariati. */
+  .quantita-btn[data-info] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 8px;
   }
-  .quantita-btn:not(.bonus-info-btn)::after {
+  .quantita-btn[data-info]::after {
     content: "⌄";
-    display: inline-block;
-    font-size: 1.05em;
-    line-height: .8;
-    opacity: .82;
-    transform: translateY(-1px);
-    transition: transform .18s ease, opacity .18s ease;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 17px;
+    width: 17px;
+    height: 17px;
+    border: 1px solid rgba(216,185,110,.42);
+    border-radius: 50%;
+    background: rgba(216,185,110,.10);
+    color: var(--gold3);
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.22);
+    transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
   }
-  .quantita-btn:not(.bonus-info-btn):hover::after {
-    opacity: 1;
-    transform: translateY(1px);
+  .quantita-btn[data-info]:hover::after {
+    transform: translateY(2px);
+    border-color: var(--gold2);
+    background: rgba(216,185,110,.18);
+    box-shadow: 0 0 9px rgba(216,185,110,.16);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .quantita-btn[data-info]::after { transition: none; }
   }
 
 </style>
