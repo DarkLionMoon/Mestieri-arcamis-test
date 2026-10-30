@@ -2071,6 +2071,28 @@ header {
     }
   }
 
+
+  /* Indicatore visivo: segnala che i pulsanti aprono un popup. */
+  .quantita-btn:not(.bonus-info-btn) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .quantita-btn:not(.bonus-info-btn)::after {
+    content: "⌄";
+    display: inline-block;
+    font-size: 1.05em;
+    line-height: .8;
+    opacity: .82;
+    transform: translateY(-1px);
+    transition: transform .18s ease, opacity .18s ease;
+  }
+  .quantita-btn:not(.bonus-info-btn):hover::after {
+    opacity: 1;
+    transform: translateY(1px);
+  }
+
 </style>
 </head>
 <body>
