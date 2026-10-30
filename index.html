@@ -624,6 +624,17 @@
     .table-wrap tbody tr.class-structure-detail td::before { content: attr(data-label); color: var(--text3); font-size: .62rem; line-height: 1.3; letter-spacing: .07em; text-transform: uppercase; font-weight: 700; }
     .table-wrap tbody tr.recipe-row td.recipe-name { grid-column: 1 / -1; background: var(--panel2); color: var(--gold2); font-size: .98rem; padding: 12px; }
     .table-wrap tbody tr.recipe-row td[data-label="Descrizione"] { grid-column: 1 / -1; line-height: 1.45; }
+    /* Nel Metallurgo tipologia e descrizione occupano righe separate:
+       i badge lunghi non devono invadere la colonna vicina. */
+    .table-wrap table.metallurgo-table tbody tr.recipe-row td[data-label="Tipologia"],
+    .table-wrap table.metallurgo-table tbody tr.recipe-row td[data-label="Descrizione"] {
+      grid-column: 1 / -1;
+    }
+    .table-wrap table.metallurgo-table tbody tr.recipe-row td[data-label="Tipologia"] .badge {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
     .table-wrap tbody tr.recipe-row td[data-label="Riferimenti"] { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; }
     .table-wrap tbody tr.recipe-row td.dt-cell { display: flex; flex-direction: row; align-items: baseline; justify-content: space-between; }
     .table-wrap tbody tr.recipe-row td.dt-cell::before { content: attr(data-label); }
