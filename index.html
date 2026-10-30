@@ -285,6 +285,14 @@
   .table-wrap table.metallurgo-table td { overflow-wrap: anywhere; }
   .table-wrap table.metallurgo-table td.cost-craft,
   .table-wrap table.metallurgo-table td.cost-sell { overflow-wrap: normal; }
+  /* Le tipologie lunghe devono restare dentro la propria colonna:
+     senza wrapping invadono la descrizione nelle tabelle desktop. */
+  .table-wrap table.metallurgo-table td[data-label="Tipologia"] .badge {
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
   .recipe-row { border-bottom: 1px solid rgba(160,135,101,.2); }
   .recipe-row:nth-child(even) { background: rgba(255,255,255,.018); }
   .recipe-row:hover { background: rgba(201,168,76,.065); }
@@ -2092,7 +2100,7 @@ header {
     gap: 8px;
   }
   .quantita-btn[data-info]::after {
-    content: "⌄";
+    content: "?";
     display: inline-grid;
     place-items: center;
     flex: 0 0 17px;
