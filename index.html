@@ -4155,22 +4155,14 @@ const raggruppaSarto =
       .join('');
 
     return `<tr class="recipe-row">
-      <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}${m.id === 'architetto' && it.n === 'Laboratorio Alchemico Integrato'
-        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Informazioni sui bonus del Laboratorio Alchemico Integrato" title="Informazioni sui bonus" data-item="Bonus dell’Impresa" data-info="${encodeURIComponent('<div><strong>Bonus non cumulabili</strong><p style="margin:8px 0 0">Il bonus del Laboratorio Alchemico Integrato non è cumulabile con i bonus concessi dall’Impresa. Si applica esclusivamente il bonus più vantaggioso.</p></div>')}" onclick="apriPopupQuantita(this)">i</button>`
-        : ''}${m.id === 'architetto' && it.n === 'Altare del Devoto'
-        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Apri la meditazione dell’Altare del Devoto" title="Meditazione" data-item="Meditazione" data-info="${encodeURIComponent('<p style="margin:0">1/LR: (d20+prof vs 20-LvPaladino). Successo: Fino al prossimo Long Rest, ottieni+1 al TPC ed ai Danni, + 1d4 ai check su Carisma in aura</p>')}" onclick="apriPopupQuantita(this)">i</button>`
-        : ''}${m.id === 'architetto' && it.n === 'Antro del Patrono'
-        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Apri la comunione dell’Antro del Patrono" title="Comunione" data-item="Comunione" data-info="${encodeURIComponent('<p style="margin:0">1/LR: (d20+prof vs 20-LvWarlock). Successo: Fino al prossimo Long Rest, ottieni+1d4 extra ad un'abilità con competenza e +1 al TPC ed ai Danni su Incantesimi</p>')}" onclick="apriPopupQuantita(this)">i</button>`
-        : ''}${m.id === 'architetto' && it.n === 'Campo di Addestramento'
-        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Apri l’addestramento del Campo di Addestramento" title="Addestramento" data-item="Addestramento" data-info="${encodeURIComponent('<p style="margin:0">1/RL: (d20+prof vs 20-LvClasse). Successo: Fino al prossimo Long Rest, ottieni + 1d4 ai tiri contro la condizione Spaventato, +1 al TPC ed ai Danni su Attacchi ed Abilità di classe</p>')}" onclick="apriPopupQuantita(this)">i</button>`
-        : ''}</td>
+      <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}</td>
       <td data-label="Progressione">${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
       <td data-label="Materiale principale">${materialePrincipaleHTML(m, it)}</td>
       <td data-label="Materiale secondario">${escapeHTML(it.ms || '—')}</td>
       <td data-label="Tipologia">${tipBadge(it.tip)}</td>
-      <td data-label="Descrizione"><span class="desc-text">${escapeHTML(it.desc || '—')}</span></td>
+      <td data-label="Descrizione"><span class="desc-text">${escapeHTML(it.desc || '—')}</span><div class="recipe-info-actions" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:7px">${descButtons}</div></td>
       <td class="cost cost-craft" data-label="Costo materiali" style="text-align:right">${fmtMO(it.costo)}</td>
       <td class="cost cost-sell" data-label="Costo finale" style="text-align:right">${fmtMO(it.vend)}</td>
       ${dtCells}
