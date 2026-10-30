@@ -1928,6 +1928,12 @@ header {
     line-height: 1.35;
   }
   .quantita-btn:hover { background: #353027; box-shadow: 0 0 0 1px rgba(200,160,80,.08); }
+  .bonus-info-btn {
+    display: inline-grid; place-items: center; vertical-align: middle;
+    width: 20px; min-width: 20px; min-height: 20px; height: 20px;
+    margin-left: 7px; padding: 0; border-radius: 50%;
+    font: 700 .76rem/1 Georgia, serif;
+  }
   @media (max-width: 520px) {
     .quantita-overlay { align-items: flex-end; padding: 8px; }
     .quantita-dialog {
@@ -2324,22 +2330,15 @@ const MESTIERI = [
         {n:'Camera Doppia', mp:'Camera da Letto', ms:'70 MO Pietra', tip:'Abitazione', desc:'Ampliamento della Camera da Letto con due posti letto; permette a due persone di beneficiare di un riposo lungo.', costo:70, vend:140, dt:[3,1,1,1]},
         {n:'Deposito', mp:'Magazzino', ms:'240 MO Pietra', tip:'Struttura Generale', desc:'Ampliamento del Magazzino: può contenere materiali fino a 1.500 MO di valore.', costo:240, vend:480, dt:[6,2,2,2]},
         {n:'Forgia Noxiana', mp:'175 MO Ghisa Noxiana', ms:'75 MO Cemento', tip:'Officina', desc:'Ripara armature/armi durante riposo breve. 1/giorno: conferisce "Distruttrice" (+2 danni vs oggetti) per 24h.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Altare del Devoto', mp:'175 MO Pietra Bianca di Demacia', ms:'75 MO Essenza Celestiale', tip:'Struttura Classe — Paladino', desc:'1/Riposo Lungo: meditazione (d20+prof vs 20-LvPaladino). Successo: +1 attacchi, d4 Carisma in aura fino al prossimo RL.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:"Antro del Cacciatore", mp:'175 MO Legno di Quercia di Ixtal', ms:'75 MO Cuoio di Mostro del Vuoto', tip:'Struttura Classe — Ranger', desc:'1/RL: connessione natura (d20+prof vs 20-LvRanger). Successo: vantaggio sopravvivenza 500m, +1 attacchi e incantesimi.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Campo di Addestramento', mp:'175 MO Acciaio di Noxus', ms:'75 MO Cuoio Rinforzato di Freljord', tip:'Struttura Classe — Guerriero/Barbaro', desc:'1/RL: allenamento (d20+prof vs 20-LvClasse). Successo: d4 vs Spaventato, +1 attacchi e abilità di classe.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Circolo Naturale', mp:'175 MO Pietra Magica di Ionia (Weaveglass)', ms:'75 MO Terriccio dei Giardini di Ixtal', tip:'Struttura Classe — Druido', desc:'1/RL: sintonizzazione (d20+prof vs 20-LvDruido). Successo: parla con animali, conosce creature entro 500m, +1 incantesimi.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Covo Arcano', mp:'175 MO Cristalli a conduzione magica', ms:'75 MO Pergamene e Inchiostri rari', tip:'Struttura Classe — Mago', desc:'1/RL: studio (d20+prof vs 20-LvMago). Successo: d4 extra Intelligenza(Arcano), +1 incantesimi e TS.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Crogiolo di Trama', mp:'175 MO Frammenti di Hextech instabile', ms:'75 MO Polvere di Stelle di Targon', tip:'Struttura Classe — Stregone', desc:'1/RL: riconnessione (d20+prof vs 20-LvStregone). Successo: vede la trama, d4 a un\'abilità, +1 incantesimi.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Sala della Musica', mp:'175 MO Legno armonico di Ionia', ms:'75 MO Seta di Shurima (acustica)', tip:'Struttura Classe — Bardo', desc:'1/RL: pratica (d20+prof vs 20-LvBardo). Successo: rilancia 1 o 2 su Ispirazione Bardica, +1 incantesimi.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Santuario Consacrato', mp:'175 MO Marmo Benedetto', ms:'75 MO Acqua Santa o Reliquie', tip:'Struttura Classe — Chierico', desc:'1/RL: preghiera (d20+prof vs 20-LvChierico). Successo: nessun non morto nel raggio 500m, +1 incantesimi.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Santuario dello Spirito', mp:'175 MO Legno di Bambù delle Prime Terre', ms:'75 MO Incensi di meditazione di Ionia', tip:'Struttura Classe — Monaco', desc:'1/RL: meditazione (d20+prof vs 20-LvMonaco). Successo: d4 extra Percezione e Acrobazia, +1 attacchi.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Stanza degli Esperimenti', mp:'175 MO Componenti Meccanici Piltoveriani', ms:'75 MO Reagenti chimici di Zaun', tip:'Struttura Classe — Artefice', desc:'1/RL: armeggio (d20+prof vs 20-LvArtefice). Successo: d4 extra a strumenti con competenza, +1 incantesimi.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Covo del Fuorilegge', mp:'175 MO Metallo di recupero di Zaun', ms:'75 MO Meccanismi a scatto di Piltover', tip:'Struttura Classe — Ladro', desc:'1/RL: pianificazione (d20+prof vs 20-LvLadro). Successo: d4 extra iniziativa e scasso, +1 attacchi e danni.', costo:250, vend:500, dt:[7,3,1,1]},
-        {n:'Antro del Patrono', mp:'175 MO Ossidiana delle Isole Ombra', ms:'75 MO Sangue di Demone o Icore', tip:'Struttura Classe — Warlock', desc:'1/RL: comunione (d20+prof vs 20-LvWarlock). Successo: d4 extra a un\'abilità con competenza, +1 incantesimi.', costo:250, vend:500, dt:[7,3,1,1]},
-      
-        {n:'Antro del Cacciatore',mp:'175 MO Legno di Quercia di Ixtal',ms:'75 MO Cuoio di Mostro del Vuoto',tip:'-',desc:'Una volta per riposo lungo un Ranger può connettersi con la natura circostante scoprendone i segreti. Quando lo fa può tirare un d20 più il suo bonus competenza contro una Classe difficoltà di 20 - il suo livello da Ranger. In caso di successo fino alla fine del prossimo riposo lungo ha vantaggio alle prove di sopravvivenza nel raggio di 500 m dall’Antro e sa se sono presenti creature al di fuori di bestie GS 1. Fino alla fine del prossimo riposo lungo ottiene +1 ai tiri per colpire con le armi in cui ha Maestria e ottiene un +1 ai tiri per colpire e tiri salvezza dei suoi incantesimi da Ramger.',costo:250,vend:500,dt:[7,3,1,1]},
-        {n:'Stanza degli esperimenti',mp:'175 MO Componenti Meccanici Piltoveriani',ms:'75 MO Reagenti chimici di Zaun',tip:'-',desc:'Una volta per riposo lungo un Artefice può mettersi ad armeggiare on i suoi strumenti in questo luogo. Quando lo fa può tirare un d20 più il suo bonus competenza contro una Classe difficoltà di 20 - il suo livello da Artefice. In caso di successo fino al prossimo riposo lungo ottiene d4 extra al tiro con gli strumenti di cui dispone competenza e un +1 ai tiri per colpire e tiri salvezza dei suoi incantesimi da Artefice.',costo:250,vend:500,dt:[7,3,1,1]},
-        {n:'Covo del fuorilegge',mp:'175 MO Metallo di recupero di Zaun',ms:'75 MO Meccanismi a scatto di Piltover',tip:'-',desc:'Una volta per riposo lungo un Ladro può rintanarsi nel suo covo prima di un colpo. Quando lo fa può tirare un d20 più il suo bonus competenza contro una Classe difficoltà di 20 - il suo livello da Ladro. In caso di successo il ladro ottiene un d4 extra nel tiro di iniziativa e nelle prove con gli strumenti da scasso fino al prossimo riposo lungo. Inoltre ottiene un +1 ai tiri per colpire e ai danni.',costo:250,vend:500,dt:[7,3,1,1]},
+        {n:'Altare del Devoto', mp:'175 MO Pietra Bianca di Demacia', ms:'75 MO Essenza Celestiale', tip:'Struttura Classe — Paladino', desc:'', costo:250, vend:500, dt:[7,3,1,1]},
+        {n:"Antro del Cacciatore", mp:'175 MO Legno di Quercia di Ixtal', ms:'75 MO Cuoio di Mostro del Vuoto', tip:'Struttura Classe — Ranger', desc:'', costo:250, vend:500, dt:[7,3,1,1]},
+        {n:'Campo di Addestramento', mp:'175 MO Acciaio di Noxus', ms:'75 MO Cuoio Rinforzato di Freljord', tip:'Struttura Classe — Guerriero/Barbaro', desc:'', costo:250, vend:500, dt:[7,3,1,1]},
+        {n:'Circolo Naturale', mp:'175 MO Pietra Magica di Ionia (Weaveglass)', ms:'75 MO Terriccio dei Giardini di Ixtal', tip:'Struttura Classe — Druido', desc:'', costo:250, vend:500, dt:[7,3,1,1]},
+        {n:'Covo Arcano', mp:'175 MO Cristalli a conduzione magica', ms:'75 MO Pergamene e Inchiostri rari', tip:'Struttura Classe — Mago', desc:'', costo:250, vend:500, dt:[7,3,1,1]},
+        {n:'Crogiolo di Trama', mp:'175 MO Frammenti di Hextech instabile', ms:'75 MO Polvere di Stelle di Targon', tip:'Struttura Classe — Stregone', desc:'', costo:250, vend:500, dt:[7,3,1,1]},
+        {n:'Sala della Musica', mp:'175 MO Legno armonico di Ionia', ms:'75 MO Seta di Shurima (acustica)', tip:'Struttura Classe — Bardo', desc:'',costo:250,vend:500,dt:[7,3,1,1]},
+        {n:'Stanza degli Esperimenti', mp:'175 MO Componenti Meccanici Piltoveriani', ms:'75 MO Reagenti chimici di Zaun', tip:'Struttura Classe — Artefice', desc:'', costo:250, vend:500, dt:[7,3,1,1]},
+        {n:'Covo del Fuorilegge', mp:'175 MO Metallo di recupero di Zaun', ms:'75 MO Meccanismi a scatto di Piltover', tip:'Struttura Classe — Ladro', desc:'', costo:250, vend:500, dt:[7,3,1,1]},
 
       ]},
       { lv:3, items:[
@@ -2355,7 +2354,7 @@ const MESTIERI = [
       { lv:4, items:[
         {n:'Fortezza Personale', prog:true, mp:'2000 MO Pietra di Demacia', ms:'1000 MO Ferro Incantato', tip:'Struttura Difensiva', desc:'CA 22, 300 PF. Genera campo Guardia Magica (come Alarm) entro 60m.', costo:3000, vend:6000, dt:[12,4]},
         {n:'Portale Interplanar', prog:true, mp:'2500 MO Nexus Crystal', ms:'500 MO Polvere del Vuoto', tip:'Struttura Arcana', desc:'Portale permanente verso un piano di esistenza. 3 usi al giorno.', costo:3000, vend:6000, dt:[15,4]},
-        {n:'Cantiere Navale', prog:true, mp:'1500 MO Quercia di Ixtal', ms:'1000 MO Ferro Marino', tip:'Struttura Generale', desc:'-50% DT per costruire/riparare veicoli acquatici LV1-3.', costo:2500, vend:5000, dt:[10,3]},
+        {n:'Cantiere Navale', prog:true, mp:'1500 MO Quercia di Ixtal', ms:'1000 MO Ferro Marino', tip:'Struttura Generale', desc:'-25% DT per costruire/riparare veicoli acquatici LV1-3.', costo:2500, vend:5000, dt:[10,3]},
         {n:'Sala del Trono Arcana', prog:true, mp:'2000 MO Marmo di Demacia', ms:'1000 MO Pietra Magica di Ionia', tip:'Struttura di Prestigio', desc:'Vantaggio a Persuasione, Intimidire e Inganno nella sala. +2 CA passiva al proprietario.', costo:3000, vend:6000, dt:[12,4]},
 
       ]},
@@ -3288,25 +3287,25 @@ function infoResa(it) {
   }).join('');
 
   return '<div style="font-size:.88rem;line-height:1.55;color:var(--text2)">' +
-    '<div><strong>Resa:</strong> ' + escapeHTML(formato) + ' · ' + fmtLitri(litri) + ' L totali</div>' +
+    '<div><strong>Produzione complessiva:</strong> ' + escapeHTML(formato) + ' · ' + fmtLitri(litri) + ' L totali</div>' +
     (nome.includes('fiamma di pyrax')
       ? '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface2, transparent)">' +
           '<div style="font-size:.82rem">Prezzo di vendita del contenitore</div>' +
           intestazionePrezzo +
         '</div>'
       : '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px">' +
-          '<div style="font-size:.82rem">Opzione alternativa: vendi l’intera produzione · lotto completo</div>' +
+          '<div style="font-size:.82rem">Vendita del lotto completo · puoi vendere l’intera produzione in un’unica soluzione</div>' +
           intestazionePrezzo +
-          '<div style="font-size:.82rem">Include anche eventuali residui non sufficienti a riempire un altro contenitore.</div>' +
+          '<div style="font-size:.82rem">Il prezzo comprende anche il prodotto residuo, anche quando non è sufficiente a riempire un ulteriore contenitore.</div>' +
         '</div>') +
-    '<div style="font-weight:700;color:var(--text);margin:10px 0 2px">Formati disponibili</div>' +
+    '<div style="font-weight:700;color:var(--text);margin:10px 0 2px">Contenitori ricavabili</div>' +
     (righeUnita || (nome.includes('fiamma di pyrax') ? '<div>Formato non disponibile.</div>' : '<div>Nessuna unità standard completa disponibile; puoi vendere l’intera produzione.</div>')) +
     '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border)">' +
-      '<div><strong>Costo materiale totale:</strong> ' + fmtMO(costoTotale) + '</div>' +
-      '<div><strong>Costo materiale:</strong> ' + fmtMO(costoPerLitro) + '/L</div>' +
-      (nome.includes('fiamma di pyrax') ? '' : '<div><strong>Prezzo massimo proporzionale:</strong> ' + fmtMO(venditaPerLitro) + '/L</div>') +
+      '<div><strong>Costo totale dei materiali:</strong> ' + fmtMO(costoTotale) + '</div>' +
+      '<div><strong>Costo dei materiali per litro:</strong> ' + fmtMO(costoPerLitro) + '/L</div>' +
+      (nome.includes('fiamma di pyrax') ? '' : '<div><strong>Prezzo massimo di vendita per litro:</strong> ' + fmtMO(venditaPerLitro) + '/L</div>') +
     '</div>' +
-    (isBirra ? '<div style="margin-top:8px"><strong>Riferimento Gilda:</strong> Una normale birra, costa 3 SP per un boccale da 0,5 L.</div>' : '') +
+    (isBirra ? '<div style="margin-top:8px"><strong>Riferimento di mercato:</strong> una birra comune ha un prezzo di 3 SP per un boccale da 0,5 L.</div>' : '') +
   '</div>';
 }
 
@@ -3320,10 +3319,10 @@ function apriPopupGuidaArchitetto() {
 
   titolo.textContent = '🏠 Come comporre una casa';
   info.innerHTML = `
-    <p style="margin-top:0">Le ricette di Livello 1 sono singoli elementi edilizi. Puoi combinarli per creare una proprietà completa.</p>
+    <p style="margin-top:0">Le ricette di <strong>Livello 1</strong> rappresentano singoli elementi edilizi. Combinandoli, puoi realizzare una proprietà completa e ampliarla con ulteriori strutture.</p>
     <div style="padding:12px;margin:10px 0;border:1px solid var(--border);border-radius:10px">
       <strong style="color:var(--gold)">Casa base — elementi obbligatori</strong>
-      <p style="margin:8px 0">Una casa richiede tutti e tre questi ambienti:</p>
+      <p style="margin:8px 0">Per essere considerata una casa completa, la proprietà deve comprendere tutti e tre i seguenti ambienti:</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Bagno')">🛁 Bagno ↗</button>
         <button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Salotto')">🛋️ Salotto ↗</button>
@@ -3331,17 +3330,17 @@ function apriPopupGuidaArchitetto() {
       </div>
     </div>
     <div style="padding:12px;margin:10px 0;border:1px solid var(--border);border-radius:10px">
-      <strong style="color:var(--gold)">Esempi di ampliamento</strong>
+      <strong style="color:var(--gold)">Strutture aggiuntive</strong>
       <ul style="margin:8px 0;padding-left:20px">
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Scantinato')">Scantinato ↗</button> — conserva le cibarie.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Cucina')">Cucina ↗</button> — permette di cucinare alimenti.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Orto')">Orto ↗</button> — produce erbe nel tempo.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Magazzino')">Magazzino ↗</button> — offre spazio per i materiali.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Recinzione')">Recinzione ↗</button> — delimita il perimetro.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Stalla')">Stalla ↗</button> — ospita animali di taglia grande.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Scantinato')">Scantinato ↗</button> — offre uno spazio per conservare le provviste.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Cucina')">Cucina ↗</button> — consente di preparare alimenti.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Orto')">Orto ↗</button> — permette di coltivare e raccogliere erbe nel tempo.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Magazzino')">Magazzino ↗</button> — mette a disposizione spazio aggiuntivo per riporre i materiali.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Recinzione')">Recinzione ↗</button> — delimita e protegge il perimetro della proprietà.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Stalla')">Stalla ↗</button> — offre riparo agli animali di taglia Grande.</li>
       </ul>
     </div>
-    <p style="font-size:.82rem;color:var(--text2);margin-bottom:0">I collegamenti aprono direttamente la ricetta corrispondente nella tabella dell'Architetto.</p>
+    <p style="font-size:.82rem;color:var(--text2);margin-bottom:0">Seleziona una struttura per consultare la relativa ricetta nella sezione dedicata all'Architetto.</p>
   `;
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
@@ -4133,6 +4132,50 @@ const raggruppaSarto =
     return ACRONIMI_FONTI_REF[codice] || codice.toUpperCase();
   };
 
+  const renderPopupStrutturaClasse = (it, m) => {
+    if (m.id !== 'architetto') return '';
+    const popup = {
+      'circolo naturale': {
+        titolo: 'Sintonizzazione',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il druido può sintonizzarsi con le energie naturali del Circolo.</p><p>Al termine della sintonizzazione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da druido</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il druido ottiene i seguenti benefici:</p><ul><li>Può parlare con gli animali e conoscere le creature presenti entro 500 m;</li><li>Ottiene un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi.</li></ul>`
+      },
+      'covo arcano': {
+        titolo: 'Studio',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il mago può dedicarsi allo studio delle arti arcane nel proprio covo.</p><p>Al termine dello studio, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da mago</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il mago ottiene i seguenti benefici:</p><ul><li>Un bonus di 1d4 alle prove di Intelligenza (Arcano);</li><li>Un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi;</li><li>Un bonus di +1 ai tiri salvezza.</li></ul>`
+      },
+      'crogiolo di trama': {
+        titolo: 'Riconnessione',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, lo stregone può riconnettersi alla Trama attraverso il Crogiolo.</p><p>Al termine della riconnessione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da stregone</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, lo stregone ottiene i seguenti benefici:</p><ul><li>Riesce a percepire la Trama;</li><li>Ottiene un bonus di 1d4 a una prova di caratteristica;</li><li>Ottiene un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi.</li></ul>`
+      },
+      'santuario consacrato': {
+        titolo: 'Preghiera',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il chierico può raccogliersi in preghiera presso il Santuario Consacrato.</p><p>Al termine della preghiera, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da chierico</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il chierico ottiene i seguenti benefici:</p><ul><li>Viene a conoscenza della presenza di eventuali creature non morte entro 500 m dal santuario;</li><li>Ottiene un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi.</li></ul>`
+      },
+      'santuario dello spirito': {
+        titolo: 'Meditazione monastica',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il monaco può dedicarsi alla meditazione presso il Santuario dello Spirito.</p><p>Al termine della meditazione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da monaco</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il monaco ottiene i seguenti benefici:</p><ul><li>Un bonus di 1d4 alle prove di Saggezza (Percezione) e Destrezza (Acrobazia);</li><li>Un bonus di +1 ai tiri per colpire.</li></ul>`
+      },
+      'antro del cacciatore': {
+        titolo: 'Sintonia selvaggia',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il ranger può entrare in sintonia con la natura circostante presso l’Antro del Cacciatore.</p><p>Al termine della sintonia, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da ranger</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il ranger ottiene i seguenti benefici:</p><ul><li>Vantaggio alle prove di Saggezza (Sopravvivenza) entro 500 m dall’antro;</li><li>Può percepire la presenza, entro la stessa area, di creature diverse dalle bestie con grado di sfida 1;</li><li>Ottiene un bonus di +1 ai tiri per colpire con le armi in cui possiede Maestria;</li><li>Ottiene un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi da ranger.</li></ul>`
+      },
+      'covo del fuorilegge': {
+        titolo: 'Pianificazione',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il ladro può ritirarsi nel proprio covo per preparare il prossimo colpo.</p><p>Al termine della pianificazione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da ladro</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il ladro ottiene i seguenti benefici:</p><ul><li>Un bonus di 1d4 ai tiri di iniziativa;</li><li>Un bonus di 1d4 alle prove effettuate con gli strumenti da scasso;</li><li>Un bonus di +1 ai tiri per colpire e ai tiri per i danni.</li></ul>`
+      },
+      'stanza degli esperimenti': {
+        titolo: 'Armeggio',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, l’artefice può dedicarsi ad armeggiare con i propri strumenti nella Stanza degli Esperimenti.</p><p>Al termine dell’attività, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da artefice</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, l’artefice ottiene i seguenti benefici:</p><ul><li>Un bonus di 1d4 alle prove effettuate con gli strumenti con cui possiede competenza;</li><li>Un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi da artefice.</li></ul>`
+      },
+      'sala della musica': {
+        titolo: 'Pratica',
+        html: `<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il bardo può esercitarsi presso la Sala della Musica, affinando la propria arte e il controllo sull’Ispirazione Bardica.</p><p>Al termine della pratica, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da bardo</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il bardo ottiene i seguenti benefici:</p><ul><li>Può ritirare il dado di Ispirazione Bardica ogni volta che ottiene 1 o 2;</li><li>Ottiene un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi.</li></ul>`
+      }
+    }[it.n.toLowerCase()];
+    if (!popup) return '';
+    return `<button type="button" class="quantita-btn" aria-label="Apri ${popup.titolo} — ${it.n}" title="${popup.titolo}" data-item="${popup.titolo}" data-info="${encodeURIComponent(popup.html)}" onclick="apriPopupQuantita(this)">${popup.titolo}</button>`;
+  };
+
   const renderItemRow = it => {
     const tempi = it.dt || [];
     const urlSicuro = safeExternalUrl(it.url);
@@ -4156,7 +4199,15 @@ const raggruppaSarto =
       <td data-label="Materiale principale">${materialePrincipaleHTML(m, it)}</td>
       <td data-label="Materiale secondario">${escapeHTML(it.ms || '—')}</td>
       <td data-label="Tipologia">${tipBadge(it.tip)}</td>
-      <td data-label="Descrizione"><span class="desc-text">${escapeHTML(it.desc || '—')}</span></td>
+      <td data-label="Descrizione"><span class="desc-text">${escapeHTML(it.desc || (m.id === 'architetto' && ['Altare del Devoto', 'Antro del Patrono', 'Campo di Addestramento', 'Circolo Naturale', 'Covo Arcano', 'Crogiolo di Trama', 'Santuario Consacrato', 'Santuario dello Spirito', 'Antro del Cacciatore', 'Covo del Fuorilegge', 'Covo del fuorilegge', 'Stanza degli Esperimenti', 'Stanza degli esperimenti', 'Sala della Musica'].includes(it.n) ? '' : '—'))}</span><div class="recipe-info-actions" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:7px">${m.id === 'architetto' && it.n === 'Laboratorio Alchemico Integrato'
+        ? `<button type="button" class="quantita-btn" aria-label="Informazioni sui bonus del Laboratorio Alchemico Integrato" title="Bonus Impresa" data-item="Bonus dell’Impresa" data-info="${encodeURIComponent('<div><strong>Regola di cumulo</strong><p>Il bonus conferito dal Laboratorio Alchemico Integrato non si cumula con i bonus concessi dall\'Impresa. Quando entrambi si applicano alla stessa attività, si considera esclusivamente il bonus più vantaggioso.</p></div>')}" onclick="apriPopupQuantita(this)">Bonus Impresa</button>`
+        : ''}${m.id === 'architetto' && it.n === 'Altare del Devoto'
+        ? `<button type="button" class="quantita-btn" aria-label="Apri la meditazione dell’Altare del Devoto" title="Meditazione" data-item="Meditazione" data-info="${encodeURIComponent('<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il paladino può raccogliersi in meditazione presso l\'altare.</p><p>Al termine della meditazione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da paladino</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il paladino ottiene i seguenti benefici:</p><ul><li>Un bonus di +1 ai tiri per colpire;</li><li>Un bonus di +1 ai tiri per i danni;</li><li>Un bonus di 1d4 alle prove di Carisma effettuate entro la propria aura.</li></ul>')}" onclick="apriPopupQuantita(this)">Meditazione</button>`
+        : ''}${m.id === 'architetto' && it.n === 'Antro del Patrono'
+        ? `<button type="button" class="quantita-btn" aria-label="Apri la comunione dell’Antro del Patrono" title="Comunione" data-item="Comunione" data-info="${encodeURIComponent('<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il warlock può invocare il proprio patrono nell\'antro.</p><p>Al termine della comunione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da warlock</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il warlock ottiene i seguenti benefici:</p><ul><li>Un bonus di 1d4 a una prova di caratteristica effettuata con un\'abilità in cui è competente;</li><li>Un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi.</li></ul>')}" onclick="apriPopupQuantita(this)">Comunione</button>`
+        : ''}${m.id === 'architetto' && it.n === 'Campo di Addestramento'
+        ? `<button type="button" class="quantita-btn" aria-label="Apri l’addestramento del Campo di Addestramento" title="Addestramento" data-item="Addestramento" data-info="${encodeURIComponent('<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il personaggio può dedicarsi a una sessione di addestramento presso il campo.</p><p>Al termine dell\'addestramento, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello di classe</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il personaggio ottiene i seguenti benefici:</p><ul><li>Un bonus di 1d4 ai tiri effettuati per resistere alla condizione Spaventato;</li><li>Un bonus di +1 ai tiri per colpire;</li><li>Un bonus di +1 ai tiri per i danni degli attacchi e delle capacità di classe che infliggono danni.</li></ul>')}" onclick="apriPopupQuantita(this)">Addestramento</button>`
+        : ''}${renderPopupStrutturaClasse(it, m)}</td>
       <td class="cost cost-craft" data-label="Costo materiali" style="text-align:right">${fmtMO(it.costo)}</td>
       <td class="cost cost-sell" data-label="Costo finale" style="text-align:right">${fmtMO(it.vend)}</td>
       ${dtCells}
