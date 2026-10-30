@@ -1893,7 +1893,8 @@ header {
     background: rgba(200,160,80,.09);
   }
   .quantita-close:focus-visible,
-  .quantita-btn:focus-visible {
+  .quantita-btn:focus-visible,
+  .bonus-info-btn:focus-visible {
     outline: 2px solid var(--gold2);
     outline-offset: 3px;
   }
@@ -1913,6 +1914,16 @@ header {
     line-height: 1.35;
   }
   .quantita-btn:hover { background: #353027; box-shadow: 0 0 0 1px rgba(200,160,80,.08); }
+  .recipe-name-wrap { display: inline-flex; align-items: center; gap: 7px; }
+  .bonus-info-btn {
+    display: inline-grid; place-items: center; flex: 0 0 19px;
+    width: 19px; height: 19px; padding: 0;
+    border: 1px solid var(--border2); border-radius: 50%;
+    background: rgba(200,160,80,.08); color: var(--gold2);
+    font: 700 .72rem/1 Georgia, serif; cursor: pointer;
+    vertical-align: middle; transition: background .15s, border-color .15s, color .15s;
+  }
+  .bonus-info-btn:hover { background: rgba(200,160,80,.2); border-color: var(--gold); color: var(--gold3); }
   @media (max-width: 520px) {
     .quantita-overlay { align-items: flex-end; padding: 8px; }
     .quantita-dialog {
@@ -3296,6 +3307,21 @@ function infoResa(it) {
 
 
 
+function apriPopupBonusImpresa(button) {
+  const overlay = document.getElementById('quantitaOverlay');
+  const closeButton = overlay?.querySelector('.quantita-close');
+  const titolo = document.getElementById('quantitaTitolo');
+  const info = document.getElementById('quantitaInfo');
+  if (!overlay || !titolo || !info) return;
+
+  quantitaTrigger = button instanceof HTMLElement ? button : document.activeElement;
+  titolo.textContent = '⚖️ Bonus dell’Impresa';
+  info.innerHTML = '<div><strong>Bonus non cumulabili</strong><p style="margin:8px 0 0">Il bonus del Laboratorio Alchemico Integrato non è cumulabile con i bonus concessi dall’Impresa. Si applica esclusivamente il bonus più vantaggioso.</p></div>';
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  closeButton?.focus();
+}
+
 function apriPopupGuidaArchitetto() {
   const overlay = document.getElementById('quantitaOverlay');
   const titolo = document.getElementById('quantitaTitolo');
@@ -3414,7 +3440,7 @@ function chiudiPopupQuantita(event) {
   const trigger = quantitaTrigger;
   quantitaTrigger = null;
   requestAnimationFrame(() => {
-    const candidates = [...document.querySelectorAll('.quantita-btn')];
+    const candidates = [...document.querySelectorAll('.quantita-btn, .bonus-info-btn')];
     const target = trigger instanceof HTMLElement && trigger.isConnected
       ? trigger
       : candidates.find(el => el.dataset.item === trigger?.dataset?.item);
@@ -4096,7 +4122,9 @@ const raggruppaSarto =
       .join('');
 
     return `<tr class="recipe-row">
-      <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}</td>
+      <td class="recipe-name" data-label="Nome">${it.n === 'Laboratorio Alchemico Integrato' && m.id === 'architetto'
+        ? '<span class="recipe-name-wrap">' + escapeHTML(it.n) + '<button type="button" class="bonus-info-btn" aria-label="Informazioni sui bonus del Laboratorio Alchemico Integrato" title="Informazioni sui bonus" onclick="apriPopupBonusImpresa(this)">i</button></span>'
+        : escapeHTML(it.n)}</td>
       <td data-label="Progressione">${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
