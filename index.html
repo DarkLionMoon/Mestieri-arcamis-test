@@ -1928,6 +1928,12 @@ header {
     line-height: 1.35;
   }
   .quantita-btn:hover { background: #353027; box-shadow: 0 0 0 1px rgba(200,160,80,.08); }
+  .bonus-info-btn {
+    display: inline-grid; place-items: center; vertical-align: middle;
+    width: 20px; min-width: 20px; min-height: 20px; height: 20px;
+    margin-left: 7px; padding: 0; border-radius: 50%;
+    font: 700 .76rem/1 Georgia, serif;
+  }
   @media (max-width: 520px) {
     .quantita-overlay { align-items: flex-end; padding: 8px; }
     .quantita-dialog {
@@ -4149,7 +4155,9 @@ const raggruppaSarto =
       .join('');
 
     return `<tr class="recipe-row">
-      <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}</td>
+      <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}${m.id === 'architetto' && it.n === 'Laboratorio Alchemico Integrato'
+        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Informazioni sui bonus del Laboratorio Alchemico Integrato" title="Informazioni sui bonus" data-item="Bonus dell’Impresa" data-info="${encodeURIComponent('<div><strong>Bonus non cumulabili</strong><p style="margin:8px 0 0">Il bonus del Laboratorio Alchemico Integrato non è cumulabile con i bonus concessi dall’Impresa. Si applica esclusivamente il bonus più vantaggioso.</p></div>')}" onclick="apriPopupQuantita(this)">i</button>`
+        : ''}</td>
       <td data-label="Progressione">${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
