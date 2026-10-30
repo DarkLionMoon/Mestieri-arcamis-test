@@ -3294,25 +3294,25 @@ function infoResa(it) {
   }).join('');
 
   return '<div style="font-size:.88rem;line-height:1.55;color:var(--text2)">' +
-    '<div><strong>Resa:</strong> ' + escapeHTML(formato) + ' · ' + fmtLitri(litri) + ' L totali</div>' +
+    '<div><strong>Produzione complessiva:</strong> ' + escapeHTML(formato) + ' · ' + fmtLitri(litri) + ' L totali</div>' +
     (nome.includes('fiamma di pyrax')
       ? '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface2, transparent)">' +
           '<div style="font-size:.82rem">Prezzo di vendita del contenitore</div>' +
           intestazionePrezzo +
         '</div>'
       : '<div style="margin:10px 0;padding:12px;border:1px solid var(--border);border-radius:10px">' +
-          '<div style="font-size:.82rem">Opzione alternativa: vendi l’intera produzione · lotto completo</div>' +
+          '<div style="font-size:.82rem">Vendita del lotto completo · puoi vendere l'intera produzione in un'unica soluzione</div>' +
           intestazionePrezzo +
-          '<div style="font-size:.82rem">Include anche eventuali residui non sufficienti a riempire un altro contenitore.</div>' +
+          '<div style="font-size:.82rem">Il prezzo comprende anche il prodotto residuo, anche quando non è sufficiente a riempire un ulteriore contenitore.</div>' +
         '</div>') +
-    '<div style="font-weight:700;color:var(--text);margin:10px 0 2px">Formati disponibili</div>' +
+    '<div style="font-weight:700;color:var(--text);margin:10px 0 2px">Contenitori ricavabili</div>' +
     (righeUnita || (nome.includes('fiamma di pyrax') ? '<div>Formato non disponibile.</div>' : '<div>Nessuna unità standard completa disponibile; puoi vendere l’intera produzione.</div>')) +
     '<div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border)">' +
-      '<div><strong>Costo materiale totale:</strong> ' + fmtMO(costoTotale) + '</div>' +
-      '<div><strong>Costo materiale:</strong> ' + fmtMO(costoPerLitro) + '/L</div>' +
-      (nome.includes('fiamma di pyrax') ? '' : '<div><strong>Prezzo massimo proporzionale:</strong> ' + fmtMO(venditaPerLitro) + '/L</div>') +
+      '<div><strong>Costo totale dei materiali:</strong> ' + fmtMO(costoTotale) + '</div>' +
+      '<div><strong>Costo dei materiali per litro:</strong> ' + fmtMO(costoPerLitro) + '/L</div>' +
+      (nome.includes('fiamma di pyrax') ? '' : '<div><strong>Prezzo massimo di vendita per litro:</strong> ' + fmtMO(venditaPerLitro) + '/L</div>') +
     '</div>' +
-    (isBirra ? '<div style="margin-top:8px"><strong>Riferimento Gilda:</strong> Una normale birra, costa 3 SP per un boccale da 0,5 L.</div>' : '') +
+    (isBirra ? '<div style="margin-top:8px"><strong>Riferimento di mercato:</strong> una birra comune ha un prezzo di 3 SP per un boccale da 0,5 L.</div>' : '') +
   '</div>';
 }
 
@@ -3326,10 +3326,10 @@ function apriPopupGuidaArchitetto() {
 
   titolo.textContent = '🏠 Come comporre una casa';
   info.innerHTML = `
-    <p style="margin-top:0">Le ricette di Livello 1 sono singoli elementi edilizi. Puoi combinarli per creare una proprietà completa.</p>
+    <p style="margin-top:0">Le ricette di <strong>Livello 1</strong> rappresentano singoli elementi edilizi. Combinandoli, puoi realizzare una proprietà completa e ampliarla con ulteriori strutture.</p>
     <div style="padding:12px;margin:10px 0;border:1px solid var(--border);border-radius:10px">
       <strong style="color:var(--gold)">Casa base — elementi obbligatori</strong>
-      <p style="margin:8px 0">Una casa richiede tutti e tre questi ambienti:</p>
+      <p style="margin:8px 0">Per essere considerata una casa completa, la proprietà deve comprendere tutti e tre i seguenti ambienti:</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Bagno')">🛁 Bagno ↗</button>
         <button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Salotto')">🛋️ Salotto ↗</button>
@@ -3337,17 +3337,17 @@ function apriPopupGuidaArchitetto() {
       </div>
     </div>
     <div style="padding:12px;margin:10px 0;border:1px solid var(--border);border-radius:10px">
-      <strong style="color:var(--gold)">Esempi di ampliamento</strong>
+      <strong style="color:var(--gold)">Strutture aggiuntive</strong>
       <ul style="margin:8px 0;padding-left:20px">
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Scantinato')">Scantinato ↗</button> — conserva le cibarie.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Cucina')">Cucina ↗</button> — permette di cucinare alimenti.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Orto')">Orto ↗</button> — produce erbe nel tempo.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Magazzino')">Magazzino ↗</button> — offre spazio per i materiali.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Recinzione')">Recinzione ↗</button> — delimita il perimetro.</li>
-        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Stalla')">Stalla ↗</button> — ospita animali di taglia grande.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Scantinato')">Scantinato ↗</button> — offre uno spazio per conservare le provviste.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Cucina')">Cucina ↗</button> — consente di preparare alimenti.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Orto')">Orto ↗</button> — permette di coltivare e raccogliere erbe nel tempo.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Magazzino')">Magazzino ↗</button> — mette a disposizione spazio aggiuntivo per riporre i materiali.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Recinzione')">Recinzione ↗</button> — delimita e protegge il perimetro della proprietà.</li>
+        <li><button type="button" class="quantita-btn" onclick="vaiRicettaArchitetto('Stalla')">Stalla ↗</button> — offre riparo agli animali di taglia Grande.</li>
       </ul>
     </div>
-    <p style="font-size:.82rem;color:var(--text2);margin-bottom:0">I collegamenti aprono direttamente la ricetta corrispondente nella tabella dell'Architetto.</p>
+    <p style="font-size:.82rem;color:var(--text2);margin-bottom:0">Seleziona una struttura per consultare la relativa ricetta nella sezione dedicata all'Architetto.</p>
   `;
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
@@ -4163,13 +4163,13 @@ const raggruppaSarto =
       <td data-label="Materiale secondario">${escapeHTML(it.ms || '—')}</td>
       <td data-label="Tipologia">${tipBadge(it.tip)}</td>
       <td data-label="Descrizione"><span class="desc-text">${escapeHTML(it.desc || (m.id === 'architetto' && ['Altare del Devoto', 'Antro del Patrono', 'Campo di Addestramento'].includes(it.n) ? '' : '—'))}</span><div class="recipe-info-actions" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:7px">${m.id === 'architetto' && it.n === 'Laboratorio Alchemico Integrato'
-        ? `<button type="button" class="quantita-btn" aria-label="Informazioni sui bonus del Laboratorio Alchemico Integrato" title="Bonus Impresa" data-item="Bonus dell’Impresa" data-info="${encodeURIComponent('<div><strong>Bonus non cumulabili</strong><p style="margin:8px 0 0">Il bonus del Laboratorio Alchemico Integrato non è cumulabile con i bonus concessi dall’Impresa. Si applica esclusivamente il bonus più vantaggioso.</p></div>')}" onclick="apriPopupQuantita(this)">Bonus Impresa</button>`
+        ? `<button type="button" class="quantita-btn" aria-label="Informazioni sui bonus del Laboratorio Alchemico Integrato" title="Bonus Impresa" data-item="Bonus dell’Impresa" data-info="${encodeURIComponent('<div><strong>Regola di cumulo</strong><p>Il bonus conferito dal Laboratorio Alchemico Integrato non si cumula con i bonus concessi dall'Impresa. Quando entrambi si applicano alla stessa attività, si considera esclusivamente il bonus più vantaggioso.</p></div>')}" onclick="apriPopupQuantita(this)">Bonus Impresa</button>`
         : ''}${m.id === 'architetto' && it.n === 'Altare del Devoto'
-        ? `<button type="button" class="quantita-btn" aria-label="Apri la meditazione dell’Altare del Devoto" title="Meditazione" data-item="Meditazione" data-info="${encodeURIComponent('<p style="margin:0">1/LR: (d20+prof vs 20-LvPaladino). Successo: Fino al prossimo Long Rest, ottieni+1 al TPC ed ai Danni, + 1d4 ai check su Carisma in aura</p>')}" onclick="apriPopupQuantita(this)">Meditazione</button>`
+        ? `<button type="button" class="quantita-btn" aria-label="Apri la meditazione dell’Altare del Devoto" title="Meditazione" data-item="Meditazione" data-info="${encodeURIComponent('<p>Una volta prima di terminare un <strong>Riposo Lungo</strong>, il paladino può raccogliersi in meditazione presso l'altare.</p><p>Al termine della meditazione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da paladino</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il paladino ottiene:</p><ul><li>un bonus di +1 ai tiri per colpire;</li><li>un bonus di +1 ai tiri per i danni;</li><li>un bonus di 1d4 alle prove di Carisma effettuate entro la propria aura.</li></ul>')}" onclick="apriPopupQuantita(this)">Meditazione</button>`
         : ''}${m.id === 'architetto' && it.n === 'Antro del Patrono'
-        ? `<button type="button" class="quantita-btn" aria-label="Apri la comunione dell’Antro del Patrono" title="Comunione" data-item="Comunione" data-info="${encodeURIComponent('<p style="margin:0">1/LR: (d20+prof vs 20-LvWarlock). Successo: Fino al prossimo Long Rest, ottieni+1d4 extra ad un\'abilità con competenza e +1 al TPC ed ai Danni su Incantesimi</p>')}" onclick="apriPopupQuantita(this)">Comunione</button>`
+        ? `<button type="button" class="quantita-btn" aria-label="Apri la comunione dell’Antro del Patrono" title="Comunione" data-item="Comunione" data-info="${encodeURIComponent('<p>Una volta prima di terminare un <strong>Riposo Lungo</strong>, il warlock può invocare il proprio patrono nell'antro.</p><p>Al termine della comunione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da warlock</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il warlock ottiene:</p><ul><li>un bonus di 1d4 a una prova di caratteristica effettuata con un'abilità in cui è competente;</li><li>un bonus di +1 ai tiri per colpire e ai tiri per i danni degli incantesimi.</li></ul>')}" onclick="apriPopupQuantita(this)">Comunione</button>`
         : ''}${m.id === 'architetto' && it.n === 'Campo di Addestramento'
-        ? `<button type="button" class="quantita-btn" aria-label="Apri l’addestramento del Campo di Addestramento" title="Addestramento" data-item="Addestramento" data-info="${encodeURIComponent('<p style="margin:0">1/RL: (d20+prof vs 20-LvClasse). Successo: Fino al prossimo Long Rest, ottieni + 1d4 ai tiri contro la condizione Spaventato, +1 al TPC ed ai Danni su Attacchi ed Abilità di classe</p>')}" onclick="apriPopupQuantita(this)">Addestramento</button>`
+        ? `<button type="button" class="quantita-btn" aria-label="Apri l’addestramento del Campo di Addestramento" title="Addestramento" data-item="Addestramento" data-info="${encodeURIComponent('<p>Una volta prima di terminare un <strong>Riposo Lungo</strong>, il personaggio può dedicarsi a una sessione di addestramento presso il campo.</p><p>Al termine dell'addestramento, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da personaggio</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il personaggio ottiene:</p><ul><li>un bonus di 1d4 ai tiri effettuati per resistere alla condizione Spaventato;</li><li>un bonus di +1 ai tiri per colpire;</li><li>un bonus di +1 ai tiri per i danni degli attacchi e delle capacità di classe che infliggono danni.</li></ul>')}" onclick="apriPopupQuantita(this)">Addestramento</button>`
         : ''}</td>
       <td class="cost cost-craft" data-label="Costo materiali" style="text-align:right">${fmtMO(it.costo)}</td>
       <td class="cost cost-sell" data-label="Costo finale" style="text-align:right">${fmtMO(it.vend)}</td>
