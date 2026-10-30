@@ -606,6 +606,12 @@
     thead th { font-size: .62rem; padding: 8px 8px; }
     tbody td { padding: 7px 8px; }
 
+    /* Il Metallurgo usa un colgroup con larghezze percentuali per la tabella desktop.
+       In modalità schede mobile quelle larghezze comprimono le celle verso sinistra:
+       rimuoviamo i vincoli delle colonne e lasciamo lavorare la griglia responsive. */
+    .table-wrap table.metallurgo-table { table-layout: auto; }
+    .table-wrap table.metallurgo-table colgroup { display: none; }
+
     /* Le ricette diventano schede leggibili su schermi stretti. */
     .table-wrap { overflow: visible; border: 0; background: transparent; }
     .table-wrap table { min-width: 0; width: 100%; border-collapse: separate; border-spacing: 0 10px; }
