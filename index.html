@@ -285,6 +285,14 @@
   .table-wrap table.metallurgo-table td { overflow-wrap: anywhere; }
   .table-wrap table.metallurgo-table td.cost-craft,
   .table-wrap table.metallurgo-table td.cost-sell { overflow-wrap: normal; }
+  /* Le tipologie lunghe devono restare dentro la propria colonna:
+     senza wrapping invadono la descrizione nelle tabelle desktop. */
+  .table-wrap table.metallurgo-table td[data-label="Tipologia"] .badge {
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
   .recipe-row { border-bottom: 1px solid rgba(160,135,101,.2); }
   .recipe-row:nth-child(even) { background: rgba(255,255,255,.018); }
   .recipe-row:hover { background: rgba(201,168,76,.065); }
@@ -624,6 +632,17 @@
     .table-wrap tbody tr.class-structure-detail td::before { content: attr(data-label); color: var(--text3); font-size: .62rem; line-height: 1.3; letter-spacing: .07em; text-transform: uppercase; font-weight: 700; }
     .table-wrap tbody tr.recipe-row td.recipe-name { grid-column: 1 / -1; background: var(--panel2); color: var(--gold2); font-size: .98rem; padding: 12px; }
     .table-wrap tbody tr.recipe-row td[data-label="Descrizione"] { grid-column: 1 / -1; line-height: 1.45; }
+    /* Nel Metallurgo tipologia e descrizione occupano righe separate:
+       i badge lunghi non devono invadere la colonna vicina. */
+    .table-wrap table.metallurgo-table tbody tr.recipe-row td[data-label="Tipologia"],
+    .table-wrap table.metallurgo-table tbody tr.recipe-row td[data-label="Descrizione"] {
+      grid-column: 1 / -1;
+    }
+    .table-wrap table.metallurgo-table tbody tr.recipe-row td[data-label="Tipologia"] .badge {
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
     .table-wrap tbody tr.recipe-row td[data-label="Riferimenti"] { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; align-items: center; }
     .table-wrap tbody tr.recipe-row td.dt-cell { display: flex; flex-direction: row; align-items: baseline; justify-content: space-between; }
     .table-wrap tbody tr.recipe-row td.dt-cell::before { content: attr(data-label); }
@@ -2069,6 +2088,42 @@ header {
       font-size: .95rem;
       font-weight: 750;
     }
+  }
+
+
+  /* Indicatore elegante solo sui pulsanti che aprono un popup.
+     I pulsanti che portano a un'altra ricetta (senza data-info) restano invariati. */
+  .quantita-btn[data-info] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .quantita-btn[data-info]::after {
+    content: "?";
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 17px;
+    width: 17px;
+    height: 17px;
+    border: 1px solid rgba(216,185,110,.42);
+    border-radius: 50%;
+    background: rgba(216,185,110,.10);
+    color: var(--gold3);
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.22);
+    transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .quantita-btn[data-info]:hover::after {
+    transform: translateY(2px);
+    border-color: var(--gold2);
+    background: rgba(216,185,110,.18);
+    box-shadow: 0 0 9px rgba(216,185,110,.16);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .quantita-btn[data-info]::after { transition: none; }
   }
 
 </style>
