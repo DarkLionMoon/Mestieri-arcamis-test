@@ -4157,6 +4157,8 @@ const raggruppaSarto =
     return `<tr class="recipe-row">
       <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}${m.id === 'architetto' && it.n === 'Laboratorio Alchemico Integrato'
         ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Informazioni sui bonus del Laboratorio Alchemico Integrato" title="Informazioni sui bonus" data-item="Bonus dell’Impresa" data-info="${encodeURIComponent('<div><strong>Bonus non cumulabili</strong><p style="margin:8px 0 0">Il bonus del Laboratorio Alchemico Integrato non è cumulabile con i bonus concessi dall’Impresa. Si applica esclusivamente il bonus più vantaggioso.</p></div>')}" onclick="apriPopupQuantita(this)">i</button>`
+        : ''}${m.id === 'architetto' && it.n === 'Altare del Devoto'
+        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Apri la meditazione dell’Altare del Devoto" title="Meditazione" data-item="Meditazione" data-info="${encodeURIComponent('<p style="margin:0">1/LR: (d20+prof vs 20-LvPaladino). Successo: +1 al TPC ed ai Danni, + 1d4 ai check su Carisma in aura fino al prossimo LR</p>')}" onclick="apriPopupQuantita(this)">i</button>`
         : ''}</td>
       <td data-label="Progressione">${it.prog
         ? '<span class="has-prog">✅</span>'
