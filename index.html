@@ -4160,7 +4160,9 @@ const raggruppaSarto =
         : ''}${m.id === 'architetto' && it.n === 'Altare del Devoto'
         ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Apri la meditazione dell’Altare del Devoto" title="Meditazione" data-item="Meditazione" data-info="${encodeURIComponent('<p style="margin:0">1/LR: (d20+prof vs 20-LvPaladino). Successo: Fino al prossimo Long Rest, ottieni+1 al TPC ed ai Danni, + 1d4 ai check su Carisma in aura</p>')}" onclick="apriPopupQuantita(this)">i</button>`
         : ''}${m.id === 'architetto' && it.n === 'Antro del Patrono'
-        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Apri la comunione dell’Antro del Patrono" title="Comunione" data-item="Comunione" data-info="${encodeURIComponent('<p style="margin:0">1/LR: (d20+prof vs 20-LvWarlock). Successo: Fino al prossimo Long Rest, ottieni+1d4 extra ad un’abilità con competenza e +1 al TPC ed ai Danni su Incantesimi</p>')}" onclick="apriPopupQuantita(this)">i</button>`
+        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Apri la comunione dell’Antro del Patrono" title="Comunione" data-item="Comunione" data-info="${encodeURIComponent('<p style="margin:0">1/LR: (d20+prof vs 20-LvWarlock). Successo: Fino al prossimo Long Rest, ottieni+1d4 extra ad un'abilità con competenza e +1 al TPC ed ai Danni su Incantesimi</p>')}" onclick="apriPopupQuantita(this)">i</button>`
+        : ''}${m.id === 'architetto' && it.n === 'Campo di Addestramento'
+        ? `<button type="button" class="quantita-btn bonus-info-btn" aria-label="Apri l’addestramento del Campo di Addestramento" title="Addestramento" data-item="Addestramento" data-info="${encodeURIComponent('<p style="margin:0">1/RL: (d20+prof vs 20-LvClasse). Successo: Fino al prossimo Long Rest, ottieni + 1d4 ai tiri contro la condizione Spaventato, +1 al TPC ed ai Danni su Attacchi ed Abilità di classe</p>')}" onclick="apriPopupQuantita(this)">i</button>`
         : ''}</td>
       <td data-label="Progressione">${it.prog
         ? '<span class="has-prog">✅</span>'
