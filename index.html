@@ -2203,12 +2203,63 @@ header {
     }
   }
 
+  .recipe-filter-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 40px;
+    margin: 0 0 8px;
+  }
+  .recipe-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 6px 11px;
+    border: 1px solid var(--border2);
+    border-radius: 5px;
+    background: var(--panel);
+    color: var(--text2);
+    font: 650 .84rem/1.2 'Source Sans 3', system-ui, sans-serif;
+    cursor: pointer;
+    transition: color .16s ease, border-color .16s ease, background-color .16s ease;
+  }
+  .recipe-filter-toggle:hover,
+  .recipe-filter-toggle[aria-expanded="true"] {
+    border-color: var(--gold2);
+    background: var(--panel2);
+    color: var(--gold3);
+  }
+  .recipe-filter-toggle:focus-visible {
+    outline: 2px solid var(--gold2);
+    outline-offset: 2px;
+  }
+  .recipe-filter-toggle svg { width: 15px; height: 15px; flex: 0 0 auto; }
+  .recipe-filter-toggle .recipe-filter-chevron {
+    width: 10px;
+    height: 10px;
+    transition: transform .16s ease;
+  }
+  .recipe-filter-toggle[aria-expanded="true"] .recipe-filter-chevron { transform: rotate(180deg); }
+  .recipe-filter-match-count { color: var(--text3); font-size: .82rem; }
+  .recipe-filter-toggle .recipe-filter-result-badge {
+    padding: 2px 7px;
+    border: 1px solid color-mix(in srgb, var(--gold2) 42%, var(--border));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--gold2) 10%, transparent);
+    color: var(--gold3);
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .recipe-filter-panel { margin: 0 0 12px; }
+  .recipe-filter-panel[hidden] { display: none; }
   .recipe-filter-form {
     display: flex;
     flex-wrap: wrap;
     align-items: end;
     gap: 10px 14px;
-    margin: 0 0 4px;
+    margin: 0 0 5px;
     padding: 12px 14px;
     border: 1px solid color-mix(in srgb, var(--gold) 24%, var(--border));
     border-radius: 7px;
@@ -2265,6 +2316,7 @@ header {
   .recipe-filter-status:focus { outline: 2px solid var(--gold2); outline-offset: 3px; border-radius: 2px; }
 
   @media (max-width: 768px) {
+    .recipe-filter-toolbar { flex-wrap: wrap; }
     .recipe-filter-form {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3340,7 +3392,7 @@ const MESTIERI = [
 let currentMestiere = -2;
 let currentSection = 'intro';
 let searchQ = '';
-let recipeFilterState = { scope: '', tipologia: '', costoMax: '', downtimeMax: '' };
+let recipeFilterState = { scope: '', tipologia: '', costoMax: '', downtimeMax: '', open: false };
 
 // ═══════════════════════════════════════════════════════════════
 //  HELPERS
@@ -3903,7 +3955,7 @@ function renderLv(m, lv) {
 
   const scopeFiltri = `${m.id}:lv${lv.lv}`;
   if (recipeFilterState.scope !== scopeFiltri) {
-    recipeFilterState = { scope: scopeFiltri, tipologia: '', costoMax: '', downtimeMax: '' };
+    recipeFilterState = { scope: scopeFiltri, tipologia: '', costoMax: '', downtimeMax: '', open: false };
   }
   const filtriAttivi = Boolean(recipeFilterState.tipologia || recipeFilterState.costoMax !== '' || recipeFilterState.downtimeMax !== '');
   const dtCorrentePer = it => {
@@ -3924,7 +3976,19 @@ function renderLv(m, lv) {
     })
   );
 
+  const risultatiFiltratiHTML = filtriAttivi
+    ? `<span class="recipe-filter-result-badge">${items.length} risultat${items.length === 1 ? 'o' : 'i'}</span>`
+    : '';
   const filtriHTML = `
+    <div class="recipe-filter-toolbar">
+      <button type="button" class="recipe-filter-toggle" aria-label="Filtri" aria-expanded="${recipeFilterState.open}" aria-controls="recipeFilterPanel" onclick="toggleRecipeFilters()">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h14l-5.5 6.2v5.3l-3 1.5v-6.8L3 4Z"/></svg>
+        <span>Filtri</span>${risultatiFiltratiHTML}
+        <svg class="recipe-filter-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg>
+      </button>
+      <span class="recipe-filter-match-count">${items.length} di ${lv.items.length} ricette</span>
+    </div>
+    <div class="recipe-filter-panel" id="recipeFilterPanel"${recipeFilterState.open ? '' : ' hidden'}>
     <form class="recipe-filter-form" data-scope="${scopeFiltri}" onsubmit="applyRecipeFilters(event)">
       <label class="recipe-filter-field">Tipologia
         <select name="tipologia">
@@ -3942,6 +4006,7 @@ function renderLv(m, lv) {
       <button type="button" class="recipe-filter-reset" onclick="resetRecipeFilters()">Azzera</button>
     </form>
     <p id="recipeFilterStatus" class="recipe-filter-status" role="status" aria-live="polite" tabindex="-1">Mostrate ${items.length} su ${lv.items.length} ricette</p>
+    </div>
   `;
 
   if (!items.length) {
@@ -4656,7 +4721,8 @@ function applyRecipeFilters(event, reset = false) {
     scope: form.dataset.scope || '',
     tipologia: reset ? '' : (field('tipologia')?.value || ''),
     costoMax: reset ? '' : (field('costoMax')?.value || ''),
-    downtimeMax: reset ? '' : (field('downtimeMax')?.value || '')
+    downtimeMax: reset ? '' : (field('downtimeMax')?.value || ''),
+    open: true
   };
   renderContent();
   document.getElementById('recipeFilterStatus')?.focus({ preventScroll: true });
@@ -4664,6 +4730,15 @@ function applyRecipeFilters(event, reset = false) {
 
 function resetRecipeFilters() {
   applyRecipeFilters(null, true);
+}
+
+function toggleRecipeFilters() {
+  recipeFilterState.open = !recipeFilterState.open;
+  const panel = document.getElementById('recipeFilterPanel');
+  const button = document.querySelector('.recipe-filter-toggle');
+  if (!panel || !button) return;
+  panel.hidden = !recipeFilterState.open;
+  button.setAttribute('aria-expanded', String(recipeFilterState.open));
 }
 
 // Apre o chiude il gruppo di ricette.

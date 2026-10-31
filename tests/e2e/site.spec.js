@@ -50,7 +50,13 @@ test('recipe filters narrow results by type, material cost and downtime', async 
     await page.locator('#sidenav .sidenav-btn', { hasText: 'Livello 1' }).click();
   }
 
+  const filterToggle = page.getByRole('button', { name: 'Filtri' });
   const filters = page.locator('.recipe-filter-form');
+  await expect(filterToggle).toBeVisible();
+  await expect(filterToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(filters).toBeHidden();
+  await filterToggle.click();
+  await expect(filterToggle).toHaveAttribute('aria-expanded', 'true');
   await expect(filters).toBeVisible();
   await filters.getByLabel('Tipologia').selectOption({ label: 'Adventuring Gear' });
   await filters.getByLabel('Costo materiali max (MO)').fill('25');
@@ -58,6 +64,9 @@ test('recipe filters narrow results by type, material cost and downtime', async 
   await filters.getByRole('button', { name: 'Filtra' }).click();
 
   const rows = page.locator('.table-wrap tbody tr.recipe-row');
+  const matchingRecipeCount = await rows.count();
+  await expect(filterToggle).toContainText(`${matchingRecipeCount}`);
+  await expect(filterToggle).toContainText('risultat');
   const filteredData = await rows.evaluateAll(elements => elements.map(element => ({
     tipologia: element.dataset.tipologia,
     costo: Number(element.dataset.costo),
@@ -71,8 +80,12 @@ test('recipe filters narrow results by type, material cost and downtime', async 
   await expect(page.locator('#recipeFilterStatus')).toContainText('Mostrate');
 
   await filters.getByRole('button', { name: 'Azzera' }).click();
+  await expect(filterToggle).not.toContainText('risultat');
   await expect(rows.filter({ hasText: 'Potion of Healing' })).toHaveCount(1);
   await expect(page.locator('.class-structures-toggle').first()).toBeVisible();
+  await filterToggle.click();
+  await expect(filterToggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(filters).toBeHidden();
 });
 
 test('desktop recipe table headings stay below the fixed navigation while scrolling', async ({ page }, testInfo) => {
