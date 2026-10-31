@@ -2071,14 +2071,235 @@ header {
     }
   }
 
+  /* ── WORKSPACE DESKTOP: TESTATA E NAVIGAZIONE ── */
+  @media (min-width: 960px) {
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 42%);
+      grid-template-rows: auto auto;
+      align-content: center;
+      align-items: center;
+      column-gap: clamp(18px, 2.8vw, 40px);
+      row-gap: 2px;
+      height: 104px;
+      min-height: 104px;
+      padding: 12px clamp(20px, 3vw, 44px);
+      text-align: left;
+    }
+
+    header h1 {
+      margin-bottom: 0;
+      font-size: clamp(1.55rem, 3.2vw, 2.5rem);
+      line-height: 1.05;
+      white-space: nowrap;
+    }
+
+    header .header-brand {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      justify-self: start;
+      width: max-content;
+      max-width: 100%;
+      text-align: center;
+    }
+
+    header p {
+      margin: 3px 0 0;
+      font-size: .62rem;
+      letter-spacing: .08em;
+      line-height: 1.3;
+      white-space: normal;
+    }
+
+    header::after {
+      content: none;
+    }
+
+    header .search-wrap {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .tabs {
+      top: 104px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 7px 14px 0;
+      scrollbar-width: auto;
+      scrollbar-color: var(--gold2) #202127;
+    }
+
+    .tabs::-webkit-scrollbar { height: 9px; }
+    .tabs::-webkit-scrollbar-track { background: #202127; }
+    .tabs::-webkit-scrollbar-thumb {
+      border: 2px solid #202127;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #8e713d, #d6b770);
+    }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 7px 11px;
+      font-size: .8rem;
+      letter-spacing: .025em;
+    }
+  }
+
+  /* ── TABELLE DESKTOP: SCORRIMENTO VISIBILE E DA TASTIERA ── */
+  @media (min-width: 769px) {
+    .mobile-nav-btn { display: none; }
+
+    .profession-art {
+      min-height: 142px;
+      margin: -24px -28px 16px;
+      padding: 12px 28px;
+    }
+
+    .profession-art::before { inset: 9px; }
+    .profession-art::after {
+      width: 160px;
+      height: 160px;
+      box-shadow: 0 0 0 11px color-mix(in srgb, var(--art-accent) 4%, transparent), 0 0 0 24px color-mix(in srgb, var(--art-accent) 3%, transparent);
+    }
+    .profession-art-symbol { font-size: clamp(3.2rem, 4vw, 4rem); }
+    .profession-art-label { font-size: .68rem; letter-spacing: .22em; }
+    .profession-art-ornament { margin-top: 4px; }
+
+    .table-wrap {
+      scrollbar-width: auto;
+      scrollbar-color: var(--gold2) #202127;
+    }
+
+    .table-wrap table { overflow: visible; }
+
+    .table-wrap::-webkit-scrollbar { height: 12px; }
+    .table-wrap::-webkit-scrollbar-track { background: #202127; }
+    .table-wrap::-webkit-scrollbar-thumb {
+      border: 2px solid #202127;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #8e713d, #d6b770);
+    }
+
+    .table-wrap:focus-visible {
+      outline: 2px solid var(--gold2);
+      outline-offset: 3px;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .table-wrap {
+      max-height: min(72vh, 760px);
+      overflow-y: auto;
+    }
+
+    .table-wrap thead th {
+      position: sticky;
+      top: 0;
+      z-index: 4;
+    }
+  }
+
+  .recipe-filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 10px 14px;
+    margin: 0 0 4px;
+    padding: 12px 14px;
+    border: 1px solid color-mix(in srgb, var(--gold) 24%, var(--border));
+    border-radius: 7px;
+    background: linear-gradient(145deg, rgba(255,255,255,.018), transparent 72%), var(--panel);
+  }
+  .recipe-filter-field {
+    display: grid;
+    flex: 1 1 180px;
+    gap: 5px;
+    min-width: 145px;
+    color: var(--text2);
+    font-size: .8rem;
+    font-weight: 650;
+  }
+  .recipe-filter-field input,
+  .recipe-filter-field select {
+    width: 100%;
+    min-height: 40px;
+    padding: 7px 10px;
+    border: 1px solid var(--border2);
+    border-radius: 5px;
+    background: var(--bg2);
+    color: var(--text);
+    font: 500 .95rem/1.3 'Source Sans 3', system-ui, sans-serif;
+  }
+  .recipe-filter-form button {
+    min-height: 40px;
+    padding: 7px 14px;
+    border: 1px solid var(--border2);
+    border-radius: 5px;
+    font: 700 .82rem/1.2 'Source Sans 3', system-ui, sans-serif;
+    cursor: pointer;
+  }
+  .recipe-filter-apply {
+    background: linear-gradient(145deg, #e0c27a, #a88747);
+    color: #17171a;
+  }
+  .recipe-filter-reset {
+    background: var(--panel2);
+    color: var(--text2);
+  }
+  .recipe-filter-form button:focus-visible,
+  .recipe-filter-field input:focus-visible,
+  .recipe-filter-field select:focus-visible {
+    outline: 2px solid var(--gold2);
+    outline-offset: 2px;
+  }
+  .recipe-filter-status {
+    margin: 0 2px 10px;
+    color: var(--text3);
+    font-size: .8rem;
+    line-height: 1.4;
+  }
+  .recipe-filter-status:focus { outline: 2px solid var(--gold2); outline-offset: 3px; border-radius: 2px; }
+
+  @media (max-width: 768px) {
+    .recipe-filter-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 11px;
+    }
+    .recipe-filter-field:first-child { grid-column: 1 / -1; }
+    .recipe-filter-field { min-width: 0; font-size: .76rem; }
+    .recipe-filter-form button { width: 100%; }
+  }
+
+  /* Schede introduttive: testo di regola più leggibile e facile da scandire. */
+  .profession-intro .rule-box h4 { font-size: .8rem; }
+  .profession-intro .rule-box p,
+  .profession-intro .rule-box li {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .profession-intro .rule-box p { margin: 0; }
+  .profession-intro .rule-box ul {
+    display: grid;
+    gap: .25rem;
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
 </style>
 </head>
 <body>
 
 <header>
-  
-  <h1>⚔️ Mestieri di Arcamis ⚔️</h1>
-  <p>Compendio dei Mestieri · Crafting · Downtime · Materiali Speciali</p>
+  <div class="header-brand">
+    <h1>⚔️ Mestieri di Arcamis ⚔️</h1>
+    <p>Compendio dei Mestieri · Crafting · Downtime · Materiali Speciali</p>
+  </div>
   <div class="search-wrap">
     <label class="sr-only" for="searchInput">Cerca oggetti, materiali e tipologie</label>
     <input type="text" id="searchInput" placeholder="Cerca oggetto, materiale, tipologia…" oninput="doSearch(this.value)">
@@ -3119,6 +3340,7 @@ const MESTIERI = [
 let currentMestiere = -2;
 let currentSection = 'intro';
 let searchQ = '';
+let recipeFilterState = { scope: '', tipologia: '', costoMax: '', downtimeMax: '' };
 
 // ═══════════════════════════════════════════════════════════════
 //  HELPERS
@@ -3620,7 +3842,10 @@ function renderIntro(m) {
     <div class="rules-grid">
       <div class="rule-box patent-rule-box">
         <h4>📜 Patente professionale</h4>
-        <p>Ai livelli 1–3 si applica la patente ordinaria indicata accanto al mestiere. Dal livello 4, la <strong style="color:var(--gold)">P.O.E.</strong> la sostituisce e ne amplia le autorizzazioni; resta la patente di riferimento anche al livello 5.</p>
+        <ul>
+          <li>Ai livelli 1–3 vale la patente ordinaria indicata accanto al mestiere.</li>
+          <li>Dal livello 4 la <strong style="color:var(--gold)">P.O.E.</strong> la sostituisce e ne amplia le autorizzazioni; resta il riferimento anche al livello 5.</li>
+        </ul>
       </div>
       <div class="rule-box">
         <h4>📈 Livello Personaggio → Mestiere</h4>
@@ -3640,15 +3865,24 @@ function renderIntro(m) {
       </div>
       <div class="rule-box">
         <h4>📚 Imparare un Progetto</h4>
-        <p>Richiede lo stesso tempo e monete d'oro pari ai materiali necessari per la creazione dell'oggetto. Il tempo è impiegato per studiare il Progetto.</p>
+        <ul>
+          <li>Lo studio richiede lo stesso tempo previsto per creare l'oggetto.</li>
+          <li>Il costo in monete d'oro equivale ai materiali necessari per la creazione.</li>
+        </ul>
       </div>
       <div class="rule-box">
         <h4>🤝 Collaborazione</h4>
-        <p>Consentita fino a <strong style="color:var(--gold)">3 persone</strong> per oggetto. Ogni personaggio deve rispettare i requisiti di livello.</p>
+        <ul>
+          <li>Possono collaborare fino a <strong style="color:var(--gold)">3 persone</strong> per oggetto.</li>
+          <li>Ogni personaggio deve rispettare i requisiti di livello.</li>
+        </ul>
       </div>
       <div class="rule-box">
         <h4>⬆️ Aumentare di Livello</h4>
-        <p>Solo tramite corso da NPC o giocatori del livello desiderato. Durante il downtime di aumento si è considerati del nuovo livello e si deve costruire un oggetto di quel livello.</p>
+        <ul>
+          <li>Si sale solo con un corso tenuto da un NPC o da giocatori del livello desiderato.</li>
+          <li>Durante il downtime si è considerati del nuovo livello e si deve costruire un oggetto di quel livello.</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -3667,45 +3901,78 @@ function renderLv(m, lv) {
     dtHeaders.push(`LV${i + 1}+`);
   }
 
-  
-const items = lv.items
+  const scopeFiltri = `${m.id}:lv${lv.lv}`;
+  if (recipeFilterState.scope !== scopeFiltri) {
+    recipeFilterState = { scope: scopeFiltri, tipologia: '', costoMax: '', downtimeMax: '' };
+  }
+  const filtriAttivi = Boolean(recipeFilterState.tipologia || recipeFilterState.costoMax !== '' || recipeFilterState.downtimeMax !== '');
+  const dtCorrentePer = it => {
+    const tempi = it.dt || [];
+    const visibili = tempi.length > dtHeaders.length ? tempi.slice(-dtHeaders.length) : tempi;
+    return Number(visibili[0]);
+  };
+  const categorieRicette = [...new Set(lv.items.map(it => it.tip).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, 'it', { sensitivity: 'base' }));
+  const items = lv.items
   .filter(it => !searchQ || matches(it, searchQ))
+  .filter(it => !recipeFilterState.tipologia || it.tip === recipeFilterState.tipologia)
+  .filter(it => recipeFilterState.costoMax === '' || (Number.isFinite(Number(it.costo)) && Number(it.costo) <= Number(recipeFilterState.costoMax)))
+  .filter(it => recipeFilterState.downtimeMax === '' || (Number.isFinite(dtCorrentePer(it)) && dtCorrentePer(it) <= Number(recipeFilterState.downtimeMax)))
   .sort((a, b) =>
     (a.n || '').localeCompare(b.n || '', 'it', {
       sensitivity: 'base'
     })
   );
 
+  const filtriHTML = `
+    <form class="recipe-filter-form" data-scope="${scopeFiltri}" onsubmit="applyRecipeFilters(event)">
+      <label class="recipe-filter-field">Tipologia
+        <select name="tipologia">
+          <option value="">Tutte</option>
+          ${categorieRicette.map(tip => `<option value="${escapeHTML(tip)}"${recipeFilterState.tipologia === tip ? ' selected' : ''}>${escapeHTML(tip)}</option>`).join('')}
+        </select>
+      </label>
+      <label class="recipe-filter-field">Costo materiali max (MO)
+        <input name="costoMax" type="number" min="0" step="any" inputmode="decimal" value="${escapeHTML(recipeFilterState.costoMax)}" placeholder="Qualsiasi">
+      </label>
+      <label class="recipe-filter-field">DT max al livello corrente
+        <input name="downtimeMax" type="number" min="0" step="1" inputmode="numeric" value="${escapeHTML(recipeFilterState.downtimeMax)}" placeholder="Qualsiasi">
+      </label>
+      <button type="submit" class="recipe-filter-apply">Filtra</button>
+      <button type="button" class="recipe-filter-reset" onclick="resetRecipeFilters()">Azzera</button>
+    </form>
+    <p id="recipeFilterStatus" class="recipe-filter-status" role="status" aria-live="polite" tabindex="-1">Mostrate ${items.length} su ${lv.items.length} ricette</p>
+  `;
 
   if (!items.length) {
-    return '<div class="no-results">Nessun oggetto trovato.</div>';
+    return `${filtriHTML}<div class="no-results">Nessuna ricetta corrisponde ai filtri.</div>`;
   }
 
   // Raggruppamenti già esistenti.
   const raggruppaStrutture =
-    m.id === 'architetto' && lv.lv === 2 && !searchQ;
+    m.id === 'architetto' && lv.lv === 2 && !searchQ && !filtriAttivi;
 
   
   const raggruppaPozioni =
-    m.id === 'alchimista' && !searchQ;
+    m.id === 'alchimista' && !searchQ && !filtriAttivi;
 
   const raggruppaOste =
-    m.id === 'oste' && !searchQ;
+    m.id === 'oste' && !searchQ && !filtriAttivi;
 
 const raggruppaSarto =
-  m.id === 'sarto' && !searchQ;
+  m.id === 'sarto' && !searchQ && !filtriAttivi;
 
   const raggruppaFalegname =
-    m.id === 'falegname' && !searchQ;
+    m.id === 'falegname' && !searchQ && !filtriAttivi;
 
   const raggruppaMetallurgo =
-    m.id === 'metallurgo' && !searchQ;
+    m.id === 'metallurgo' && !searchQ && !filtriAttivi;
 
   const raggruppaMeccanico =
-    m.id === 'meccanico' && !searchQ;
+    m.id === 'meccanico' && !searchQ && !filtriAttivi;
 
   const raggruppaArtista =
-    m.id === 'artista' && !searchQ;
+    m.id === 'artista' && !searchQ && !filtriAttivi;
   
   // Nuovi raggruppamenti dell'Artigiano.
   const famiglieArtigiano = [
@@ -4066,7 +4333,7 @@ const raggruppaSarto =
       }
     }
 
-    if (m.id === 'artigiano' && !searchQ) {
+    if (m.id === 'artigiano' && !searchQ && !filtriAttivi) {
       return famiglieArtigiano.find(f => f.test.test(it.n || '')) || null;
     }
 
@@ -4191,8 +4458,9 @@ const raggruppaSarto =
         `<td class="dt-cell ${dtClass(v, i)}" data-label="${escapeHTML(dtHeaders[i] || 'Downtime')}">${v}</td>`
       )
       .join('');
+    const downtimeCorrente = Number(tempiVisibili[0]);
 
-    return `<tr class="recipe-row">
+    return `<tr class="recipe-row" data-tipologia="${escapeHTML(it.tip || '')}" data-costo="${Number.isFinite(Number(it.costo)) ? Number(it.costo) : ''}" data-downtime="${Number.isFinite(downtimeCorrente) ? downtimeCorrente : ''}">
       <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}</td>
       <td data-label="Progressione">${it.prog
         ? '<span class="has-prog">✅</span>'
@@ -4358,7 +4626,8 @@ const raggruppaSarto =
     </div>
     ${m.id === 'architetto' && lv.lv === 1 ? '<button type="button" class="quantita-btn" style="margin-left:auto;align-self:center" onclick="apriPopupGuidaArchitetto()">🏠 Come comporre una casa</button>' : ''}
   </div>
-  <div class="table-wrap">
+  ${filtriHTML}
+  <div class="table-wrap" role="region" tabindex="0" aria-label="Tabella ricette: ${escapeHTML(m.nome)}, livello ${lv.lv}. Scorri per esplorare righe e colonne.">
   <table class="${m.id === 'metallurgo' ? 'metallurgo-table' : ''}">
     ${colonneMetallurgo}
     <thead><tr>
@@ -4376,6 +4645,25 @@ const raggruppaSarto =
     <tbody>${righe}</tbody>
   </table>
   </div>`;
+}
+
+function applyRecipeFilters(event, reset = false) {
+  event?.preventDefault();
+  const form = document.querySelector('.recipe-filter-form');
+  if (!form) return;
+  const field = name => form.querySelector(`[name="${name}"]`);
+  recipeFilterState = {
+    scope: form.dataset.scope || '',
+    tipologia: reset ? '' : (field('tipologia')?.value || ''),
+    costoMax: reset ? '' : (field('costoMax')?.value || ''),
+    downtimeMax: reset ? '' : (field('downtimeMax')?.value || '')
+  };
+  renderContent();
+  document.getElementById('recipeFilterStatus')?.focus({ preventScroll: true });
+}
+
+function resetRecipeFilters() {
+  applyRecipeFilters(null, true);
 }
 
 // Apre o chiude il gruppo di ricette.
@@ -4587,9 +4875,8 @@ function renderGlobalSearch() {
 
 
 function scrollToHomeProfessions() {
-  // Ancoriamo l'intera intestazione della sezione, così anche "Scegli la tua via"
-  // rimane visibile invece di finire parzialmente dietro la navigazione.
-  const target = document.querySelector('#homeProfessions .home-section-heading');
+  // Il kicker è il punto d'arrivo e resta subito sotto la navigazione fissa.
+  const target = document.querySelector('#homeProfessions .home-kicker');
   if (!target) return;
 
   const header = document.querySelector('header');
@@ -4598,16 +4885,30 @@ function scrollToHomeProfessions() {
   const tabsRect = tabs?.getBoundingClientRect();
   const tabsStyle = tabs ? window.getComputedStyle(tabs) : null;
 
-  // Le tabs desktop hanno top:107px e possono sovrapporsi all'header:
-  // sommare headerHeight + tabsHeight sposta troppo poco la pagina.
-  // Usiamo il bordo inferiore reale dell'elemento sticky più basso.
-  const stickyBottom = tabs && tabsStyle?.position === 'sticky'
-    ? Math.max(headerBottom, tabsRect?.bottom || 0)
-    : headerBottom;
+  // Calcola il bordo che le tabs avranno dopo essersi fissate sotto l'header;
+  // il loro bordo corrente è più in basso perché la pagina non è ancora scorsa.
+  const tabsTop = Number.parseFloat(tabsStyle?.top || '0') || 0;
+  const tabsStickyBottom = tabs && tabsStyle?.position === 'sticky'
+    ? tabsTop + (tabsRect?.height || 0)
+    : 0;
+  const stickyBottom = Math.max(headerBottom, tabsStickyBottom);
   const targetTop = window.scrollY + target.getBoundingClientRect().top;
   const top = targetTop - stickyBottom + 24;
 
-  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  window.scrollTo({ top: Math.max(0, top), behavior: 'instant' });
+  // Dopo lo scroll le tabs possono diventare sticky: corregge l'offset usando
+  // la posizione effettiva della barra, così il titolo resta sempre visibile.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const headingTop = target.getBoundingClientRect().top;
+    const settledHeaderBottom = header?.getBoundingClientRect().bottom || 0;
+    const settledTabs = tabs?.getBoundingClientRect();
+    const settledTabsStyle = tabs ? window.getComputedStyle(tabs) : null;
+    const settledObstruction = settledTabs && settledTabsStyle?.position === 'sticky'
+      ? Math.max(settledHeaderBottom, settledTabs.bottom)
+      : settledHeaderBottom;
+    const correction = headingTop - settledObstruction - 24;
+    if (Math.abs(correction) > 1) window.scrollBy({ top: correction, behavior: 'instant' });
+  }));
 }
 
 
