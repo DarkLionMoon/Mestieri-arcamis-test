@@ -30,6 +30,76 @@ test('profession overview rules are readable and broken into scannable points', 
   await expect(collaborationRule.locator('li')).toHaveCount(2);
 });
 
+test('profession emblem uses less vertical space on desktop', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'), 'Verifica specifica desktop');
+  await page.setViewportSize({ width: 1096, height: 900 });
+  await page.locator('#tabs .tab-btn', { hasText: 'Alchimista' }).click();
+
+  await expect.poll(() => page.locator('.profession-art').evaluate(element => element.getBoundingClientRect().height)).toBeLessThanOrEqual(150);
+});
+
+test('recipe filters narrow results by type, material cost and downtime', async ({ page }, testInfo) => {
+  const isMobile = testInfo.project.name.startsWith('mobile');
+  await page.setViewportSize({ width: 1096, height: 900 });
+  await page.locator('#tabs .tab-btn', { hasText: 'Alchimista' }).click();
+  if (isMobile) {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('#mobileNavBtn').click();
+    await page.locator('#mobileDrawerNav .sidenav-btn', { hasText: 'Livello 1' }).click();
+  } else {
+    await page.locator('#sidenav .sidenav-btn', { hasText: 'Livello 1' }).click();
+  }
+
+  const filters = page.locator('.recipe-filter-form');
+  await expect(filters).toBeVisible();
+  await filters.getByLabel('Tipologia').selectOption({ label: 'Adventuring Gear' });
+  await filters.getByLabel('Costo materiali max (MO)').fill('25');
+  await filters.getByLabel('DT max al livello corrente').fill('1');
+  await filters.getByRole('button', { name: 'Filtra' }).click();
+
+  const rows = page.locator('.table-wrap tbody tr.recipe-row');
+  const filteredData = await rows.evaluateAll(elements => elements.map(element => ({
+    tipologia: element.dataset.tipologia,
+    costo: Number(element.dataset.costo),
+    downtime: Number(element.dataset.downtime),
+  })));
+  expect(filteredData.length).toBeGreaterThan(0);
+  expect(filteredData.every(item => item.tipologia === 'Adventuring Gear' && item.costo <= 25 && item.downtime <= 1)).toBe(true);
+  await expect(rows.filter({ hasText: 'Lilypad Tonic' })).toBeVisible();
+  await expect(rows.filter({ hasText: 'Fumogeno' })).toBeVisible();
+  await expect(rows.filter({ hasText: 'Potion of Healing' })).toHaveCount(0);
+  await expect(page.locator('#recipeFilterStatus')).toContainText('Mostrate');
+
+  await filters.getByRole('button', { name: 'Azzera' }).click();
+  await expect(rows.filter({ hasText: 'Potion of Healing' })).toHaveCount(1);
+  await expect(page.locator('.class-structures-toggle').first()).toBeVisible();
+});
+
+test('desktop recipe table headings stay below the fixed navigation while scrolling', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'), 'Verifica specifica desktop');
+  await page.setViewportSize({ width: 1096, height: 900 });
+  await page.locator('#tabs .tab-btn', { hasText: 'Alchimista' }).click();
+  await page.locator('#sidenav .sidenav-btn', { hasText: 'Livello 1' }).click();
+
+  const tableRegion = page.locator('.table-wrap').first();
+  const firstHeading = tableRegion.locator('thead th').first();
+  const groupedRecipes = tableRegion.locator('.class-structures-toggle button');
+  for (let i = 0; i < await groupedRecipes.count(); i += 1) await groupedRecipes.nth(i).click();
+  await tableRegion.scrollIntoViewIfNeeded();
+  await expect.poll(() => tableRegion.evaluate(element => element.scrollHeight > element.clientHeight)).toBe(true);
+  await expect(firstHeading).toHaveCSS('position', 'sticky');
+  await tableRegion.evaluate(element => { element.scrollTop = 360; });
+  await expect.poll(() => tableRegion.evaluate(element => {
+    const heading = element.querySelector('thead th');
+    return heading.getBoundingClientRect().top - element.getBoundingClientRect().top;
+  })).toBeGreaterThanOrEqual(-1);
+  await expect.poll(() => tableRegion.evaluate(element => {
+    const heading = element.querySelector('thead th');
+    return heading.getBoundingClientRect().top - element.getBoundingClientRect().top;
+  })).toBeLessThanOrEqual(5);
+  await expect(firstHeading).toBeVisible();
+});
+
 test('desktop header and profession navigation stay compact and reachable', async ({ page }) => {
   await page.setViewportSize({ width: 1096, height: 900 });
 
@@ -62,7 +132,7 @@ test('wide recipe tables are named and horizontally scrollable by keyboard', asy
   const tableRegion = page.locator('.table-wrap').first();
   await expect(tableRegion).toHaveAttribute('role', 'region');
   await expect(tableRegion).toHaveAttribute('tabindex', '0');
-  await expect(tableRegion).toHaveAttribute('aria-label', /Alchimista.*Livello 1.*orizzontal/i);
+  await expect(tableRegion).toHaveAttribute('aria-label', /Alchimista.*Livello 1.*righe e colonne/i);
   expect(await tableRegion.evaluate(element => element.scrollWidth > element.clientWidth)).toBe(true);
 
   await tableRegion.press('ArrowRight');
