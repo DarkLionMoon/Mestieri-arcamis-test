@@ -2071,14 +2071,118 @@ header {
     }
   }
 
+  /* ── WORKSPACE DESKTOP: TESTATA E NAVIGAZIONE ── */
+  @media (min-width: 960px) {
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 42%);
+      grid-template-rows: auto auto;
+      align-content: center;
+      align-items: center;
+      column-gap: clamp(18px, 2.8vw, 40px);
+      row-gap: 2px;
+      height: 104px;
+      min-height: 104px;
+      padding: 12px clamp(20px, 3vw, 44px);
+      text-align: left;
+    }
+
+    header h1 {
+      margin-bottom: 0;
+      font-size: clamp(1.55rem, 3.2vw, 2.5rem);
+      line-height: 1.05;
+      white-space: nowrap;
+    }
+
+    header .header-brand {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      justify-self: start;
+      width: max-content;
+      max-width: 100%;
+      text-align: center;
+    }
+
+    header p {
+      margin: 3px 0 0;
+      font-size: .62rem;
+      letter-spacing: .08em;
+      line-height: 1.3;
+      white-space: normal;
+    }
+
+    header::after {
+      content: none;
+    }
+
+    header .search-wrap {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+
+    .tabs {
+      top: 104px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 7px 14px 0;
+      scrollbar-width: auto;
+      scrollbar-color: var(--gold2) #202127;
+    }
+
+    .tabs::-webkit-scrollbar { height: 9px; }
+    .tabs::-webkit-scrollbar-track { background: #202127; }
+    .tabs::-webkit-scrollbar-thumb {
+      border: 2px solid #202127;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #8e713d, #d6b770);
+    }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 7px 11px;
+      font-size: .8rem;
+      letter-spacing: .025em;
+    }
+  }
+
+  /* ── TABELLE DESKTOP: SCORRIMENTO VISIBILE E DA TASTIERA ── */
+  @media (min-width: 769px) {
+    .mobile-nav-btn { display: none; }
+
+    .table-wrap {
+      scrollbar-width: auto;
+      scrollbar-color: var(--gold2) #202127;
+    }
+
+    .table-wrap table { overflow: visible; }
+
+    .table-wrap::-webkit-scrollbar { height: 12px; }
+    .table-wrap::-webkit-scrollbar-track { background: #202127; }
+    .table-wrap::-webkit-scrollbar-thumb {
+      border: 2px solid #202127;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #8e713d, #d6b770);
+    }
+
+    .table-wrap:focus-visible {
+      outline: 2px solid var(--gold2);
+      outline-offset: 3px;
+    }
+  }
+
 </style>
 </head>
 <body>
 
 <header>
-  
-  <h1>⚔️ Mestieri di Arcamis ⚔️</h1>
-  <p>Compendio dei Mestieri · Crafting · Downtime · Materiali Speciali</p>
+  <div class="header-brand">
+    <h1>⚔️ Mestieri di Arcamis ⚔️</h1>
+    <p>Compendio dei Mestieri · Crafting · Downtime · Materiali Speciali</p>
+  </div>
   <div class="search-wrap">
     <label class="sr-only" for="searchInput">Cerca oggetti, materiali e tipologie</label>
     <input type="text" id="searchInput" placeholder="Cerca oggetto, materiale, tipologia…" oninput="doSearch(this.value)">
@@ -4358,7 +4462,7 @@ const raggruppaSarto =
     </div>
     ${m.id === 'architetto' && lv.lv === 1 ? '<button type="button" class="quantita-btn" style="margin-left:auto;align-self:center" onclick="apriPopupGuidaArchitetto()">🏠 Come comporre una casa</button>' : ''}
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap" role="region" tabindex="0" aria-label="Tabella ricette: ${escapeHTML(m.nome)}, livello ${lv.lv}. Su desktop scorri orizzontalmente per tutte le colonne.">
   <table class="${m.id === 'metallurgo' ? 'metallurgo-table' : ''}">
     ${colonneMetallurgo}
     <thead><tr>
@@ -4587,9 +4691,8 @@ function renderGlobalSearch() {
 
 
 function scrollToHomeProfessions() {
-  // Ancoriamo l'intera intestazione della sezione, così anche "Scegli la tua via"
-  // rimane visibile invece di finire parzialmente dietro la navigazione.
-  const target = document.querySelector('#homeProfessions .home-section-heading');
+  // Il kicker è il punto d'arrivo e resta subito sotto la navigazione fissa.
+  const target = document.querySelector('#homeProfessions .home-kicker');
   if (!target) return;
 
   const header = document.querySelector('header');
@@ -4598,12 +4701,13 @@ function scrollToHomeProfessions() {
   const tabsRect = tabs?.getBoundingClientRect();
   const tabsStyle = tabs ? window.getComputedStyle(tabs) : null;
 
-  // Le tabs desktop hanno top:107px e possono sovrapporsi all'header:
-  // sommare headerHeight + tabsHeight sposta troppo poco la pagina.
-  // Usiamo il bordo inferiore reale dell'elemento sticky più basso.
-  const stickyBottom = tabs && tabsStyle?.position === 'sticky'
-    ? Math.max(headerBottom, tabsRect?.bottom || 0)
-    : headerBottom;
+  // Calcola il bordo che le tabs avranno dopo essersi fissate sotto l'header;
+  // il loro bordo corrente è più in basso perché la pagina non è ancora scorsa.
+  const tabsTop = Number.parseFloat(tabsStyle?.top || '0') || 0;
+  const tabsStickyBottom = tabs && tabsStyle?.position === 'sticky'
+    ? tabsTop + (tabsRect?.height || 0)
+    : 0;
+  const stickyBottom = Math.max(headerBottom, tabsStickyBottom);
   const targetTop = window.scrollY + target.getBoundingClientRect().top;
   const top = targetTop - stickyBottom + 24;
 
