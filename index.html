@@ -2174,6 +2174,21 @@ header {
     }
   }
 
+  /* Schede introduttive: testo di regola più leggibile e facile da scandire. */
+  .profession-intro .rule-box h4 { font-size: .8rem; }
+  .profession-intro .rule-box p,
+  .profession-intro .rule-box li {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .profession-intro .rule-box p { margin: 0; }
+  .profession-intro .rule-box ul {
+    display: grid;
+    gap: .25rem;
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
 </style>
 </head>
 <body>
@@ -3724,7 +3739,10 @@ function renderIntro(m) {
     <div class="rules-grid">
       <div class="rule-box patent-rule-box">
         <h4>📜 Patente professionale</h4>
-        <p>Ai livelli 1–3 si applica la patente ordinaria indicata accanto al mestiere. Dal livello 4, la <strong style="color:var(--gold)">P.O.E.</strong> la sostituisce e ne amplia le autorizzazioni; resta la patente di riferimento anche al livello 5.</p>
+        <ul>
+          <li>Ai livelli 1–3 vale la patente ordinaria indicata accanto al mestiere.</li>
+          <li>Dal livello 4 la <strong style="color:var(--gold)">P.O.E.</strong> la sostituisce e ne amplia le autorizzazioni; resta il riferimento anche al livello 5.</li>
+        </ul>
       </div>
       <div class="rule-box">
         <h4>📈 Livello Personaggio → Mestiere</h4>
@@ -3744,15 +3762,24 @@ function renderIntro(m) {
       </div>
       <div class="rule-box">
         <h4>📚 Imparare un Progetto</h4>
-        <p>Richiede lo stesso tempo e monete d'oro pari ai materiali necessari per la creazione dell'oggetto. Il tempo è impiegato per studiare il Progetto.</p>
+        <ul>
+          <li>Lo studio richiede lo stesso tempo previsto per creare l'oggetto.</li>
+          <li>Il costo in monete d'oro equivale ai materiali necessari per la creazione.</li>
+        </ul>
       </div>
       <div class="rule-box">
         <h4>🤝 Collaborazione</h4>
-        <p>Consentita fino a <strong style="color:var(--gold)">3 persone</strong> per oggetto. Ogni personaggio deve rispettare i requisiti di livello.</p>
+        <ul>
+          <li>Possono collaborare fino a <strong style="color:var(--gold)">3 persone</strong> per oggetto.</li>
+          <li>Ogni personaggio deve rispettare i requisiti di livello.</li>
+        </ul>
       </div>
       <div class="rule-box">
         <h4>⬆️ Aumentare di Livello</h4>
-        <p>Solo tramite corso da NPC o giocatori del livello desiderato. Durante il downtime di aumento si è considerati del nuovo livello e si deve costruire un oggetto di quel livello.</p>
+        <ul>
+          <li>Si sale solo con un corso tenuto da un NPC o da giocatori del livello desiderato.</li>
+          <li>Durante il downtime si è considerati del nuovo livello e si deve costruire un oggetto di quel livello.</li>
+        </ul>
       </div>
     </div>
   </div>

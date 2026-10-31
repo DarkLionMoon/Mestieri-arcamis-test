@@ -16,6 +16,20 @@ test('homepage renders its title, search and profession cards', async ({ page })
   await expect(page.locator('#tabs .tab-btn', { hasText: 'Alchimista' })).toBeVisible();
 });
 
+test('profession overview rules are readable and broken into scannable points', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'), 'Verifica specifica desktop');
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.locator('#tabs .tab-btn', { hasText: 'Alchimista' }).click();
+
+  const projectRule = page.locator('.rule-box').filter({ has: page.getByRole('heading', { name: '📚 Imparare un Progetto' }) });
+  const collaborationRule = page.locator('.rule-box').filter({ has: page.getByRole('heading', { name: '🤝 Collaborazione' }) });
+  const ruleText = page.locator('.rule-box li').first();
+
+  expect(await ruleText.evaluate(element => parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(15.5);
+  await expect(projectRule.locator('li')).toHaveCount(2);
+  await expect(collaborationRule.locator('li')).toHaveCount(2);
+});
+
 test('desktop header and profession navigation stay compact and reachable', async ({ page }) => {
   await page.setViewportSize({ width: 1096, height: 900 });
 
