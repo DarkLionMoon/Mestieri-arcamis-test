@@ -4,6 +4,7 @@ import test from 'node:test';
 import { runInNewContext } from 'node:vm';
 
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const catalogSource = readFileSync(new URL('../data/mestieri.js', import.meta.url), 'utf8');
 const lines = html.split('\n');
 
 function extractFunction(name) {
@@ -32,9 +33,18 @@ const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({
 const safeExternalUrl = loadFunction('safeExternalUrl');
 const matches = loadFunction('matches');
 const infoResa = loadFunction('infoResa', { escapeHTML });
-const catalogLiteral = html.match(/const MESTIERI = ([\s\S]*?)\r?\n\];/)?.[1];
-assert.ok(catalogLiteral, 'Catalog data must remain available for price checks');
+const catalogLiteral = catalogSource.match(/const MESTIERI = ([\s\S]*?)\r?\n\];/)?.[1];
+assert.ok(catalogLiteral, 'Catalog data must be available in its dedicated data file');
 const catalog = runInNewContext(`${catalogLiteral}\n]`);
+
+test('la pagina carica il catalogo esterno prima dello script applicativo', () => {
+  const dataScript = html.indexOf('<script src="/data/mestieri.js"></script>');
+  const appScript = html.indexOf('<script>', dataScript);
+  assert.notEqual(dataScript, -1);
+  assert.ok(appScript > dataScript);
+  assert.ok(!html.includes('const MESTIERI ='));
+  assert.ok(catalog.length > 0);
+});
 
 test('escapeHTML neutralizza markup e caratteri speciali', () => {
   assert.ok(escapeHTMLSource.includes("return String(value).replace"));

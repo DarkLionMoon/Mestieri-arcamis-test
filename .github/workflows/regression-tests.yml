@@ -1,20 +1,17 @@
 name: Regression tests
 
+# The regression suite is included in the full workflow in playwright.yml.
+# Keep this file as a clear entry point for local-only quick checks.
 on:
-  pull_request:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Run regression tests
-        run: node --test tests/regression.test.mjs
+      - run: npm ci
+      - run: npm run test:regression

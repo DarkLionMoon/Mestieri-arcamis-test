@@ -48,6 +48,36 @@ test('catalog search suggests items, highlights matches and clears in one action
   await expect(page.getByRole('option', { name: 'Radice di Loto' })).toBeVisible();
 });
 
+test('search suggestions support full keyboard navigation and dismissal', async ({ page }) => {
+  const search = page.locator('#searchInput');
+  await search.fill('Potion');
+  const options = page.getByRole('option');
+  await expect(options).toHaveCount(7);
+
+  await search.press('ArrowDown');
+  await expect(search).toBeFocused();
+  await expect(search).toHaveAttribute('aria-activedescendant', /searchSuggestion-/);
+  const firstId = await search.getAttribute('aria-activedescendant');
+  await expect(page.locator(`#${firstId}`)).toHaveAttribute('aria-selected', 'true');
+
+  await search.press('ArrowUp');
+  const lastId = await search.getAttribute('aria-activedescendant');
+  expect(lastId).not.toBe(firstId);
+  await search.press('Home');
+  await expect(search).toHaveAttribute('aria-activedescendant', firstId);
+  await search.press('End');
+  await search.press('Enter');
+  await expect(search).toHaveValue(/Potion/i);
+  await expect(search).toHaveAttribute('aria-expanded', 'false');
+
+  await search.fill('Potion');
+  await search.press('ArrowDown');
+  await search.press('Escape');
+  await expect(search).toBeFocused();
+  await expect(search).toHaveAttribute('aria-expanded', 'false');
+  await expect(search).toHaveValue('Potion');
+});
+
 test('profession overview rules are readable and broken into scannable points', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('desktop'), 'Verifica specifica desktop');
   await page.setViewportSize({ width: 1440, height: 900 });

@@ -1,4 +1,4 @@
-name: Playwright E2E
+name: Verifica completa
 
 on:
   push:
@@ -26,11 +26,11 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
-      - name: Run desktop and mobile tests
-        run: npm run test:e2e
+      - name: Run regression and desktop/mobile tests
+        run: npm test
       - name: Upload Playwright report on failure
         if: failure()
         uses: actions/upload-artifact@v4

@@ -15,4 +15,4 @@ http.createServer((req, res) => {
     }
     res.end(data);
   });
-}).listen(4174, '127.0.0.1');
+}).listen(Number(process.argv[2]) || 4174, '127.0.0.1');

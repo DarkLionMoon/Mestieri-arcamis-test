@@ -61,13 +61,25 @@ Apri quindi [http://localhost:8000](http://localhost:8000) nel browser.
 ### Installare le dipendenze per i test
 
 ```bash
-npm install
-npx playwright install
+npm ci
+npx playwright install chromium
 ```
 
 ### Eseguire i test
 
-Per avviare la suite di test end-to-end:
+Per eseguire tutti i controlli (regressioni e test desktop/mobile):
+
+```bash
+npm test
+```
+
+Per eseguire soltanto i controlli rapidi sui dati e sul codice:
+
+```bash
+npm run test:regression
+```
+
+Per eseguire soltanto la suite end-to-end:
 
 ```bash
 npm run test:e2e
@@ -87,6 +99,8 @@ Mestieri-arcamis-test/
 │   └── workflows/          # Workflow automatizzati
 ├── assets/
 │   └── professions/        # Risorse delle professioni
+├── data/
+│   └── mestieri.js         # Catalogo di professioni, ricette e materiali
 ├── scripts/                # Script di supporto
 ├── tests/                  # Test automatizzati
 ├── _headers                # Configurazione degli header
@@ -98,7 +112,7 @@ Mestieri-arcamis-test/
 
 ## 🧪 Test e sviluppo
 
-Il progetto include una configurazione dedicata ai test end-to-end, con script npm per l'esecuzione standard e per la modalità interattiva.
+Il progetto include controlli di regressione e test end-to-end desktop/mobile. La verifica completa parte con `npm test` e viene eseguita automaticamente su ogni branch e sulle pull request.
 
 Prima di proporre modifiche, è consigliabile verificare che il sito continui a funzionare correttamente e che i test disponibili vengano superati.
 
