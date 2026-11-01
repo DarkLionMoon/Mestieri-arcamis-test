@@ -48,6 +48,18 @@ test('catalog search suggests items, highlights matches and clears in one action
   await expect(page.getByRole('option', { name: 'Radice di Loto' })).toBeVisible();
 });
 
+test('the downtime label is centered over the artist-level columns', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name.startsWith('mobile'), 'Intestazione di gruppo verificata sulla tabella desktop');
+  await page.locator('#tabs .tab-btn', { hasText: 'Artista' }).click();
+  await page.locator('#sidenav .sidenav-btn', { hasText: 'Pergamene Magiche' }).click();
+
+  const label = page.getByRole('columnheader', { name: /Numero di Downtime richiesti/i });
+  await expect(label).toHaveAttribute('colspan', '5');
+  await expect(label).toHaveAttribute('scope', 'colgroup');
+  await expect(label.locator('xpath=..').locator('th').first()).toHaveAttribute('colspan', '3');
+  await expect(label.locator('xpath=..').locator('th').first()).toHaveText('');
+});
+
 test('search suggestions support full keyboard navigation and dismissal', async ({ page }) => {
   const search = page.locator('#searchInput');
   await search.fill('Potion');
