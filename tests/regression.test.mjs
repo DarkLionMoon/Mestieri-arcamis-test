@@ -121,3 +121,23 @@ test('i totali materiali coincidono con il costo, salvo le due voci escluse', ()
     }
   }
 });
+
+test('il costo finale delle sette voci corrette è il doppio dei materiali', () => {
+  const daVerificare = new Set([
+    'architetto:Torre Difensiva',
+    'artigiano:Ioun Stone of Greater Absorption',
+    'metallurgo:Chakram',
+    'metallurgo:Mithral Armor',
+    'oste:Pezzetti di Kaskadeur',
+    'artista:Spellwrought Tattoo (4° Livello)',
+    'artista:Spellwrought Tattoo (6°-9° Livello)'
+  ]);
+  for (const mestiere of catalog) {
+    for (const livello of mestiere.livelli) {
+      for (const oggetto of livello.items) {
+        if (!daVerificare.has(`${mestiere.id}:${oggetto.n}`)) continue;
+        assert.equal(oggetto.vend, oggetto.costo * 2, `${mestiere.nome} LV${livello.lv} — ${oggetto.n}`);
+      }
+    }
+  }
+});
