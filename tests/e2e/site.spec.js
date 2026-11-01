@@ -16,6 +16,38 @@ test('homepage renders its title, search and profession cards', async ({ page })
   await expect(page.locator('#tabs .tab-btn', { hasText: 'Alchimista' })).toBeVisible();
 });
 
+test('header brand and subtitle stay visually centered, with readable neutral rule text', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const alignment = await page.locator('.header-brand').evaluate(element => {
+    const title = element.querySelector('h1').getBoundingClientRect();
+    const subtitle = element.querySelector('p').getBoundingClientRect();
+    return Math.abs((title.left + title.right) / 2 - (subtitle.left + subtitle.right) / 2);
+  });
+  expect(alignment).toBeLessThanOrEqual(2);
+
+  await page.locator('#tabs .tab-btn', { hasText: 'Alchimista' }).click();
+  const columnCount = await page.locator('.profession-intro .rules-grid').evaluate(element => getComputedStyle(element).gridTemplateColumns.split(' ').length);
+  expect(columnCount).toBe(3);
+  const textColor = await page.locator('.rule-box p, .rule-box li').first().evaluate(element => getComputedStyle(element).color);
+  const channels = textColor.match(/\d+/g).slice(0, 3).map(Number);
+  expect(Math.max(...channels) - Math.min(...channels)).toBeLessThanOrEqual(32);
+});
+
+test('catalog search suggests items, highlights matches and clears in one action', async ({ page }) => {
+  const search = page.locator('#searchInput');
+  await search.fill('Potion of Hea');
+  const suggestion = page.getByRole('option', { name: 'Potion of Healing' });
+  await expect(suggestion).toBeVisible();
+  await suggestion.click();
+  await expect(search).toHaveValue('Potion of Healing');
+  await expect(page.locator('.recipe-name mark').first()).toContainText('Potion of Healing');
+  await page.getByRole('button', { name: 'Cancella ricerca' }).click();
+  await expect(search).toHaveValue('');
+  await expect(page.locator('#content .home-page')).toBeVisible();
+  await search.fill('Radice di Loto');
+  await expect(page.getByRole('option', { name: 'Radice di Loto' })).toBeVisible();
+});
+
 test('profession overview rules are readable and broken into scannable points', async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith('desktop'), 'Verifica specifica desktop');
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -67,6 +99,8 @@ test('recipe filters narrow results by type, material cost and downtime', async 
   const matchingRecipeCount = await rows.count();
   await expect(filterToggle).toContainText(`${matchingRecipeCount}`);
   await expect(filterToggle).toContainText('risultat');
+  const categoryChip = page.getByRole('button', { name: 'Rimuovi filtro: Adventuring Gear' });
+  await expect(categoryChip).toBeVisible();
   const filteredData = await rows.evaluateAll(elements => elements.map(element => ({
     tipologia: element.dataset.tipologia,
     costo: Number(element.dataset.costo),
@@ -74,6 +108,9 @@ test('recipe filters narrow results by type, material cost and downtime', async 
   })));
   expect(filteredData.length).toBeGreaterThan(0);
   expect(filteredData.every(item => item.tipologia === 'Adventuring Gear' && item.costo <= 25 && item.downtime <= 1)).toBe(true);
+  await categoryChip.click();
+  await expect.poll(() => rows.count()).toBeGreaterThan(matchingRecipeCount);
+  await expect(page.getByRole('button', { name: 'Rimuovi filtro: Costo massimo' })).toBeVisible();
   await expect(rows.filter({ hasText: 'Lilypad Tonic' })).toBeVisible();
   await expect(rows.filter({ hasText: 'Fumogeno' })).toBeVisible();
   await expect(rows.filter({ hasText: 'Potion of Healing' })).toHaveCount(0);

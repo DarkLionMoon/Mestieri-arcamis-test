@@ -76,7 +76,7 @@
     color: var(--text);
     font-family: 'Crimson Pro', serif;
     font-size: 1rem;
-    padding: 10px 40px 10px 16px;
+    padding: 10px 74px 10px 16px;
     border-radius: 4px;
     outline: none;
     transition: border-color .2s, box-shadow .2s;
@@ -86,6 +86,60 @@
   .search-wrap span {
     position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
     color: var(--text3); font-size: 1.1rem; pointer-events: none;
+  }
+  .search-wrap .search-icon { right: 14px; }
+  .search-clear {
+    position: absolute;
+    right: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text3);
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .search-clear:hover { border-color: var(--border); color: var(--text); }
+  .search-clear[hidden] { display: none; }
+  .search-suggestions {
+    position: absolute;
+    z-index: 140;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    max-height: min(45vh, 320px);
+    overflow-y: auto;
+    padding: 5px;
+    border: 1px solid var(--border2);
+    border-radius: 7px;
+    background: var(--panel);
+    box-shadow: 0 12px 28px rgba(0,0,0,.48);
+  }
+  .search-suggestions[hidden] { display: none; }
+  .search-suggestion {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+    font: 500 .95rem/1.35 'Source Sans 3', system-ui, sans-serif;
+    cursor: pointer;
+  }
+  .search-suggestion:hover,
+  .search-suggestion:focus-visible { background: var(--panel2); color: var(--gold3); outline: none; }
+  .recipe-name mark {
+    padding: 0 .08em;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--gold2) 22%, transparent);
+    color: var(--gold3);
   }
 
   /* ── TABS (MESTIERI) ── */
@@ -110,6 +164,15 @@
     white-space: nowrap;
   }
   .tab-btn:hover { background: var(--panel2); color: var(--gold2); border-color: var(--border2); }
+  .tab-icon, .sidenav-icon {
+    display: inline-flex;
+    width: 1.25em;
+    justify-content: center;
+    align-items: center;
+    margin-right: .2em;
+    line-height: 1;
+    filter: saturate(.72);
+  }
   .tab-btn.active {
     background: var(--bg3);
     color: var(--gold2);
@@ -289,6 +352,7 @@
   .recipe-row:nth-child(even) { background: rgba(255,255,255,.018); }
   .recipe-row:hover { background: rgba(201,168,76,.065); }
   .recipe-row td.recipe-name { color: var(--text); font-weight: 650; min-width: 155px; }
+  .recipe-row td { line-height: 1.5; }
   .recipe-row td.cost-craft { color: var(--text2); white-space: nowrap; font-variant-numeric: tabular-nums; }
   .recipe-row td.cost-sell { color: var(--gold2); font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .recipe-row td[data-label="Descrizione"] { min-width: 210px; line-height: 1.5; }
@@ -753,11 +817,13 @@
   .quantita-dialog strong { color:var(--gold); }
 
 /* ARCAMIS VISUAL RESTYLE: dark fantasy / antique gold */
-:root{--bg:#111216;--bg2:#17181d;--bg3:#202127;--panel:#1b1c22;--panel2:#25262d;--border:#49402f;--border2:#80663a;--gold:#b99a58;--gold2:#d8b96e;--gold3:#f0d99a;--amber:#d4a45e;--text:#eee6d5;--text2:#c6b99d;--text3:#95876c;--shadow:0 10px 28px rgba(0,0,0,.38);--glow:0 0 22px rgba(216,185,110,.13);--header-bg-start:#0b0c10;--header-bg-end:#17171b;--guide-hero-end:#26231c}
+:root{--bg:#111216;--bg2:#17181d;--bg3:#202127;--panel:#1b1c22;--panel2:#25262d;--border:#49402f;--border2:#80663a;--gold:#b99a58;--gold2:#d8b96e;--gold3:#f0d99a;--amber:#d4a45e;--text:#eee6d5;--text2:#d0c8ba;--text3:#aaa18f;--shadow:0 10px 28px rgba(0,0,0,.38);--glow:0 0 22px rgba(216,185,110,.13);--header-bg-start:#0b0c10;--header-bg-end:#17171b;--guide-hero-end:#26231c}
 html{scroll-behavior:smooth}
 body{background-color:var(--bg);background-image:radial-gradient(ellipse at 50% -15%,rgba(133,104,52,.13),transparent 52%),radial-gradient(ellipse at 0% 55%,rgba(71,65,53,.07),transparent 35%);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;letter-spacing:.005em}
 header{background:linear-gradient(180deg,rgba(8,9,12,.98),rgba(22,22,26,.97));border-bottom:1px solid var(--border2);box-shadow:0 10px 34px rgba(0,0,0,.48),0 1px 0 rgba(216,185,110,.10);padding-top:24px;padding-bottom:20px}
-header::after{content:"✦  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ✦";display:block;color:rgba(185,154,88,.52);font-size:.62rem;letter-spacing:.2em;margin:12px auto -3px;max-width:min(420px,90%);overflow:hidden;white-space:nowrap}
+header::after{content:"";display:block;width:min(280px,60%);height:1px;margin:12px auto -3px;background:linear-gradient(90deg,transparent,rgba(185,154,88,.52),transparent)}
+header .header-brand{width:max-content;max-width:100%;margin-inline:auto;text-align:center}
+header .header-brand p{width:100%;text-align:center;letter-spacing:.1em}
 header h1{font-family:Georgia,"Palatino Linotype","Book Antiqua",serif;font-weight:700;font-size:clamp(1.65rem,4vw,2.75rem);letter-spacing:.075em;color:var(--gold3);text-shadow:0 2px 2px #000,0 0 26px rgba(216,185,110,.18);line-height:1.2}
 header p{color:#a99a7b;font-size:.75rem;letter-spacing:.18em}
 .search-wrap{max-width:620px;margin-top:18px}
@@ -776,7 +842,7 @@ header p{color:#a99a7b;font-size:.75rem;letter-spacing:.18em}
 .intro-card,.guide-hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 100% 0%,rgba(185,154,88,.10),transparent 48%),linear-gradient(135deg,#24242a,#1a1b20 72%);border:1px solid #75603b;border-radius:9px;box-shadow:0 12px 30px rgba(0,0,0,.24),inset 0 1px 0 rgba(240,217,154,.055)}
 .intro-card::before,.guide-hero::after{content:"";position:absolute;top:0;right:0;width:100px;height:100px;pointer-events:none;opacity:.32;background:linear-gradient(135deg,transparent 48%,rgba(216,185,110,.13) 49%,transparent 50%)}
 .intro-card h2,.guide-hero h2{font-family:Georgia,"Palatino Linotype",serif;letter-spacing:.025em;color:var(--gold3);text-shadow:0 2px 8px rgba(0,0,0,.4)}
-.intro-card .tagline{color:#b6a37d}
+  .intro-card .tagline{color:#c9c1b1}
 .lv-header{border-bottom:1px solid #655236;padding-bottom:12px;margin-bottom:14px}
 .lv-header h3{font-family:Georgia,"Palatino Linotype",serif;color:var(--gold2);letter-spacing:.025em;font-size:clamp(1.1rem,2vw,1.35rem)}
 .lv-header p{color:#a99b80}
@@ -1777,8 +1843,8 @@ header {
   
   /* ── LEGGIBILITÀ TIPOGRAFICA ── */
   :root {
-    --text2: #d3c09f;
-    --text3: #b5a080;
+    --text2: #d0c8ba;
+    --text3: #aaa18f;
   }
   body {
     font-family: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -2242,6 +2308,22 @@ header {
   }
   .recipe-filter-toggle[aria-expanded="true"] .recipe-filter-chevron { transform: rotate(180deg); }
   .recipe-filter-match-count { color: var(--text3); font-size: .82rem; }
+  .recipe-filter-active-filters { display: flex; flex-wrap: wrap; gap: 6px; margin: -2px 0 10px; }
+  .recipe-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 27px;
+    padding: 3px 8px;
+    border: 1px solid color-mix(in srgb, var(--gold2) 34%, var(--border));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--gold2) 7%, var(--panel));
+    color: var(--text2);
+    font: 600 .76rem/1.2 'Source Sans 3', system-ui, sans-serif;
+    cursor: pointer;
+  }
+  .recipe-filter-chip:hover { border-color: var(--gold2); color: var(--gold3); }
+  .recipe-filter-chip span { color: var(--gold2); font-size: 1rem; line-height: .8; }
   .recipe-filter-toggle .recipe-filter-result-badge {
     padding: 2px 7px;
     border: 1px solid color-mix(in srgb, var(--gold2) 42%, var(--border));
@@ -2342,6 +2424,15 @@ header {
     margin: 0;
     padding-left: 1.1rem;
   }
+  @media (min-width: 1000px) {
+    .profession-intro .rules-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  }
+  @media (max-width: 999px) {
+    .profession-intro .rules-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+  }
+  @media (max-width: 600px) {
+    .profession-intro .rules-grid { grid-template-columns: 1fr; }
+  }
 
 </style>
 </head>
@@ -2354,8 +2445,10 @@ header {
   </div>
   <div class="search-wrap">
     <label class="sr-only" for="searchInput">Cerca oggetti, materiali e tipologie</label>
-    <input type="text" id="searchInput" placeholder="Cerca oggetto, materiale, tipologia…" oninput="doSearch(this.value)">
-    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Cerca oggetto, materiale, tipologia…" role="combobox" aria-autocomplete="list" aria-controls="searchSuggestions" aria-expanded="false" autocomplete="off" oninput="doSearch(this.value)" onkeydown="handleSearchKeydown(event)">
+    <button type="button" class="search-clear" aria-label="Cancella ricerca" onclick="clearCatalogSearch()" hidden>×</button>
+    <span class="search-icon" aria-hidden="true">🔍</span>
+    <div class="search-suggestions" id="searchSuggestions" role="listbox" aria-label="Suggerimenti di ricerca" hidden></div>
   </div>
 </header>
 
@@ -3798,14 +3891,14 @@ function renderTabs() {
   el.style.display = '';
   const guideActive = currentMestiere === -1;
   const homeActive = currentMestiere === -2 && !searchQ;
-  let html = `<button type="button" class="tab-btn ${homeActive?'active':''}" onclick="setHome()">⌂ Home</button>`;
-  html += `<button type="button" class="tab-btn ${guideActive?'active guide-tab-active':''}" onclick="setGuide()">📖 Guida ai Mestieri</button>`;
+  let html = `<button type="button" class="tab-btn ${homeActive?'active':''}" onclick="setHome()"><span class="tab-icon" aria-hidden="true">⌂</span>Home</button>`;
+  html += `<button type="button" class="tab-btn ${guideActive?'active guide-tab-active':''}" onclick="setGuide()"><span class="tab-icon" aria-hidden="true">📖</span>Guida ai Mestieri</button>`;
   html += '<div style="width:1px;background:var(--border);margin:0 4px 0;align-self:stretch"></div>';
   html += MESTIERI
     .map((m, i) => ({ m, i }))
     .sort((a, b) => a.m.nome.localeCompare(b.m.nome, 'it'))
     .map(({ m, i }) =>
-      `<button type="button" class="tab-btn ${i===currentMestiere?'active':''}" onclick="setMestiere(${i})">${m.emoji} ${m.nome}</button>`
+      `<button type="button" class="tab-btn ${i===currentMestiere?'active':''}" onclick="setMestiere(${i})"><span class="tab-icon" aria-hidden="true">${m.emoji}</span>${escapeHTML(m.nome)}</button>`
     ).join('');
   el.innerHTML = html;
 }
@@ -3816,15 +3909,15 @@ function renderSideNav() {
   const m = MESTIERI[currentMestiere];
   let html = '<div class="sidenav-section">';
   html += '<div class="sidenav-title">Sezioni</div>';
-  html += `<button type="button" class="sidenav-btn ${currentSection==='intro'?'active':''}" onclick="setSection('intro')">📖 Introduzione</button>`;
+  html += `<button type="button" class="sidenav-btn ${currentSection==='intro'?'active':''}" onclick="setSection('intro')"><span class="sidenav-icon" aria-hidden="true">📖</span>Introduzione</button>`;
   m.livelli.forEach(lv => {
     const key = 'lv'+lv.lv;
-    html += `<button type="button" class="sidenav-btn ${currentSection===key?'active':''}" onclick="setSection('${key}')">⬟ Livello ${lv.lv}</button>`;
+    html += `<button type="button" class="sidenav-btn ${currentSection===key?'active':''}" onclick="setSection('${key}')"><span class="sidenav-icon" aria-hidden="true">⬟</span>Livello ${lv.lv}</button>`;
   });
   if (m.id === 'artista') {
-    html += `<button type="button" class="sidenav-btn ${currentSection==='pergamene'?'active':''}" onclick="setSection('pergamene')">📜 Pergamene Magiche</button>`;
+    html += `<button type="button" class="sidenav-btn ${currentSection==='pergamene'?'active':''}" onclick="setSection('pergamene')"><span class="sidenav-icon" aria-hidden="true">📜</span>Pergamene Magiche</button>`;
   }
-  html += `<button type="button" class="sidenav-btn ${currentSection==='mat'?'active':''}" onclick="setSection('mat')">💎 Materiali Speciali</button>`;
+  html += `<button type="button" class="sidenav-btn ${currentSection==='mat'?'active':''}" onclick="setSection('mat')"><span class="sidenav-icon" aria-hidden="true">💎</span>Materiali Speciali</button>`;
   html += '</div>';
   el.innerHTML = html;
 }
@@ -3954,6 +4047,7 @@ function renderLv(m, lv) {
   }
 
   const scopeFiltri = `${m.id}:lv${lv.lv}`;
+  const panelFiltriId = `recipeFilterPanel-${m.id}-${lv.lv}`;
   if (recipeFilterState.scope !== scopeFiltri) {
     recipeFilterState = { scope: scopeFiltri, tipologia: '', costoMax: '', downtimeMax: '', open: false };
   }
@@ -3979,16 +4073,25 @@ function renderLv(m, lv) {
   const risultatiFiltratiHTML = filtriAttivi
     ? `<span class="recipe-filter-result-badge">${items.length} risultat${items.length === 1 ? 'o' : 'i'}</span>`
     : '';
+  const filtriChip = [
+    recipeFilterState.tipologia && ['tipologia', 'Tipologia', recipeFilterState.tipologia],
+    recipeFilterState.costoMax !== '' && ['costoMax', 'Costo massimo', `Costo ≤ ${recipeFilterState.costoMax} MO`],
+    recipeFilterState.downtimeMax !== '' && ['downtimeMax', 'Downtime massimo', `DT ≤ ${recipeFilterState.downtimeMax}`]
+  ].filter(Boolean);
+  const filtriAttiviHTML = filtriChip.length
+    ? `<div class="recipe-filter-active-filters">${filtriChip.map(([chiave, etichetta, valore]) => `<button type="button" class="recipe-filter-chip" aria-label="Rimuovi filtro: ${escapeHTML(etichetta === 'Tipologia' ? valore : etichetta)}" onclick="removeRecipeFilter('${chiave}')">${escapeHTML(valore)} <span aria-hidden="true">×</span></button>`).join('')}</div>`
+    : '';
   const filtriHTML = `
     <div class="recipe-filter-toolbar">
-      <button type="button" class="recipe-filter-toggle" aria-label="Filtri" aria-expanded="${recipeFilterState.open}" aria-controls="recipeFilterPanel" onclick="toggleRecipeFilters()">
+      <button type="button" class="recipe-filter-toggle" aria-label="Filtri" aria-expanded="${recipeFilterState.open}" aria-controls="${panelFiltriId}" onclick="toggleRecipeFilters(this)">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h14l-5.5 6.2v5.3l-3 1.5v-6.8L3 4Z"/></svg>
         <span>Filtri</span>${risultatiFiltratiHTML}
         <svg class="recipe-filter-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg>
       </button>
       <span class="recipe-filter-match-count">${items.length} di ${lv.items.length} ricette</span>
     </div>
-    <div class="recipe-filter-panel" id="recipeFilterPanel"${recipeFilterState.open ? '' : ' hidden'}>
+    ${filtriAttiviHTML}
+    <div class="recipe-filter-panel" id="${panelFiltriId}"${recipeFilterState.open ? '' : ' hidden'}>
     <form class="recipe-filter-form" data-scope="${scopeFiltri}" onsubmit="applyRecipeFilters(event)">
       <label class="recipe-filter-field">Tipologia
         <select name="tipologia">
@@ -4526,7 +4629,7 @@ const raggruppaSarto =
     const downtimeCorrente = Number(tempiVisibili[0]);
 
     return `<tr class="recipe-row" data-tipologia="${escapeHTML(it.tip || '')}" data-costo="${Number.isFinite(Number(it.costo)) ? Number(it.costo) : ''}" data-downtime="${Number.isFinite(downtimeCorrente) ? downtimeCorrente : ''}">
-      <td class="recipe-name" data-label="Nome">${escapeHTML(it.n)}</td>
+      <td class="recipe-name" data-label="Nome">${highlightSearchText(it.n)}</td>
       <td data-label="Progressione">${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
@@ -4732,13 +4835,21 @@ function resetRecipeFilters() {
   applyRecipeFilters(null, true);
 }
 
-function toggleRecipeFilters() {
-  recipeFilterState.open = !recipeFilterState.open;
-  const panel = document.getElementById('recipeFilterPanel');
-  const button = document.querySelector('.recipe-filter-toggle');
+function toggleRecipeFilters(button) {
+  const isOpen = button?.getAttribute('aria-expanded') !== 'true';
+  recipeFilterState.open = isOpen;
+  const panel = document.getElementById(button?.getAttribute('aria-controls'));
   if (!panel || !button) return;
-  panel.hidden = !recipeFilterState.open;
-  button.setAttribute('aria-expanded', String(recipeFilterState.open));
+  panel.hidden = !isOpen;
+  button.setAttribute('aria-expanded', String(isOpen));
+}
+
+function removeRecipeFilter(key) {
+  if (!['tipologia', 'costoMax', 'downtimeMax'].includes(key)) return;
+  recipeFilterState[key] = '';
+  recipeFilterState.open = true;
+  renderContent();
+  document.querySelector('.recipe-filter-toggle')?.focus({ preventScroll: true });
 }
 
 // Apre o chiude il gruppo di ricette.
@@ -4904,6 +5015,17 @@ function escapeHTML(value) {
     '"': '&quot;',
     "'": '&#39;'
   })[char]);
+}
+
+function highlightSearchText(value) {
+  const text = String(value || '');
+  if (!searchQ) return escapeHTML(text);
+  const lowerText = text.toLocaleLowerCase('it');
+  const lowerQuery = searchQ.toLocaleLowerCase('it');
+  const start = lowerText.indexOf(lowerQuery);
+  if (start < 0) return escapeHTML(text);
+  const end = start + searchQ.length;
+  return `${escapeHTML(text.slice(0, start))}<mark>${escapeHTML(text.slice(start, end))}</mark>${escapeHTML(text.slice(end))}`;
 }
 
 // Accetta solo collegamenti HTTPS al dominio di riferimento previsto dal catalogo.
@@ -5199,12 +5321,84 @@ function doSearch(q) {
   render();
 }
 
+let searchSuggestionCache = null;
+
+function renderSearchSuggestions(query) {
+  const input = document.getElementById('searchInput');
+  const clearButton = document.querySelector('.search-clear');
+  const list = document.getElementById('searchSuggestions');
+  if (!input || !list) return;
+  const term = String(query || '').trim().toLocaleLowerCase('it');
+  if (clearButton) clearButton.hidden = !term;
+  if (term.length < 2) {
+    list.hidden = true;
+    list.innerHTML = '';
+    input.setAttribute('aria-expanded', 'false');
+    return;
+  }
+  if (!searchSuggestionCache) {
+    searchSuggestionCache = [...new Set(MESTIERI.flatMap(m => m.livelli.flatMap(lv => lv.items.flatMap(item => [
+      item.n,
+      item.tip,
+      item.mp?.replace(/^[\d.,]+\s*MO\s*/i, ''),
+      item.ms?.replace(/^[\d.,]+\s*MO\s*/i, '')
+    ].filter(Boolean)))))];
+  }
+  const suggestions = searchSuggestionCache
+    .filter(name => name.toLocaleLowerCase('it').includes(term))
+    .sort((a, b) => {
+      const aStarts = a.toLocaleLowerCase('it').startsWith(term);
+      const bStarts = b.toLocaleLowerCase('it').startsWith(term);
+      return Number(bStarts) - Number(aStarts) || a.localeCompare(b, 'it', { sensitivity: 'base' });
+    })
+    .slice(0, 7);
+  list.innerHTML = suggestions.map(name => `<button type="button" class="search-suggestion" role="option" aria-selected="false" data-query="${escapeHTML(name)}" onclick="selectSearchSuggestion(this.dataset.query)">${highlightSearchText(name)}</button>`).join('');
+  list.hidden = suggestions.length === 0;
+  input.setAttribute('aria-expanded', String(suggestions.length > 0));
+}
+
+function selectSearchSuggestion(value) {
+  const input = document.getElementById('searchInput');
+  const query = String(value || '');
+  if (input) input.value = query;
+  doSearch(query);
+  closeSearchSuggestions();
+  input?.focus({ preventScroll: true });
+}
+
+function closeSearchSuggestions() {
+  const input = document.getElementById('searchInput');
+  const list = document.getElementById('searchSuggestions');
+  if (list) list.hidden = true;
+  input?.setAttribute('aria-expanded', 'false');
+}
+
+function handleSearchKeydown(event) {
+  const list = document.getElementById('searchSuggestions');
+  if (event.key === 'Escape') {
+    closeSearchSuggestions();
+    return;
+  }
+  if (event.key === 'ArrowDown' && list && !list.hidden) {
+    event.preventDefault();
+    list.querySelector('.search-suggestion')?.focus();
+  }
+}
+
+function clearCatalogSearch() {
+  const input = document.getElementById('searchInput');
+  if (input) input.value = '';
+  doSearch('');
+  input?.focus({ preventScroll: true });
+}
+
 function render() {
   document.querySelector('.main').classList.toggle('home-mode', currentMestiere === -2 && !searchQ);
   renderTabs();
   renderSideNav();
   renderContent();
   syncMobileDrawer();
+  renderSearchSuggestions(searchQ);
 }
 
 // Mostra mobile FAB solo quando c'è sidenav da mostrare
