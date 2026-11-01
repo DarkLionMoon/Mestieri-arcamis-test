@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
+import { runInNewContext } from 'node:vm';
 
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const lines = html.split('\n');
@@ -31,6 +32,9 @@ const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({
 const safeExternalUrl = loadFunction('safeExternalUrl');
 const matches = loadFunction('matches');
 const infoResa = loadFunction('infoResa', { escapeHTML });
+const catalogLiteral = html.match(/const MESTIERI = ([\s\S]*?)\r?\n\];/)?.[1];
+assert.ok(catalogLiteral, 'Catalog data must remain available for price checks');
+const catalog = runInNewContext(`${catalogLiteral}\n]`);
 
 test('escapeHTML neutralizza markup e caratteri speciali', () => {
   assert.ok(escapeHTMLSource.includes("return String(value).replace"));
@@ -99,4 +103,21 @@ test('HTML mantiene etichetta accessibile, tipi dei pulsanti e movimento ridotto
   assert.match(html, /@media \(prefers-reduced-motion: reduce\)/);
   const buttonsWithoutType = html.match(/<button\b(?![^>]*\btype=)[^>]*>/gi) || [];
   assert.deepEqual(buttonsWithoutType, []);
+});
+
+test('i totali materiali coincidono con il costo, salvo le due voci escluse', () => {
+  const esclusi = new Set(['architetto:Laboratorio Alchemico Integrato', 'sarto:Serpent Scale Armor']);
+  const valoreInMO = new Map([['MO', 1], ['MA', 0.1], ['MR', 0.01]]);
+  for (const mestiere of catalog) {
+    for (const livello of mestiere.livelli) {
+      for (const oggetto of livello.items) {
+        if (esclusi.has(`${mestiere.id}:${oggetto.n}`)) continue;
+        const totale = [oggetto.mp, oggetto.ms]
+          .filter(Boolean)
+          .flatMap(materiale => [...materiale.matchAll(/([0-9]+(?:[.,][0-9]+)?)\s*(MO|MA|MR)\b/gi)])
+          .reduce((somma, match) => somma + Number(match[1].replace(',', '.')) * valoreInMO.get(match[2].toUpperCase()), 0);
+        assert.ok(Math.abs(totale - oggetto.costo) < 0.001, `${mestiere.nome} LV${livello.lv} — ${oggetto.n}: materiali ${totale} MO, costo ${oggetto.costo} MO`);
+      }
+    }
+  }
 });
