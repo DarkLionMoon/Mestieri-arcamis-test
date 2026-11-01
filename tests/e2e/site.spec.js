@@ -60,6 +60,51 @@ test('the downtime label is centered over the artist-level columns', async ({ pa
   await expect(label.locator('xpath=..').locator('th').first()).toHaveText('');
 });
 
+test('pergamene show readable mobile cards with all prices and artist times', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('mobile'), 'Layout a schede verificato sul progetto mobile');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('#tabs .tab-btn', { hasText: 'Artista' }).click();
+  await page.locator('#mobileNavBtn').click();
+  await page.locator('#mobileDrawerNav .sidenav-btn', { hasText: 'Pergamene Magiche' }).click();
+
+  const cards = page.locator('.pergamene-mobile-cards');
+  await expect(cards).toBeVisible();
+  await expect(page.locator('.pergamene-desktop-table')).toBeHidden();
+  await expect(cards.locator('.pergamena-mobile-card')).toHaveCount(10);
+
+  const firstCard = cards.locator('.pergamena-mobile-card').first();
+  await expect(firstCard.getByRole('heading', { name: 'Trucchetto' })).toBeVisible();
+  await expect(firstCard.locator('.pergamena-mobile-cost').nth(0)).toContainText('10 MO');
+  await expect(firstCard.locator('.pergamena-mobile-cost').nth(1)).toContainText('5 MO');
+  await expect(firstCard.locator('.pergamena-mobile-dt')).toHaveCount(5);
+  await expect(firstCard.locator('.pergamena-mobile-dt').first()).toContainText('LV1');
+  await expect(firstCard.locator('.pergamena-mobile-dt').last()).toContainText('LV5');
+
+  const finalCard = cards.locator('.pergamena-mobile-card').last();
+  await expect(finalCard.getByRole('heading', { name: '9°' })).toBeVisible();
+  await expect(finalCard.locator('.pergamena-mobile-cost').first()).toContainText('25k MO');
+  await expect(finalCard.locator('.pergamena-mobile-dt').first()).toContainText('120');
+  await expect(finalCard.locator('.pergamena-mobile-dt').last()).toContainText('40');
+  await expect.poll(() => cards.evaluate(element => element.scrollWidth - element.clientWidth)).toBeLessThanOrEqual(1);
+
+  await page.setViewportSize({ width: 600, height: 844 });
+  await expect(cards).toBeVisible();
+  await page.setViewportSize({ width: 601, height: 844 });
+  await expect(cards).toBeHidden();
+  await expect(page.locator('.pergamene-desktop-table')).toBeVisible();
+});
+
+test('pergamene keep the original table on desktop', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith('desktop'), 'Tabella originale verificata sul progetto desktop');
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.locator('#tabs .tab-btn', { hasText: 'Artista' }).click();
+  await page.locator('#sidenav .sidenav-btn', { hasText: 'Pergamene Magiche' }).click();
+
+  await expect(page.locator('.pergamene-desktop-table')).toBeVisible();
+  await expect(page.locator('.pergamene-desktop-table thead tr:first-child th')).toHaveCount(8);
+  await expect(page.locator('.pergamene-mobile-cards')).toBeHidden();
+});
+
 test('search suggestions support full keyboard navigation and dismissal', async ({ page }) => {
   const search = page.locator('#searchInput');
   await search.fill('Potion');
