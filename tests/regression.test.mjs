@@ -31,7 +31,8 @@ const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({
   "'": '&#39;'
 })[char]);
 const safeExternalUrl = loadFunction('safeExternalUrl');
-const matches = loadFunction('matches');
+const normalizeSearch = loadFunction('normalizeSearch');
+const matches = loadFunction('matches', { normalizeSearch });
 const infoResa = loadFunction('infoResa', { escapeHTML });
 const catalogLiteral = catalogSource.match(/const MESTIERI = ([\s\S]*?)\r?\n\];/)?.[1];
 assert.ok(catalogLiteral, 'Catalog data must be available in its dedicated data file');
@@ -72,6 +73,17 @@ test('matches cerca in nome e descrizione e restituisce false senza corrisponden
   assert.equal(matches(item, 'ACCIAIO'), true);
   assert.equal(matches(item, 'inesistente'), false);
   assert.equal(matches(item, ''), true);
+});
+
+test('ricerca ed evidenziazione ignorano accenti senza alterare testo o markup', () => {
+  const item = { n: 'Caffè', desc: 'Qualità superiore' };
+  assert.equal(matches(item, 'CAFFE'), true);
+  assert.equal(matches(item, 'qualita'), true);
+  assert.equal(matches({ n: 'Caffe\u0300' }, 'caffè'), true);
+  const highlight = loadFunction('highlightSearchText', { normalizeSearch, escapeHTML, searchQ: 'caffe' });
+  assert.equal(highlight('Caffè & tè'), '<mark>Caffè</mark> &amp; tè');
+  assert.equal(highlight('Caffe\u0300 & tè'), '<mark>Caffe\u0300</mark> &amp; tè');
+  assert.equal(highlight('<script>'), '&lt;script&gt;');
 });
 
 test('infoResa calcola boccali, prezzo proporzionale e residui', () => {

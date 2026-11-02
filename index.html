@@ -2523,6 +2523,20 @@ header {
     .pergamena-mobile-card.legendary .pergamena-mobile-dt strong { color: var(--legendary); }
   }
 
+.catalog-search-summary { margin-bottom:24px; padding:18px 20px; border:1px solid var(--border); border-radius:7px; background:var(--panel); }
+.catalog-search-query { font-size:1.15rem; overflow-wrap:anywhere; }
+.catalog-search-query strong { color:var(--gold); }
+#catalogSearchStatus { color:var(--text2); margin-top:4px; }
+.catalog-search-scopes { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.catalog-search-scopes button { min-height:44px; padding:8px 16px; border:1px solid var(--border); border-radius:5px; background:var(--bg); color:var(--text); font:inherit; cursor:pointer; }
+.catalog-search-scopes button[aria-pressed="true"] { border-color:var(--gold); color:var(--gold); background:var(--panel2); }
+.catalog-search-scopes button:hover { border-color:var(--gold); }
+.catalog-search-scopes button:focus-visible { outline:2px solid var(--gold); outline-offset:3px; }
+.catalog-search-empty h2 { font-size:1.35rem; color:var(--text); margin-bottom:8px; }
+.catalog-search-empty .home-action { margin-top:20px; }
+@media (max-width:768px) {
+  .search-suggestions { max-height:min(160px, 30dvh); overflow-y:auto; overscroll-behavior:contain; }
+}
 </style>
 </head>
 <body>
@@ -2698,7 +2712,9 @@ function syncMobileDrawer() {
 let currentMestiere = -2;
 let currentSection = 'intro';
 let searchQ = '';
-let recipeFilterState = { scope: '', tipologia: '', costoMax: '', downtimeMax: '', open: false };
+let searchAllProfessions = false;
+let sectionBeforeSearch = null;
+const recipeFiltersByScope = new Map();
 
 // ═══════════════════════════════════════════════════════════════
 //  HELPERS
@@ -3087,12 +3103,37 @@ document.addEventListener('keydown', event => {
   }
 });
 
+function normalizeSearch(value) {
+  return String(value || '').normalize('NFD').replace(/\p{M}/gu, '').toLocaleLowerCase('it');
+}
+
 function matches(item, q) {
   if (!q) return true;
-  const ql = q.toLowerCase();
+  const ql = normalizeSearch(q);
   return [item.n, item.mp, item.ms, item.tip, item.desc, item.resa?.formato]
     .filter(Boolean)
-    .some(s => s.toLowerCase().includes(ql));
+    .some(s => normalizeSearch(s).includes(ql));
+}
+
+function getRecipeFilters(scope) {
+  if (!recipeFiltersByScope.has(scope)) {
+    recipeFiltersByScope.set(scope, { tipologia: '', costoMax: '', downtimeMax: '', open: false });
+  }
+  return recipeFiltersByScope.get(scope);
+}
+
+function filteredRecipeItems(m, lv) {
+  const filters = getRecipeFilters(`${m.id}:lv${lv.lv}`);
+  const headerCount = 6 - lv.lv;
+  const currentDowntime = item => {
+    const times = item.dt || [];
+    return Number((times.length > headerCount ? times.slice(-headerCount) : times)[0]);
+  };
+  return lv.items
+    .filter(item => !searchQ || matches(item, searchQ))
+    .filter(item => !filters.tipologia || item.tip === filters.tipologia)
+    .filter(item => filters.costoMax === '' || (Number.isFinite(Number(item.costo)) && Number(item.costo) <= Number(filters.costoMax)))
+    .filter(item => filters.downtimeMax === '' || (Number.isFinite(currentDowntime(item)) && currentDowntime(item) <= Number(filters.downtimeMax)));
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -3142,7 +3183,7 @@ function renderContent() {
 
   if (currentMestiere === -2 && !searchQ) {
     html = renderHome();
-  } else if (searchQ && currentMestiere < 0) {
+  } else if (searchQ && (currentMestiere < 0 || searchAllProfessions)) {
     html += renderGlobalSearch();
   } else if (currentMestiere === -1) {
     html += renderGuide();
@@ -3261,22 +3302,12 @@ function renderLv(m, lv) {
 
   const scopeFiltri = `${m.id}:lv${lv.lv}`;
   const panelFiltriId = `recipeFilterPanel-${m.id}-${lv.lv}`;
-  if (recipeFilterState.scope !== scopeFiltri) {
-    recipeFilterState = { scope: scopeFiltri, tipologia: '', costoMax: '', downtimeMax: '', open: false };
-  }
+  const recipeFilterState = getRecipeFilters(scopeFiltri);
+  const statusId = searchQ ? `recipeFilterStatus-${m.id}-${lv.lv}` : 'recipeFilterStatus';
   const filtriAttivi = Boolean(recipeFilterState.tipologia || recipeFilterState.costoMax !== '' || recipeFilterState.downtimeMax !== '');
-  const dtCorrentePer = it => {
-    const tempi = it.dt || [];
-    const visibili = tempi.length > dtHeaders.length ? tempi.slice(-dtHeaders.length) : tempi;
-    return Number(visibili[0]);
-  };
   const categorieRicette = [...new Set(lv.items.map(it => it.tip).filter(Boolean))]
     .sort((a, b) => a.localeCompare(b, 'it', { sensitivity: 'base' }));
-  const items = lv.items
-  .filter(it => !searchQ || matches(it, searchQ))
-  .filter(it => !recipeFilterState.tipologia || it.tip === recipeFilterState.tipologia)
-  .filter(it => recipeFilterState.costoMax === '' || (Number.isFinite(Number(it.costo)) && Number(it.costo) <= Number(recipeFilterState.costoMax)))
-  .filter(it => recipeFilterState.downtimeMax === '' || (Number.isFinite(dtCorrentePer(it)) && dtCorrentePer(it) <= Number(recipeFilterState.downtimeMax)))
+  const items = filteredRecipeItems(m, lv)
   .sort((a, b) =>
     (a.n || '').localeCompare(b.n || '', 'it', {
       sensitivity: 'base'
@@ -3292,7 +3323,7 @@ function renderLv(m, lv) {
     recipeFilterState.downtimeMax !== '' && ['downtimeMax', 'Downtime massimo', `DT ≤ ${recipeFilterState.downtimeMax}`]
   ].filter(Boolean);
   const filtriAttiviHTML = filtriChip.length
-    ? `<div class="recipe-filter-active-filters">${filtriChip.map(([chiave, etichetta, valore]) => `<button type="button" class="recipe-filter-chip" aria-label="Rimuovi filtro: ${escapeHTML(etichetta === 'Tipologia' ? valore : etichetta)}" onclick="removeRecipeFilter('${chiave}')">${escapeHTML(valore)} <span aria-hidden="true">×</span></button>`).join('')}</div>`
+    ? `<div class="recipe-filter-active-filters">${filtriChip.map(([chiave, etichetta, valore]) => `<button type="button" class="recipe-filter-chip" aria-label="Rimuovi filtro: ${escapeHTML(etichetta === 'Tipologia' ? valore : etichetta)}" onclick="removeRecipeFilter('${chiave}', '${scopeFiltri}')">${escapeHTML(valore)} <span aria-hidden="true">×</span></button>`).join('')}</div>`
     : '';
   const filtriHTML = `
     <div class="recipe-filter-toolbar">
@@ -3319,9 +3350,9 @@ function renderLv(m, lv) {
         <input name="downtimeMax" type="number" min="0" step="1" inputmode="numeric" value="${escapeHTML(recipeFilterState.downtimeMax)}" placeholder="Qualsiasi">
       </label>
       <button type="submit" class="recipe-filter-apply">Filtra</button>
-      <button type="button" class="recipe-filter-reset" onclick="resetRecipeFilters()">Azzera</button>
+      <button type="button" class="recipe-filter-reset" onclick="resetRecipeFilters(this)">Azzera</button>
     </form>
-    <p id="recipeFilterStatus" class="recipe-filter-status" role="status" aria-live="polite" tabindex="-1">Mostrate ${items.length} su ${lv.items.length} ricette</p>
+    <p id="${statusId}" class="recipe-filter-status" role="status" aria-live="polite" tabindex="-1">Mostrate ${items.length} su ${lv.items.length} ricette</p>
     </div>
   `;
 
@@ -4028,41 +4059,44 @@ const raggruppaSarto =
   </div>`;
 }
 
-function applyRecipeFilters(event, reset = false) {
+function applyRecipeFilters(event, reset = false, sourceForm = null) {
   event?.preventDefault();
-  const form = document.querySelector('.recipe-filter-form');
+  const form = sourceForm || event?.currentTarget;
   if (!form) return;
   const field = name => form.querySelector(`[name="${name}"]`);
-  recipeFilterState = {
-    scope: form.dataset.scope || '',
+  const panelId = form.closest('.recipe-filter-panel').id;
+  recipeFiltersByScope.set(form.dataset.scope, {
     tipologia: reset ? '' : (field('tipologia')?.value || ''),
     costoMax: reset ? '' : (field('costoMax')?.value || ''),
     downtimeMax: reset ? '' : (field('downtimeMax')?.value || ''),
     open: true
-  };
+  });
   renderContent();
-  document.getElementById('recipeFilterStatus')?.focus({ preventScroll: true });
+  document.getElementById(panelId)?.querySelector('[role="status"]')?.focus({ preventScroll: true });
 }
 
-function resetRecipeFilters() {
-  applyRecipeFilters(null, true);
+function resetRecipeFilters(button) {
+  applyRecipeFilters(null, true, button.closest('form'));
 }
 
 function toggleRecipeFilters(button) {
   const isOpen = button?.getAttribute('aria-expanded') !== 'true';
-  recipeFilterState.open = isOpen;
   const panel = document.getElementById(button?.getAttribute('aria-controls'));
   if (!panel || !button) return;
+  getRecipeFilters(panel.querySelector('form').dataset.scope).open = isOpen;
   panel.hidden = !isOpen;
   button.setAttribute('aria-expanded', String(isOpen));
 }
 
-function removeRecipeFilter(key) {
+function removeRecipeFilter(key, scope) {
   if (!['tipologia', 'costoMax', 'downtimeMax'].includes(key)) return;
-  recipeFilterState[key] = '';
-  recipeFilterState.open = true;
+  const filters = getRecipeFilters(scope);
+  filters[key] = '';
+  filters.open = true;
   renderContent();
-  document.querySelector('.recipe-filter-toggle')?.focus({ preventScroll: true });
+  const form = [...document.querySelectorAll('.recipe-filter-form')].find(form => form.dataset.scope === scope);
+  const panelId = form?.closest('.recipe-filter-panel').id;
+  document.querySelector(`[aria-controls="${panelId}"]`)?.focus({ preventScroll: true });
 }
 
 // Apre o chiude il gruppo di ricette.
@@ -4249,12 +4283,20 @@ function escapeHTML(value) {
 function highlightSearchText(value) {
   const text = String(value || '');
   if (!searchQ) return escapeHTML(text);
-  const lowerText = text.toLocaleLowerCase('it');
-  const lowerQuery = searchQ.toLocaleLowerCase('it');
+  const lowerText = normalizeSearch(text);
+  const lowerQuery = normalizeSearch(searchQ);
   const start = lowerText.indexOf(lowerQuery);
   if (start < 0) return escapeHTML(text);
-  const end = start + searchQ.length;
-  return `${escapeHTML(text.slice(0, start))}<mark>${escapeHTML(text.slice(start, end))}</mark>${escapeHTML(text.slice(end))}`;
+  // Mappa gli indici normalizzati agli originali, anche con accenti decomposti.
+  const offsets = [];
+  let offset = 0;
+  for (const char of text) {
+    for (const unit of normalizeSearch(char)) offsets.push(offset);
+    offset += char.length;
+  }
+  const originalStart = offsets[start];
+  const end = offsets[start + lowerQuery.length] ?? text.length;
+  return `${escapeHTML(text.slice(0, originalStart))}<mark>${escapeHTML(text.slice(originalStart, end))}</mark>${escapeHTML(text.slice(end))}`;
 }
 
 // Accetta solo collegamenti HTTPS al dominio di riferimento previsto dal catalogo.
@@ -4265,7 +4307,7 @@ function safeExternalUrl(value) {
 }
 
 function renderSearch(m) {
-  let html = `<div style="margin-bottom:16px;color:var(--text2)">Risultati per <strong style="color:var(--gold)">"${escapeHTML(searchQ)}"</strong> in ${escapeHTML(m.nome)}:</div>`;
+  let html = renderSearchSummary([m]);
   let found = false;
   m.livelli.forEach(lv => {
     const items = lv.items.filter(it => matches(it, searchQ));
@@ -4274,12 +4316,12 @@ function renderSearch(m) {
       html += renderLv(m, {...lv, items});
     }
   });
-  if (!found) html += '<div class="no-results">Nessun risultato trovato in questo mestiere.</div>';
+  if (!found) html += renderEmptySearch(false);
   return html;
 }
 
 function renderGlobalSearch() {
-  let html = `<div style="margin-bottom:16px;color:var(--text2)">Risultati per <strong style="color:var(--gold)">"${escapeHTML(searchQ)}"</strong> in tutti i mestieri:</div>`;
+  let html = renderSearchSummary(MESTIERI);
   let found = false;
 
   MESTIERI.forEach(m => {
@@ -4293,9 +4335,37 @@ function renderGlobalSearch() {
   });
 
   if (!found) {
-    html += '<div class="no-results">Nessun oggetto trovato in nessun mestiere.</div>';
+    html += renderEmptySearch(true);
   }
   return html;
+}
+
+function renderSearchSummary(professions) {
+  const count = professions.reduce((total, m) => total + m.livelli.reduce((sum, lv) => sum + filteredRecipeItems(m, lv).length, 0), 0);
+  const global = currentMestiere < 0 || searchAllProfessions;
+  const scope = global ? 'tutti i mestieri' : MESTIERI[currentMestiere].nome;
+  return `<section class="catalog-search-summary" aria-label="Ricerca nel catalogo">
+    <p class="catalog-search-query">Risultati per <strong>“${escapeHTML(searchQ)}”</strong></p>
+    <p id="catalogSearchStatus" role="status">${count} ${count === 1 ? 'ricetta trovata' : 'ricette trovate'} in ${escapeHTML(scope)}</p>
+    ${currentMestiere >= 0 ? `<div class="catalog-search-scopes" role="group" aria-label="Dove cercare">
+      <button type="button" aria-pressed="${!global}" onclick="setSearchScope(false)">${escapeHTML(MESTIERI[currentMestiere].nome)}</button>
+      <button type="button" aria-pressed="${global}" onclick="setSearchScope(true)">Tutti i mestieri</button>
+    </div>` : ''}
+  </section>`;
+}
+
+function renderEmptySearch(global) {
+  return `<div class="no-results catalog-search-empty"><h2>Nessuna ricetta trovata</h2>
+    <p>${global ? 'Prova con un nome più breve, un materiale o una tipologia.' : 'Prova a cercare in tutti i mestieri oppure usa un nome più breve.'}</p>
+    <button type="button" class="home-action secondary" onclick="clearCatalogSearch()">Azzera ricerca</button>
+  </div>`;
+}
+
+function setSearchScope(all) {
+  searchAllProfessions = all;
+  render();
+  closeSearchSuggestions();
+  document.querySelector(`.catalog-search-scopes button[aria-pressed="true"]`)?.focus({ preventScroll: true });
 }
 
 
@@ -4502,6 +4572,8 @@ function vaiAlMestiere(id) {
 }
 
 function setHome() {
+  sectionBeforeSearch = null;
+  searchAllProfessions = false;
   currentMestiere = -2;
   currentSection = 'home';
   searchQ = '';
@@ -4513,6 +4585,8 @@ function setHome() {
 }
 
 function setGuide() {
+  sectionBeforeSearch = null;
+  searchAllProfessions = false;
   currentMestiere = -1;
   currentSection = 'guide';
   searchQ = '';
@@ -4524,6 +4598,8 @@ function setGuide() {
 }
 
 function setMestiere(i) {
+  sectionBeforeSearch = null;
+  searchAllProfessions = false;
   currentMestiere = i;
   currentSection = 'intro';
   searchQ = '';
@@ -4535,6 +4611,8 @@ function setMestiere(i) {
 }
 
 function setSection(s) {
+  sectionBeforeSearch = null;
+  searchAllProfessions = false;
   currentSection = s;
   searchQ = '';
   document.getElementById('searchInput').value = '';
@@ -4544,21 +4622,33 @@ function setSection(s) {
 }
 
 function doSearch(q) {
+  if (q.trim() && !searchQ) sectionBeforeSearch = currentSection;
   searchQ = q.trim();
   if (searchQ) currentSection = '__search__';
-  else currentSection = currentMestiere === -2 ? 'home' : 'intro';
+  else {
+    currentSection = sectionBeforeSearch || (currentMestiere === -2 ? 'home' : currentMestiere === -1 ? 'guide' : 'intro');
+    sectionBeforeSearch = null;
+    searchAllProfessions = false;
+  }
   render();
 }
 
 let searchSuggestionCache = null;
 let activeSearchSuggestionIndex = -1;
 
+document.addEventListener('pointerdown', event => {
+  if (!event.target.closest('.search-wrap')) closeSearchSuggestions();
+});
+document.querySelector('.search-wrap').addEventListener('focusout', event => {
+  if (!event.currentTarget.contains(event.relatedTarget)) closeSearchSuggestions();
+});
+
 function renderSearchSuggestions(query) {
   const input = document.getElementById('searchInput');
   const clearButton = document.querySelector('.search-clear');
   const list = document.getElementById('searchSuggestions');
   if (!input || !list) return;
-  const term = String(query || '').trim().toLocaleLowerCase('it');
+  const term = normalizeSearch(String(query || '').trim());
   if (clearButton) clearButton.hidden = !term;
   if (term.length < 2) {
     list.hidden = true;
@@ -4577,10 +4667,11 @@ function renderSearchSuggestions(query) {
     ].filter(Boolean)))))];
   }
   const suggestions = searchSuggestionCache
-    .filter(name => name.toLocaleLowerCase('it').includes(term))
+    .filter(name => currentMestiere < 0 || searchAllProfessions || MESTIERI[currentMestiere].livelli.some(lv => lv.items.some(item => [item.n, item.tip, item.mp?.replace(/^[\d.,]+\s*MO\s*/i, ''), item.ms?.replace(/^[\d.,]+\s*MO\s*/i, '')].includes(name))))
+    .filter(name => normalizeSearch(name).includes(term))
     .sort((a, b) => {
-      const aStarts = a.toLocaleLowerCase('it').startsWith(term);
-      const bStarts = b.toLocaleLowerCase('it').startsWith(term);
+      const aStarts = normalizeSearch(a).startsWith(term);
+      const bStarts = normalizeSearch(b).startsWith(term);
       return Number(bStarts) - Number(aStarts) || a.localeCompare(b, 'it', { sensitivity: 'base' });
     })
     .slice(0, 7);
