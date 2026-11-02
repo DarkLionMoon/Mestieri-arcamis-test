@@ -1,0 +1,227 @@
+[
+  {
+    "run": 0,
+    "load": {
+      "lcp": 784,
+      "cls": 0.08973055345460712,
+      "fcp": 444,
+      "dom": 759.6999999880791
+    },
+    "search": {
+      "global": [
+        {
+          "query": "p",
+          "total": 183.4,
+          "suggestions": 0.2
+        },
+        {
+          "query": "po",
+          "total": 212.6,
+          "suggestions": 0.8
+        },
+        {
+          "query": "pot",
+          "total": 31.1,
+          "suggestions": 0.6
+        },
+        {
+          "query": "poti",
+          "total": 36,
+          "suggestions": 0.8
+        },
+        {
+          "query": "potio",
+          "total": 23.2,
+          "suggestions": 12.3
+        },
+        {
+          "query": "potion",
+          "total": 23.3,
+          "suggestions": 0.9
+        }
+      ],
+      "alchimista": [
+        {
+          "query": "p",
+          "total": 18.1,
+          "suggestions": 0
+        },
+        {
+          "query": "po",
+          "total": 33.2,
+          "suggestions": 0.3
+        },
+        {
+          "query": "pot",
+          "total": 11.9,
+          "suggestions": 0.4
+        },
+        {
+          "query": "poti",
+          "total": 13.8,
+          "suggestions": 0.3
+        },
+        {
+          "query": "potio",
+          "total": 14.3,
+          "suggestions": 0.3
+        },
+        {
+          "query": "potion",
+          "total": 13.5,
+          "suggestions": 0.6
+        }
+      ]
+    }
+  },
+  {
+    "run": 1,
+    "load": {
+      "lcp": 812,
+      "cls": 0.08973055345460712,
+      "fcp": 468,
+      "dom": 787
+    },
+    "search": {
+      "global": [
+        {
+          "query": "p",
+          "total": 192.3,
+          "suggestions": 0.3
+        },
+        {
+          "query": "po",
+          "total": 236.6,
+          "suggestions": 1
+        },
+        {
+          "query": "pot",
+          "total": 31.2,
+          "suggestions": 0.4
+        },
+        {
+          "query": "poti",
+          "total": 35.2,
+          "suggestions": 0.8
+        },
+        {
+          "query": "potio",
+          "total": 24.7,
+          "suggestions": 13.8
+        },
+        {
+          "query": "potion",
+          "total": 25.6,
+          "suggestions": 0.8
+        }
+      ],
+      "alchimista": [
+        {
+          "query": "p",
+          "total": 18.7,
+          "suggestions": 0
+        },
+        {
+          "query": "po",
+          "total": 33.2,
+          "suggestions": 0.6
+        },
+        {
+          "query": "pot",
+          "total": 13.7,
+          "suggestions": 0.4
+        },
+        {
+          "query": "poti",
+          "total": 13.6,
+          "suggestions": 0.5
+        },
+        {
+          "query": "potio",
+          "total": 15.3,
+          "suggestions": 0.4
+        },
+        {
+          "query": "potion",
+          "total": 16.7,
+          "suggestions": 0.2
+        }
+      ]
+    }
+  },
+  {
+    "run": 2,
+    "load": {
+      "lcp": 792,
+      "cls": 0.08973055345460712,
+      "fcp": 432,
+      "dom": 768.8999999761581
+    },
+    "search": {
+      "global": [
+        {
+          "query": "p",
+          "total": 170.1,
+          "suggestions": 0.2
+        },
+        {
+          "query": "po",
+          "total": 194,
+          "suggestions": 1
+        },
+        {
+          "query": "pot",
+          "total": 30.9,
+          "suggestions": 0.6
+        },
+        {
+          "query": "poti",
+          "total": 33.7,
+          "suggestions": 0.6
+        },
+        {
+          "query": "potio",
+          "total": 24.5,
+          "suggestions": 0.5
+        },
+        {
+          "query": "potion",
+          "total": 38.5,
+          "suggestions": 0.8
+        }
+      ],
+      "alchimista": [
+        {
+          "query": "p",
+          "total": 18.3,
+          "suggestions": 0
+        },
+        {
+          "query": "po",
+          "total": 33.1,
+          "suggestions": 0.5
+        },
+        {
+          "query": "pot",
+          "total": 14.2,
+          "suggestions": 0.4
+        },
+        {
+          "query": "poti",
+          "total": 16.5,
+          "suggestions": 0.7
+        },
+        {
+          "query": "potio",
+          "total": 17.7,
+          "suggestions": 0.5
+        },
+        {
+          "query": "potion",
+          "total": 18.8,
+          "suggestions": 0.8
+        }
+      ]
+    }
+  }
+]

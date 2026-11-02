@@ -2556,7 +2556,10 @@ header {
 </header>
 
 <!-- TABS -->
-<div class="tabs" id="tabs"></div>
+<div class="tabs" id="tabs">
+  <button type="button" class="tab-btn active" onclick="setHome()"><span class="tab-icon" aria-hidden="true">⌂</span>Home</button>
+  <button type="button" class="tab-btn" onclick="setGuide()"><span class="tab-icon" aria-hidden="true">📖</span>Guida ai Mestieri</button>
+</div>
 
 <!-- MOBILE DRAWER OVERLAY -->
 <div class="mobile-drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
@@ -2573,7 +2576,7 @@ header {
 <!-- MOBILE FAB -->
 <button type="button" class="mobile-nav-btn" id="mobileNavBtn" onclick="openDrawer()" title="Navigazione" aria-label="Apri navigazione">☰</button>
 
-<div class="main">
+<div class="main home-mode">
   <nav class="sidenav" id="sidenav"></nav>
   <div class="content" id="content"></div>
 </div>
@@ -4633,7 +4636,7 @@ function doSearch(q) {
   render();
 }
 
-let searchSuggestionCache = null;
+const searchSuggestionCache = new Map();
 let activeSearchSuggestionIndex = -1;
 
 document.addEventListener('pointerdown', event => {
@@ -4642,6 +4645,23 @@ document.addEventListener('pointerdown', event => {
 document.querySelector('.search-wrap').addEventListener('focusout', event => {
   if (!event.currentTarget.contains(event.relatedTarget)) closeSearchSuggestions();
 });
+
+function getSearchSuggestionIndex() {
+  const scope = currentMestiere < 0 || searchAllProfessions ? 'all' : MESTIERI[currentMestiere].id;
+  if (!searchSuggestionCache.has(scope)) {
+    const professions = scope === 'all' ? MESTIERI : [MESTIERI[currentMestiere]];
+    const names = new Set(professions.flatMap(m => m.livelli.flatMap(lv => lv.items.flatMap(item => [
+      item.n,
+      item.tip,
+      item.mp?.replace(/^[\d.,]+\s*MO\s*/i, ''),
+      item.ms?.replace(/^[\d.,]+\s*MO\s*/i, '')
+    ].filter(Boolean)))));
+    const entries = [...names].sort((a, b) => a.localeCompare(b, 'it', { sensitivity: 'base' }))
+      .map(name => ({ name, normalized: normalizeSearch(name) }));
+    searchSuggestionCache.set(scope, entries);
+  }
+  return searchSuggestionCache.get(scope);
+}
 
 function renderSearchSuggestions(query) {
   const input = document.getElementById('searchInput');
@@ -4658,23 +4678,15 @@ function renderSearchSuggestions(query) {
     input.setAttribute('aria-expanded', 'false');
     return;
   }
-  if (!searchSuggestionCache) {
-    searchSuggestionCache = [...new Set(MESTIERI.flatMap(m => m.livelli.flatMap(lv => lv.items.flatMap(item => [
-      item.n,
-      item.tip,
-      item.mp?.replace(/^[\d.,]+\s*MO\s*/i, ''),
-      item.ms?.replace(/^[\d.,]+\s*MO\s*/i, '')
-    ].filter(Boolean)))))];
+  const index = getSearchSuggestionIndex();
+  const starts = [];
+  const contains = [];
+  for (const entry of index) {
+    if (entry.normalized.startsWith(term)) starts.push(entry.name);
+    else if (entry.normalized.includes(term) && contains.length < 7) contains.push(entry.name);
+    if (starts.length === 7) break;
   }
-  const suggestions = searchSuggestionCache
-    .filter(name => currentMestiere < 0 || searchAllProfessions || MESTIERI[currentMestiere].livelli.some(lv => lv.items.some(item => [item.n, item.tip, item.mp?.replace(/^[\d.,]+\s*MO\s*/i, ''), item.ms?.replace(/^[\d.,]+\s*MO\s*/i, '')].includes(name))))
-    .filter(name => normalizeSearch(name).includes(term))
-    .sort((a, b) => {
-      const aStarts = normalizeSearch(a).startsWith(term);
-      const bStarts = normalizeSearch(b).startsWith(term);
-      return Number(bStarts) - Number(aStarts) || a.localeCompare(b, 'it', { sensitivity: 'base' });
-    })
-    .slice(0, 7);
+  const suggestions = starts.concat(contains).slice(0, 7);
   activeSearchSuggestionIndex = -1;
   input.removeAttribute('aria-activedescendant');
   list.innerHTML = suggestions.map((name, index) => `<button type="button" id="searchSuggestion-${index}" class="search-suggestion" role="option" aria-selected="false" tabindex="-1" data-query="${escapeHTML(name)}" onclick="selectSearchSuggestion(this.dataset.query)">${highlightSearchText(name)}</button>`).join('');

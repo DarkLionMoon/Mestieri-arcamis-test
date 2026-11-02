@@ -2,6 +2,35 @@ import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => { await page.goto('/'); });
 
+test('navigation reserves its layout while the catalog is still downloading', async ({ page }) => {
+  let release;
+  const gate = new Promise(resolve => { release = resolve; });
+  await page.route('**/data/mestieri.js', async route => { await gate; await route.continue(); });
+  try {
+    await page.goto('/', { waitUntil: 'commit' });
+    await expect(page.locator('#tabs').getByRole('button', { name: 'Home', exact: true })).toBeVisible();
+    await expect(page.locator('#tabs').getByRole('button', { name: 'Guida ai Mestieri', exact: true })).toBeVisible();
+    await expect(page.locator('.main')).toHaveClass(/home-mode/);
+  } finally { release(); }
+  await expect(page.locator('.home-page')).toBeVisible();
+});
+
+test('repeated suggestion updates reuse the profession search index', async ({ page }) => {
+  const result = await page.evaluate(() => {
+    vaiAlMestiere('alchimista');
+    doSearch('Potion');
+    const original = normalizeSearch;
+    let calls = 0;
+    normalizeSearch = value => { calls++; return original(value); };
+    try {
+      renderSearchSuggestions('zzzxxyy');
+      return { calls, options: document.querySelectorAll('#searchSuggestions [role="option"]').length };
+    } finally { normalizeSearch = original; }
+  });
+  expect(result.options).toBe(0);
+  expect(result.calls).toBe(1);
+});
+
 test('filters stay independent across search result levels and counts match visible recipes', async ({ page }) => {
   await page.locator('#searchInput').fill('Potion');
   await page.locator('#searchInput').press('Escape');
