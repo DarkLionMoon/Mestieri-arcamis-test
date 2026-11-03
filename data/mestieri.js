@@ -6,7 +6,7 @@ const MESTIERI = [
     livelli: [
       { lv:1, items:[
         {n:'Portafiale da Banco',mp:'2 MO Vetro e Sughero',ms:'—',tip:'Decorazioni Alchemiche',desc:'Supporto da banco per esporre e ordinare fiale, reagenti e piccoli contenitori alchemici.',varianti:['Portafiale in legno','Portafiale in metallo','Espositore da laboratorio'],costo:2,vend:4,dt:[1,1,1,1,1]},
-        {n:'Set di Fiale Colorate',mp:'3 MO Vetro',ms:'—',tip:'Decorazioni Alchemiche',desc:'Serie di fiale decorative in vetro colorato, adatte a laboratori, botteghe e studi.',varianti:['Fiale ambrate','Fiale blu e verdi','Fiale iridescenti'],costo:3,vend:6,dt:[1,1,1,1,1]},
+        {n:'Set di Fiale Colorate',mp:'3 MO Vetro',ms:'—',tip:'Decorazioni Alchemiche',desc:'Lotto di 4 fiale decorative in vetro colorato, adatte a laboratori, botteghe e studi.',varianti:['Fiale ambrate','Fiale blu e verdi','Fiale iridescenti'],costo:3,vend:6,dt:[1,1,1,1,1]},
         {n:'Ampolla da Collezione',mp:'5 MO Vetro Pregiato',ms:'—',tip:'Decorazioni Alchemiche',desc:'Ampolla ornamentale da esposizione, con tappo lavorato e dettagli decorativi.',varianti:['Ampolla sfaccettata','Ampolla con incisioni','Ampolla a spirale'],costo:5,vend:10,dt:[1,1,1,1,1]},
 
         {n:'Potion of Healing', mp:'15 MO Erbe', ms:'10 MO Alcol', tip:'Common', desc:'Recuperi 2d4+2 PF', url:'https://5e.tools/items.html#potion%20of%20healing_xdmg', costo:25, vend:50, dt:[3,1,1,1,1]},
