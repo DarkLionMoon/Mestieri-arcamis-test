@@ -2058,7 +2058,7 @@ header {
     max-width: 360px;
     line-height: 1.6;
   }
-  .recipe-row td[data-label="Progressione"] { text-align: center; }
+  .recipe-row td[data-label="Progetto"] { text-align: center; }
   .recipe-row td[data-label="Riferimenti"] { min-width: 110px; }
   .recipe-row .badge { margin: 2px 2px 2px 0; }
   .quantita-btn {
@@ -3877,7 +3877,7 @@ const raggruppaSarto =
 
     return `<tr class="recipe-row" data-tipologia="${escapeHTML(it.tip || '')}" data-costo="${Number.isFinite(Number(it.costo)) ? Number(it.costo) : ''}" data-downtime="${Number.isFinite(downtimeCorrente) ? downtimeCorrente : ''}">
       <td class="recipe-name" data-label="Nome">${highlightSearchText(it.n)}</td>
-      <td data-label="Progressione">${it.prog
+      <td data-label="Progetto">${it.prog
         ? '<span class="has-prog">✅</span>'
         : '<span class="no-prog">—</span>'}</td>
       <td data-label="Materiale principale">${materialePrincipaleHTML(m, it)}</td>
@@ -4047,7 +4047,7 @@ const raggruppaSarto =
     ${colonneMetallurgo}
     <thead><tr>
       <th>Nome</th>
-      <th>Prog.</th>
+      <th>Progetto</th>
       <th>Materiale Principale</th>
       <th>Materiale Secondario</th>
       <th>Tipologia</th>
