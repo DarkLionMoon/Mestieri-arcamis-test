@@ -38,6 +38,8 @@
     '.arc-winter #topbar{border-bottom-color:#917545;background:#0a100f}',
     '.arc-winter-lights{position:absolute;left:0;right:0;bottom:-28px;height:30px;pointer-events:none;overflow:hidden;z-index:4}',
     '.arc-winter-lights svg{display:block;width:100%;height:30px}',
+    '.arc-winter header>.arc-winter-lights{bottom:0;height:18px}',
+    '.arc-winter header>.arc-winter-lights svg{height:18px}',
     '.arc-winter-snow{position:absolute;bottom:-3px;left:0;right:0;height:7px;pointer-events:none;background:radial-gradient(ellipse at 50% 0,#e1e7df 0 55%,transparent 61%) 0 0/83px 9px repeat-x;opacity:.8;z-index:4}',
     '.arc-winter-sprig{position:absolute;top:0;width:150px;height:94px;pointer-events:none;z-index:3;opacity:.9}',
     '.arc-winter-sprig.right{right:0;transform:scaleX(-1)}.arc-winter-sprig.left{left:0}',
