@@ -164,3 +164,13 @@ test('il costo finale delle sette voci corrette è il doppio dei materiali', () 
     }
   }
 });
+
+test('i downtime del Sarto rispettano la capacita di lavorazione per livello', () => {
+  const sarto = catalog.find(mestiere => mestiere.id === 'sarto');
+  for (const { lv, items } of sarto.livelli) {
+    for (const item of items) {
+      const expected = sarto.materLav.slice(lv - 1).map(capacity => Math.ceil(item.costo / capacity));
+      assert.deepEqual(Array.from(item.dt), Array.from(expected), item.n);
+    }
+  }
+});
