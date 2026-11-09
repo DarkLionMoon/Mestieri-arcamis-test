@@ -2967,8 +2967,7 @@ function vaiRicettaMestiere(mestiereId, nome, livello = 1) {
   const indiceMestiere = MESTIERI.findIndex(m => m.id === mestiereId);
   if (indiceMestiere < 0) return;
 
-  setMestiere(indiceMestiere);
-  setSection('lv' + livello);
+  setMestiere(indiceMestiere, 'lv' + livello);
 
   const righe = [...document.querySelectorAll('#content tr')];
   const riga = righe.find(tr =>
@@ -4575,53 +4574,64 @@ function vaiAlMestiere(id) {
 }
 
 function setHome() {
-  sectionBeforeSearch = null;
-  searchAllProfessions = false;
-  currentMestiere = -2;
-  currentSection = 'home';
-  searchQ = '';
-  document.getElementById('searchInput').value = '';
-  render();
-  updateMobileFab();
-  closeDrawer();
-  window.scrollTo({top:0, behavior:'smooth'});
+  navigateCatalog(-2, 'home');
 }
 
 function setGuide() {
-  sectionBeforeSearch = null;
-  searchAllProfessions = false;
-  currentMestiere = -1;
-  currentSection = 'guide';
-  searchQ = '';
-  document.getElementById('searchInput').value = '';
-  render();
-  updateMobileFab();
-  closeDrawer();
-  window.scrollTo({top:0, behavior:'smooth'});
+  navigateCatalog(-1, 'guide');
 }
 
-function setMestiere(i) {
-  sectionBeforeSearch = null;
-  searchAllProfessions = false;
-  currentMestiere = i;
-  currentSection = 'intro';
-  searchQ = '';
-  document.getElementById('searchInput').value = '';
-  render();
-  updateMobileFab();
-  closeDrawer();
-  window.scrollTo({top:0, behavior:'smooth'});
+function setMestiere(i, section = 'intro') {
+  navigateCatalog(i, section);
 }
 
 function setSection(s) {
+  navigateCatalog(currentMestiere, s);
+}
+
+function navigateCatalog(profession, section) {
+  const url = new URL(window.location.href);
+  url.searchParams.delete('mestiere');
+  url.searchParams.delete('sezione');
+  if (profession >= 0) {
+    url.searchParams.set('mestiere', MESTIERI[profession].id);
+    if (section !== 'intro') url.searchParams.set('sezione', section);
+  } else if (section === 'guide') {
+    url.searchParams.set('sezione', 'guida');
+  }
+  if (url.href !== window.location.href) history.pushState(null, '', url);
+  showCatalogPage(profession, section);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function showCatalogPage(profession, section) {
   sectionBeforeSearch = null;
   searchAllProfessions = false;
-  currentSection = s;
+  currentMestiere = profession;
+  currentSection = section;
   searchQ = '';
   document.getElementById('searchInput').value = '';
   render();
+  updateMobileFab();
   closeDrawer();
-  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function restoreCatalogPage() {
+  const params = new URLSearchParams(window.location.search);
+  const professionId = params.get('mestiere');
+  const section = params.get('sezione');
+  const profession = MESTIERI.findIndex(m => m.id === professionId);
+  if (profession < 0) {
+    if (!professionId && section === 'guida') showCatalogPage(-1, 'guide');
+    else showCatalogPage(-2, 'home');
+    return;
+  }
+
+  const mestiere = MESTIERI[profession];
+  const validSection = section === 'mat' ||
+    (section === 'pergamene' && mestiere.id === 'artista') ||
+    mestiere.livelli.some(level => section === 'lv' + level.lv);
+  showCatalogPage(profession, validSection ? section : 'intro');
 }
 
 function doSearch(q) {
@@ -4775,7 +4785,8 @@ function updateMobileFab() {
   if (btn) btn.style.display = currentMestiere >= 0 ? 'flex' : 'none';
 }
 
-render();
+window.addEventListener('popstate', restoreCatalogPage);
+restoreCatalogPage();
 updateThemeBtn();
 
 </script>

@@ -16,6 +16,17 @@ test('homepage renders its title, search and profession cards', async ({ page })
   await expect(page.locator('#tabs .tab-btn', { hasText: 'Alchimista' })).toBeVisible();
 });
 
+test('direct links restore a profession and section across reload and history', async ({ page }) => {
+  await page.goto('/?mestiere=artista&sezione=pergamene');
+  await expect(page.getByRole('heading', { name: /Pergamene Magiche/i }).first()).toBeVisible();
+  await page.locator('#tabs .tab-btn', { hasText: 'Guida ai Mestieri' }).click();
+  await expect(page).toHaveURL(/\?sezione=guida$/);
+  await page.goBack();
+  await expect(page.getByRole('heading', { name: /Pergamene Magiche/i }).first()).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole('heading', { name: /Pergamene Magiche/i }).first()).toBeVisible();
+});
+
 test('header brand and subtitle stay visually centered, with readable neutral rule text', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   const alignment = await page.locator('.header-brand').evaluate(element => {
