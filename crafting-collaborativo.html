@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crafting collaborativo · Mestieri Arcamis</title>
+<style>
+:root{color-scheme:dark;--bg:#1a1510;--panel:#272018;--border:#69502f;--text:#f0e0c0;--muted:#c8a878;--gold:#dfb765}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Arial,sans-serif}header{padding:24px max(18px,calc((100vw - 1120px)/2));border-bottom:1px solid var(--border);background:#17120e}h1{margin:8px 0;font-size:clamp(1.5rem,4vw,2.5rem)}a{color:var(--gold)}.wrap{max-width:1160px;margin:auto;padding:24px 18px}.notice{border-left:3px solid var(--gold);padding:10px 14px;background:var(--panel);margin:18px 0}.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin:20px 0}input,select{width:100%;padding:12px;border-radius:8px;background:var(--panel);color:var(--text);border:1px solid var(--border);font:inherit}label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:5px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;min-width:0}.card h2{font-size:1.16rem;margin:0 0 8px}.code{color:var(--gold);font-size:.8rem}.jobs{font-size:.9rem;color:var(--muted);margin:10px 0}.stats{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.stats span{border:1px solid var(--border);border-radius:6px;padding:3px 7px;font-size:.85rem}details{margin-top:12px;border-top:1px solid var(--border);padding-top:10px}summary{cursor:pointer;color:var(--gold);font-weight:600}ul{padding-left:20px}li{margin:5px 0}.muted{color:var(--muted)}@media(max-width:650px){.filters{grid-template-columns:1fr}.wrap{padding:18px 12px}}:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+</style></head><body>
+<header><a href="/">← Torna ai mestieri</a><h1>Crafting collaborativo</h1><p>78 progetti condivisi tra i nove mestieri di Arcamis</p></header>
+<main class="wrap"><div class="notice"><strong>Catalogo sperimentale.</strong> Costi, livelli, DT e benefici sono proposte da approvare. I materiali dei componenti sono quote economiche preliminari, non liste definitive di ingredienti. Non costituiscono regole ufficiali.</div>
+<section class="filters" aria-label="Filtri del catalogo">
+<div><label for="q">Cerca ricetta o utilità</label><input id="q" type="search" placeholder="Es. rampino, conservazione"></div>
+<div><label for="cat">Categoria</label><select id="cat"><option value="">Tutte le categorie</option></select></div>
+<div><label for="job">Mestiere</label><select id="job"><option value="">Tutti i mestieri</option></select></div>
+</section><p id="count" class="muted" aria-live="polite"></p><div class="grid" id="cards"></div></main>
+<script src="/data/crafting-collaborativo.js"></script><script>
+"use strict";
+const recipes=window.CRAFTING_COLLABORATIVO||[];
+const q=document.getElementById("q"),cat=document.getElementById("cat"),job=document.getElementById("job"),cards=document.getElementById("cards"),count=document.getElementById("count");
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const options=(el,values)=>values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.append(o)});
+options(cat,[...new Set(recipes.map(r=>r.categoria))]);options(job,[...new Set(recipes.flatMap(r=>r.mestieri.map(m=>m.name)))].sort((a,b)=>a.localeCompare(b,"it")));
+function render(){
+ const query=q.value.trim().toLocaleLowerCase("it");
+ const visible=recipes.filter(r=>(!cat.value||r.categoria===cat.value)&&(!job.value||r.mestieri.some(m=>m.name===job.value))&&(!query||[r.nome,r.utilita,r.id,...r.mestieri.map(m=>m.name)].join(" ").toLocaleLowerCase("it").includes(query)));
+ count.textContent=visible.length+" ricette su "+recipes.length;
+ cards.innerHTML=visible.map(r=>`<article class="card"><div class="code">${escapeHTML(r.id)} · ${escapeHTML(r.categoria)}</div><h2>${escapeHTML(r.nome)}</h2><p class="jobs">${r.mestieri.map(m=>escapeHTML(m.name)+" LV "+m.level).join(" · ")}</p><div class="stats"><span>Materiali ${r.materialiMO.toLocaleString("it")} MO</span><span>Vendita ${r.prezzoMO.toLocaleString("it")} MO</span><span>${r.dt} DT</span></div><p>${escapeHTML(r.utilita)}</p><details><summary>Componenti e contributi</summary><ul>${r.componenti.map(p=>`<li><strong>${escapeHTML(p.mestiere)}</strong>: ${escapeHTML(p.componente)} — ${p.materialiMO} MO, ${p.dt} DT</li>`).join("")}</ul><p class="muted">Ripartizione provvisoria: verificare materiali e DT effettivi prima dell'approvazione.</p></details></article>`).join("");
+}
+[q,cat,job].forEach(el=>el.addEventListener("input",render));render();
+</script></body></html>
