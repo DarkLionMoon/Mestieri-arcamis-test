@@ -424,7 +424,7 @@ test('strutture di mestiere: menu, regole e collegamenti tra livelli', async ({ 
   await expect(upgrade).toContainText('−10%');
   await upgrade.getByRole('button', { name: 'Regole', exact: true }).click();
   await expect(page.getByText(/Due Cucine Professionali, per esempio, riducono i tempi di creazione del 5% complessivo/)).toBeVisible();
-  await expect(page.getByText(/Fondaco e Grande Corporazione concedono soltanto sconti/)).toBeVisible();
+  await expect(page.getByText(/Bottega Artigiana, Fondaco e Grande Corporazione concedono sconti/)).toBeVisible();
   await page.keyboard.press('Escape');
 
   await upgrade.getByRole('button', { name: 'Laboratorio Alchemico Integrato ↗' }).click();
