@@ -2951,12 +2951,13 @@ function materialePrincipaleHTML(m, it) {
     return '<button type="button" class="quantita-btn" onclick="vaiRicettaMestiere(\'metallurgo\', \'Armatura a Scaglie\', 1)">Armatura a Scaglie ↗</button>';
   }
   if (m.id !== 'architetto') return it.mp || '—';
-  const redirect = {
-    'Cucina Professionale': ['Cucina', 1],
+  const precedente = it.mestiere && m.livelli.find(livello =>
+    livello.items.some(ricetta => ricetta.n === it.mp && ricetta.mestiere === it.mestiere)
+  );
+  const redirect = precedente ? [it.mp, precedente.lv] : {
     'Mura': ['Recinzione', 1],
     'Camera Doppia': ['Camera da Letto', 1],
     'Deposito': ['Magazzino', 1],
-    'Laboratorio Alchemico Integrato': ['Scantinato', 1],
     'Mura Rinforzate': ['Mura', 2]
   }[it.n];
   if (!redirect) return it.mp || '—';
@@ -3013,7 +3014,7 @@ function vaiRicettaArchitetto(nome, livello = null) {
     return;
   }
 
-  // Le ricette di LV2 possono trovarsi in un gruppo inizialmente chiuso.
+  // Le ricette raggruppate possono trovarsi in un menu inizialmente chiuso.
   if (riga.hasAttribute('data-class-structure-row') && riga.hidden) {
     let gruppo = riga.previousElementSibling;
     while (gruppo && !gruppo.querySelector('.class-structures-button')) {
@@ -3364,7 +3365,7 @@ function renderLv(m, lv) {
 
   // Raggruppamenti già esistenti.
   const raggruppaStrutture =
-    m.id === 'architetto' && lv.lv === 2 && !searchQ && !filtriAttivi;
+    m.id === 'architetto' && !searchQ && !filtriAttivi;
 
   
   const raggruppaPozioni =
@@ -3434,7 +3435,11 @@ const raggruppaSarto =
       return { key: 'decorazioni-metallurgo', label: '🕯️ Arredi e Decorazioni in Metallo' };
     }
 
-    if (raggruppaStrutture && isStrutturaClasse(it)) {
+    if (raggruppaStrutture && it.mestiere) {
+      return { key: 'strutture-mestiere', label: '⚒️ Strutture di Mestiere' };
+    }
+
+    if (raggruppaStrutture && lv.lv === 2 && isStrutturaClasse(it)) {
       return {
         key: 'strutture-classe',
         label: '🏛️ Strutture di Classe'
@@ -3873,6 +3878,9 @@ const raggruppaSarto =
       )
       .join('');
     const downtimeCorrente = Number(tempiVisibili[0]);
+    const bonusMestiere = it.mestiere
+      ? (it.bonusTempi ? '−' + it.bonusTempi + '% ai tempi di creazione per ' + it.mestiere + '.' : 'Nessun bonus ai tempi di creazione per ' + it.mestiere + '.')
+      : '';
 
     return `<tr class="recipe-row" data-tipologia="${escapeHTML(it.tip || '')}" data-costo="${Number.isFinite(Number(it.costo)) ? Number(it.costo) : ''}" data-downtime="${Number.isFinite(downtimeCorrente) ? downtimeCorrente : ''}">
       <td class="recipe-name" data-label="Nome">${highlightSearchText(it.n)}</td>
@@ -3882,8 +3890,8 @@ const raggruppaSarto =
       <td data-label="Materiale principale">${materialePrincipaleHTML(m, it)}</td>
       <td data-label="Materiale secondario">${escapeHTML(it.ms || '—')}</td>
       <td data-label="Tipologia">${tipBadge(it.tip)}</td>
-      <td data-label="Descrizione"><span class="desc-text">${escapeHTML(it.desc || (m.id === 'architetto' && ['Altare del Devoto', 'Antro del Patrono', 'Campo di Addestramento', 'Circolo Naturale', 'Covo Arcano', 'Crogiolo di Trama', 'Santuario Consacrato', 'Santuario dello Spirito', 'Antro del Cacciatore', 'Covo del Fuorilegge', 'Covo del fuorilegge', 'Stanza degli Esperimenti', 'Stanza degli esperimenti', 'Sala della Musica'].includes(it.n) ? '' : '—'))}</span><div class="recipe-info-actions" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:7px">${m.id === 'architetto' && it.n === 'Laboratorio Alchemico Integrato'
-        ? `<button type="button" class="quantita-btn" aria-label="Informazioni sui bonus del Laboratorio Alchemico Integrato" title="Bonus Impresa" data-item="Bonus dell’Impresa" data-info="${encodeURIComponent('<div><strong>Regola di cumulo</strong><p>Il bonus conferito dal Laboratorio Alchemico Integrato non si cumula con i bonus concessi dall\'Impresa. Quando entrambi si applicano alla stessa attività, si considera esclusivamente il bonus più vantaggioso.</p></div>')}" onclick="apriPopupQuantita(this)">Bonus Impresa</button>`
+      <td data-label="Descrizione"><span class="desc-text">${escapeHTML([it.desc, bonusMestiere].filter(Boolean).join(' ') || (m.id === 'architetto' && ['Altare del Devoto', 'Antro del Patrono', 'Campo di Addestramento', 'Circolo Naturale', 'Covo Arcano', 'Crogiolo di Trama', 'Santuario Consacrato', 'Santuario dello Spirito', 'Antro del Cacciatore', 'Covo del Fuorilegge', 'Covo del fuorilegge', 'Stanza degli Esperimenti', 'Stanza degli esperimenti', 'Sala della Musica'].includes(it.n) ? '' : '—'))}</span><div class="recipe-info-actions" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:7px">${it.mestiere
+        ? `<button type="button" class="quantita-btn" data-item="Regole delle Strutture di Mestiere" data-info="${encodeURIComponent('<p>Ogni Impresa o Compagnia Commerciale può avere una sola struttura potenziata (LV2 o LV3) per mestiere. Le strutture LV1 non contano nel limite.</p><p>Per i tempi di creazione si applica il bonus più alto tra la struttura e la Bottega Artigiana. Fondaco e Grande Corporazione concedono soltanto sconti sui materiali, compatibili con il bonus ai tempi.</p><p>Il costo dei materiali del potenziamento comprende solo i materiali aggiuntivi. La struttura del livello precedente è necessaria come materiale principale.</p>')}" onclick="apriPopupQuantita(this)">Regole</button>`
         : ''}${m.id === 'architetto' && it.n === 'Altare del Devoto'
         ? `<button type="button" class="quantita-btn" aria-label="Apri la meditazione dell’Altare del Devoto" title="Meditazione" data-item="Meditazione" data-info="${encodeURIComponent('<p>Una volta, prima di effettuare un <strong>Riposo Lungo</strong>, il paladino può raccogliersi in meditazione presso l\'altare.</p><p>Al termine della meditazione, effettua una prova di <strong>d20 + bonus di competenza</strong> contro una CD pari a <strong>20 meno il livello da paladino</strong>.</p><p><strong>In caso di successo</strong>, fino al termine del successivo Riposo Lungo, il paladino ottiene i seguenti benefici:</p><ul><li>Un bonus di +1 ai tiri per colpire;</li><li>Un bonus di +1 ai tiri per i danni;</li><li>Un bonus di 1d4 alle prove di Carisma effettuate entro la propria aura.</li></ul>')}" onclick="apriPopupQuantita(this)">Meditazione</button>`
         : ''}${m.id === 'architetto' && it.n === 'Antro del Patrono'

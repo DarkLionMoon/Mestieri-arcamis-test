@@ -128,8 +128,8 @@ test('HTML mantiene etichetta accessibile, tipi dei pulsanti e movimento ridotto
   assert.deepEqual(buttonsWithoutType, []);
 });
 
-test('i totali materiali coincidono con il costo, salvo le due voci escluse', () => {
-  const esclusi = new Set(['architetto:Laboratorio Alchemico Integrato', 'sarto:Serpent Scale Armor']);
+test('i totali materiali coincidono con il costo, salvo la voce esclusa', () => {
+  const esclusi = new Set(['sarto:Serpent Scale Armor']);
   const valoreInMO = new Map([['MO', 1], ['MA', 0.1], ['MR', 0.01]]);
   for (const mestiere of catalog) {
     for (const livello of mestiere.livelli) {
@@ -172,5 +172,32 @@ test('i downtime del Sarto rispettano la capacita di lavorazione per livello', (
       const expected = sarto.materLav.slice(lv - 1).map(capacity => Math.ceil(item.costo / capacity));
       assert.deepEqual(Array.from(item.dt), Array.from(expected), item.n);
     }
+  }
+});
+
+test('le otto strutture di mestiere avanzano senza duplicati e rispettano i costi di riferimento', () => {
+  const architect = catalog.find(job => job.id === 'architetto');
+  const jobs = ['Oste', 'Alchimista', 'Metallurgo', 'Falegname', 'Sarto', 'Artista', 'Artigiano', 'Meccanico'];
+  const names = new Set();
+  let previous = new Map();
+  let total = 0;
+  for (const level of architect.livelli.slice(0, 3)) {
+    const structures = level.items.filter(item => item.mestiere);
+    assert.deepEqual(Array.from(structures, item => item.mestiere).sort(), jobs.slice().sort());
+    for (const item of structures) {
+      assert.ok(!names.has(item.n), item.n);
+      names.add(item.n);
+      assert.equal(item.bonusTempi, [0, 5, 10][level.lv - 1]);
+      assert.equal(item.costo, [70, 180, 250][level.lv - 1]);
+      assert.equal(item.vend, [140, 500, 1000][level.lv - 1]);
+      assert.deepEqual(Array.from(item.dt), [[7,3,1,1,1], [7,3,1,1], [6,2,1]][level.lv - 1]);
+      if (level.lv > 1) assert.equal(item.mp, previous.get(item.mestiere));
+      total += item.costo;
+    }
+    assert.equal(total, jobs.length * [70, 250, 500][level.lv - 1]);
+    previous = new Map(structures.map(item => [item.mestiere, item.n]));
+  }
+  for (const name of ['Cucina', 'Cucina Professionale', 'Laboratorio Alchemico Integrato', 'Forgia Noxiana']) {
+    assert.equal(architect.livelli.flatMap(level => level.items).filter(item => item.n === name).length, 1);
   }
 });
