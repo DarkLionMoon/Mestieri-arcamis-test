@@ -180,7 +180,6 @@ test('le otto strutture di mestiere avanzano senza duplicati e rispettano i cost
   const jobs = ['Oste', 'Alchimista', 'Metallurgo', 'Falegname', 'Sarto', 'Artista', 'Artigiano', 'Meccanico'];
   const names = new Set();
   let previous = new Map();
-  let total = 0;
   for (const level of architect.livelli.slice(0, 3)) {
     const structures = level.items.filter(item => item.mestiere);
     assert.deepEqual(Array.from(structures, item => item.mestiere).sort(), jobs.slice().sort());
@@ -188,13 +187,11 @@ test('le otto strutture di mestiere avanzano senza duplicati e rispettano i cost
       assert.ok(!names.has(item.n), item.n);
       names.add(item.n);
       assert.equal(item.bonusTempi, [0, 5, 10][level.lv - 1]);
-      assert.equal(item.costo, [70, 180, 250][level.lv - 1]);
+      assert.equal(item.costo * 2, item.vend);
       assert.equal(item.vend, [140, 500, 1000][level.lv - 1]);
       assert.deepEqual(Array.from(item.dt), [[7,3,1,1,1], [7,3,1,1], [6,2,1]][level.lv - 1]);
       if (level.lv > 1) assert.equal(item.mp, previous.get(item.mestiere));
-      total += item.costo;
     }
-    assert.equal(total, jobs.length * [70, 250, 500][level.lv - 1]);
     previous = new Map(structures.map(item => [item.mestiere, item.n]));
   }
   for (const name of ['Cucina', 'Cucina Professionale', 'Laboratorio Alchemico Integrato', 'Forgia Noxiana']) {
