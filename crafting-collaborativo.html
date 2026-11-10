@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crafting collaborativo · Mestieri di Arcamis</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./crafting-collaborativo.css">
+<script defer src="./crafting-collaborativo.js"></script>
+</head>
+<body>
+<header>
+  <div class="frame hero">
+    <a class="back" href="./index.html">← Mestieri di Arcamis</a>
+    <p class="eyebrow">Registro delle officine · 78 progetti</p>
+    <h1>Crafting collaborativo</h1>
+    <p>Attrezzi da viaggio, arredi e installazioni costruiti da più mestieri. Consulta il lavoro di ogni bottega e i limiti d’uso del progetto finito.</p>
+  </div>
+</header>
+<main class="frame">
+  <aside><strong>Bozza di bilanciamento.</strong> Costi, prezzi, livelli, DT ed effetti sono proposte da approvare. I costi in MO stimano il lotto intero. Gli effetti riguardano l’uso dell’oggetto finito. Per tempi di crafting, capacità produttiva e licenze si applicano le regole ordinarie delle Imprese e delle strutture di mestiere.</aside>
+  <form aria-label="Filtri del catalogo" hidden>
+    <label>Cerca nel registro<input name="q" type="search" placeholder="Nome, materiale o effetto"></label>
+    <label>Categoria<select name="category"><option value="">Tutte le categorie</option><option>Equipaggiamento da avventura</option><option>Attrezzature produttive</option><option>Trasporti e commercio</option><option>Arredi e prestigio</option><option>Strutture e infrastrutture</option><option>Progetti magistrali</option></select></label>
+    <label>Mestiere<select name="job"><option value="">Tutti i mestieri</option><option>Alchimista</option><option>Architetto</option><option>Artigiano</option><option>Artista</option><option>Falegname</option><option>Meccanico</option><option>Metallurgo</option><option>Oste</option><option>Sarto</option></select></label>
+    <button type="reset">Azzera</button>
+  </form>
+  <p id="result" role="status">78 ricette</p>
+  <div class="catalog"><article id="A01" data-category="Equipaggiamento da avventura" data-jobs="Meccanico|Metallurgo|Sarto">
+  <p class="eyebrow">A01 · Equipaggiamento da avventura</p>
+  <h2>Rampino a verricello</h2>
+  <p class="jobs">Meccanico LV2 · Metallurgo LV2 · Sarto LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>75 MO</dd></div><div><dt>Vendita</dt><dd>150 MO</dd></div><div><dt>Lavoro totale</dt><dd>5 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Un operatore recupera fino a 15 m di corda scarica in un minuto. Per scalare si usano le normali prove.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV2 · 2 DT</strong><br>Componente principale — argano d’ottone</li><li><strong>Metallurgo · LV2 · 2 DT</strong><br>Componente secondario — gancio d’acciaio</li><li><strong>Sarto · LV1 · 1 DT</strong><br>Componente secondario — 15 m di canapa intrecciata</li></ul>
+    
+  </details>
+</article>
+<article id="A02" data-category="Equipaggiamento da avventura" data-jobs="Metallurgo|Meccanico|Falegname">
+  <p class="eyebrow">A02 · Equipaggiamento da avventura</p>
+  <h2>Forgia portatile</h2>
+  <p class="jobs">Metallurgo LV2 · Meccanico LV2 · Falegname LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>110 MO</dd></div><div><dt>Vendita</dt><dd>220 MO</dd></div><div><dt>Lavoro totale</dt><dd>7 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Una volta al giorno mantiene le braci per 20 minuti per riscaldare piccoli utensili. Le riparazioni seguono le regole ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Metallurgo · LV2 · 3 DT</strong><br>Componente principale — braciere di ghisa</li><li><strong>Meccanico · LV2 · 2 DT</strong><br>Componente secondario — mantice a pedale</li><li><strong>Falegname · LV1 · 2 DT</strong><br>Componente secondario — cassa di quercia</li></ul>
+    
+  </details>
+</article>
+<article id="A03" data-category="Equipaggiamento da avventura" data-jobs="Sarto|Artigiano">
+  <p class="eyebrow">A03 · Equipaggiamento da avventura</p>
+  <h2>Zaino modulare</h2>
+  <p class="jobs">Sarto LV2 · Artigiano LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>30 MO</dd></div><div><dt>Vendita</dt><dd>60 MO</dd></div><div><dt>Lavoro totale</dt><dd>3 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Rende accessibili sei piccoli oggetti identificati al momento di riporli. In combattimento valgono le interazioni ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Sarto · LV2 · 2 DT</strong><br>Componente principale — 6 tasche di tela</li><li><strong>Artigiano · LV1 · 1 DT</strong><br>Componente secondario — 6 fibbie d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="A04" data-category="Equipaggiamento da avventura" data-jobs="Sarto|Alchimista">
+  <p class="eyebrow">A04 · Equipaggiamento da avventura</p>
+  <h2>Mantello impermeabile trattato</h2>
+  <p class="jobs">Sarto LV2 · Alchimista LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>35 MO</dd></div><div><dt>Vendita</dt><dd>70 MO</dd></div><div><dt>Lavoro totale</dt><dd>3 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Mantiene asciutti indumenti e tasche sotto pioggia ordinaria per 4 ore consecutive. L’immersione satura il tessuto.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Sarto · LV2 · 2 DT</strong><br>Componente principale — 3 m di tela cerata</li><li><strong>Alchimista · LV1 · 1 DT</strong><br>Componente secondario — 1 barattolo di cera d’api</li></ul>
+    
+  </details>
+</article>
+<article id="A05" data-category="Equipaggiamento da avventura" data-jobs="Alchimista|Sarto|Meccanico">
+  <p class="eyebrow">A05 · Equipaggiamento da avventura</p>
+  <h2>Maschera filtrante</h2>
+  <p class="jobs">Alchimista LV2 · Sarto LV2 · Meccanico LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>90 MO</dd></div><div><dt>Vendita</dt><dd>180 MO</dd></div><div><dt>Lavoro totale</dt><dd>6 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Trattiene la polvere visibile per 30 minuti per disco. Fumo, gas e veleni si risolvono con le regole normali.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Alchimista · LV2 · 2 DT</strong><br>Componente principale — 2 dischi di feltro e carbone</li><li><strong>Sarto · LV2 · 2 DT</strong><br>Componente secondario — maschera di lino</li><li><strong>Meccanico · LV2 · 2 DT</strong><br>Componente secondario — fermaglio d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="A06" data-category="Equipaggiamento da avventura" data-jobs="Meccanico|Metallurgo|Artigiano">
+  <p class="eyebrow">A06 · Equipaggiamento da avventura</p>
+  <h2>Lanterna regolabile</h2>
+  <p class="jobs">Meccanico LV2 · Metallurgo LV1 · Artigiano LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>20 MO</dd></div><div><dt>Vendita</dt><dd>40 MO</dd></div><div><dt>Lavoro totale</dt><dd>4 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Proietta un fascio largo 1 m e lungo 6 m per leggere o segnalare al buio. Un riempimento d’olio dura 2 ore.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV2 · 2 DT</strong><br>Componente principale — diaframma d’ottone</li><li><strong>Metallurgo · LV1 · 1 DT</strong><br>Componente secondario — coppa di rame</li><li><strong>Artigiano · LV1 · 1 DT</strong><br>Componente secondario — lente di vetro</li></ul>
+    <p class="comparison">Lanterna Schermata 3/5 MO e Lanterna a Ingranaggi 25/50 MO. Questo modello richiede olio e serve a indirizzare un fascio stretto.</p>
+  </details>
+</article>
+<article id="A07" data-category="Equipaggiamento da avventura" data-jobs="Sarto|Falegname|Alchimista">
+  <p class="eyebrow">A07 · Equipaggiamento da avventura</p>
+  <h2>Tenda rinforzata</h2>
+  <p class="jobs">Sarto LV2 · Falegname LV2 · Alchimista LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>85 MO</dd></div><div><dt>Vendita</dt><dd>170 MO</dd></div><div><dt>Lavoro totale</dt><dd>6 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Ripara due persone dalla pioggia ordinaria per una notte. Richiede 10 minuti di montaggio e suolo per i picchetti.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Sarto · LV2 · 2 DT</strong><br>Componente principale — 12 m di tela</li><li><strong>Falegname · LV2 · 2 DT</strong><br>Componente secondario — 4 pali di frassino</li><li><strong>Alchimista · LV1 · 2 DT</strong><br>Componente secondario — 1 vaso di resina</li></ul>
+    
+  </details>
+</article>
+<article id="A08" data-category="Equipaggiamento da avventura" data-jobs="Falegname|Sarto">
+  <p class="eyebrow">A08 · Equipaggiamento da avventura</p>
+  <h2>Barella pieghevole</h2>
+  <p class="jobs">Falegname LV1 · Sarto LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>25 MO</dd></div><div><dt>Vendita</dt><dd>50 MO</dd></div><div><dt>Lavoro totale</dt><dd>2 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Due operatori trasportano un ferito fino a 100 kg su terreno praticabile. Servono entrambe le mani a ciascuno.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV1 · 1 DT</strong><br>Componente principale — 2 aste di frassino</li><li><strong>Sarto · LV1 · 1 DT</strong><br>Componente secondario — 3 m di tela robusta</li></ul>
+    
+  </details>
+</article>
+<article id="A09" data-category="Equipaggiamento da avventura" data-jobs="Alchimista|Artigiano|Sarto">
+  <p class="eyebrow">A09 · Equipaggiamento da avventura</p>
+  <h2>Kit medico organizzato</h2>
+  <p class="jobs">Alchimista LV2 · Artigiano LV1 · Sarto LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>55 MO</dd></div><div><dt>Vendita</dt><dd>110 MO</dd></div><div><dt>Lavoro totale</dt><dd>4 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Durante un’ispezione di 1 minuto segnala quali dei sei scomparti sono vuoti. Le cure consumano le dosi consuete.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Alchimista · LV2 · 2 DT</strong><br>Componente principale — 1 fiala di tintura</li><li><strong>Artigiano · LV1 · 1 DT</strong><br>Componente secondario — 6 divisori di ceramica</li><li><strong>Sarto · LV1 · 1 DT</strong><br>Componente secondario — custodia di lino</li></ul>
+    
+  </details>
+</article>
+<article id="A10" data-category="Equipaggiamento da avventura" data-jobs="Metallurgo|Meccanico">
+  <p class="eyebrow">A10 · Equipaggiamento da avventura</p>
+  <h2>Scudo con lanterna</h2>
+  <p class="jobs">Metallurgo LV3 · Meccanico LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>100 MO</dd></div><div><dt>Vendita</dt><dd>200 MO</dd></div><div><dt>Lavoro totale</dt><dd>7 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Illumina frontalmente 3 m per 1 ora per candela. Il lume si spegne se immerso. Usa la CA dello scudo base.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Metallurgo · LV3 · 4 DT</strong><br>Componente principale — scudo d’acciaio</li><li><strong>Meccanico · LV2 · 3 DT</strong><br>Componente secondario — supporto orientabile d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="A11" data-category="Equipaggiamento da avventura" data-jobs="Falegname|Metallurgo|Meccanico">
+  <p class="eyebrow">A11 · Equipaggiamento da avventura</p>
+  <h2>Custodia da parata per balestra</h2>
+  <p class="jobs">Falegname LV3 · Metallurgo LV3 · Meccanico LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>200 MO</dd></div><div><dt>Vendita</dt><dd>400 MO</dd></div><div><dt>Lavoro totale</dt><dd>12 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Durante il trasporto tiene separati arma scarica e fino a sei quadrelli. Per accedere alla custodia occorre un’azione.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV3 · 4 DT</strong><br>Componente principale — calcio di noce</li><li><strong>Metallurgo · LV3 · 4 DT</strong><br>Componente secondario — finiture d’acciaio</li><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente secondario — sportello d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="A12" data-category="Equipaggiamento da avventura" data-jobs="Meccanico|Metallurgo|Artigiano">
+  <p class="eyebrow">A12 · Equipaggiamento da avventura</p>
+  <h2>Protesi articolata</h2>
+  <p class="jobs">Meccanico LV3 · Metallurgo LV2 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>180 MO</dd></div><div><dt>Vendita</dt><dd>360 MO</dd></div><div><dt>Lavoro totale</dt><dd>11 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Permette di reggere un oggetto leggero fino a 1 kg dopo un minuto di regolazione. La presa richiede regolazione a ogni cambio.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente principale — snodi d’ottone</li><li><strong>Metallurgo · LV2 · 4 DT</strong><br>Componente secondario — perni di ferro</li><li><strong>Artigiano · LV2 · 3 DT</strong><br>Componente secondario — presa di cuoio</li></ul>
+    
+  </details>
+</article>
+<article id="A13" data-category="Equipaggiamento da avventura" data-jobs="Falegname|Sarto|Meccanico">
+  <p class="eyebrow">A13 · Equipaggiamento da avventura</p>
+  <h2>Barca smontabile</h2>
+  <p class="jobs">Falegname LV3 · Sarto LV2 · Meccanico LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>160 MO</dd></div><div><dt>Vendita</dt><dd>320 MO</dd></div><div><dt>Lavoro totale</dt><dd>10 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Due persone assemblano lo scafo in 30 minuti. Porta due persone su acqua calma e va svuotato a fine traversata.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV3 · 4 DT</strong><br>Componente principale — 4 pannelli di larice</li><li><strong>Sarto · LV2 · 3 DT</strong><br>Componente secondario — 8 m di tela cerata</li><li><strong>Meccanico · LV2 · 3 DT</strong><br>Componente secondario — 6 chiusure d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="A14" data-category="Equipaggiamento da avventura" data-jobs="Sarto|Metallurgo">
+  <p class="eyebrow">A14 · Equipaggiamento da avventura</p>
+  <h2>Imbracatura da scalata</h2>
+  <p class="jobs">Sarto LV2 · Metallurgo LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>55 MO</dd></div><div><dt>Vendita</dt><dd>110 MO</dd></div><div><dt>Lavoro totale</dt><dd>4 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Collega una persona a una corda già assicurata. In caso di scivolata la corda limita la caduta alla sua lunghezza libera, a discrezione del DM.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Sarto · LV2 · 2 DT</strong><br>Componente principale — 8 m di cinghia di canapa</li><li><strong>Metallurgo · LV2 · 2 DT</strong><br>Componente secondario — 2 anelli di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="A15" data-category="Equipaggiamento da avventura" data-jobs="Alchimista|Falegname|Artigiano">
+  <p class="eyebrow">A15 · Equipaggiamento da avventura</p>
+  <h2>Cassa alchemica protetta</h2>
+  <p class="jobs">Alchimista LV2 · Falegname LV2 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>80 MO</dd></div><div><dt>Vendita</dt><dd>160 MO</dd></div><div><dt>Lavoro totale</dt><dd>5 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Tiene separate sei ampolle. A fine viaggio il sigillo segnala l’apertura, anche se il coperchio è stato richiuso.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Alchimista · LV2 · 2 DT</strong><br>Componente principale — 1 dose di cera indicatrice</li><li><strong>Falegname · LV2 · 2 DT</strong><br>Componente secondario — cassetta di pino</li><li><strong>Artigiano · LV2 · 1 DT</strong><br>Componente secondario — 6 alveoli di feltro</li></ul>
+    
+  </details>
+</article>
+<article id="A16" data-category="Equipaggiamento da avventura" data-jobs="Metallurgo|Sarto|Artigiano">
+  <p class="eyebrow">A16 · Equipaggiamento da avventura</p>
+  <h2>Armatura modulare</h2>
+  <p class="jobs">Metallurgo LV3 · Sarto LV3 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>230 MO</dd></div><div><dt>Vendita</dt><dd>460 MO</dd></div><div><dt>Lavoro totale</dt><dd>13 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Consente di sostituire in 10 minuti uno fra due accessori da trasporto fissati all’armatura. CA e proprietà dell’armatura base si applicano normalmente.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Metallurgo · LV3 · 5 DT</strong><br>Componente principale — 4 passanti d’acciaio</li><li><strong>Sarto · LV3 · 4 DT</strong><br>Componente secondario — 2 cinghie di cuoio</li><li><strong>Artigiano · LV2 · 4 DT</strong><br>Componente secondario — 4 fibbie d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="A17" data-category="Equipaggiamento da avventura" data-jobs="Meccanico|Artigiano|Metallurgo">
+  <p class="eyebrow">A17 · Equipaggiamento da avventura</p>
+  <h2>Binocolo stabilizzato</h2>
+  <p class="jobs">Meccanico LV3 · Artigiano LV3 · Metallurgo LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>150 MO</dd></div><div><dt>Vendita</dt><dd>300 MO</dd></div><div><dt>Lavoro totale</dt><dd>9 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Con 1 minuto di osservazione da fermo permette di leggere una bandiera grande fino a 300 m con cielo limpido.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV3 · 3 DT</strong><br>Componente principale — supporto basculante d’ottone</li><li><strong>Artigiano · LV3 · 3 DT</strong><br>Componente secondario — 2 coppie di lenti</li><li><strong>Metallurgo · LV2 · 3 DT</strong><br>Componente secondario — staffa di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="A18" data-category="Equipaggiamento da avventura" data-jobs="Sarto|Alchimista|Artigiano">
+  <p class="eyebrow">A18 · Equipaggiamento da avventura</p>
+  <h2>Kit di sopravvivenza polare</h2>
+  <p class="jobs">Sarto LV3 · Alchimista LV2 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>125 MO</dd></div><div><dt>Vendita</dt><dd>250 MO</dd></div><div><dt>Lavoro totale</dt><dd>8 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Mantiene asciutte e tiepide due paia di guanti per 1 ora. Gli scaldini si ricaricano vicino al fuoco per 10 minuti.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Sarto · LV3 · 3 DT</strong><br>Componente principale — 2 m di lana follata</li><li><strong>Alchimista · LV2 · 3 DT</strong><br>Componente secondario — 2 scaldini di sale</li><li><strong>Artigiano · LV2 · 2 DT</strong><br>Componente secondario — 2 custodie di terracotta</li></ul>
+    
+  </details>
+</article>
+<article id="P01" data-category="Attrezzature produttive" data-jobs="Alchimista|Meccanico|Metallurgo">
+  <p class="eyebrow">P01 · Attrezzature produttive</p>
+  <h2>Distillatore automatico</h2>
+  <p class="jobs">Alchimista LV3 · Meccanico LV3 · Metallurgo LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>95 MO</dd></div><div><dt>Vendita</dt><dd>190 MO</dd></div><div><dt>Lavoro totale</dt><dd>12 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Su un recipiente esistente suona al raggiungimento di una tacca scelta, una volta per ciclo. I tempi di distillazione seguono la ricetta.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Alchimista · LV3 · 4 DT</strong><br>Componente principale — ampolla graduata di vetro</li><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente secondario — galleggiante d’ottone</li><li><strong>Metallurgo · LV2 · 4 DT</strong><br>Componente secondario — vaschetta di rame</li></ul>
+    <p class="comparison">Laboratorio Alchemico Integrato 250/500 MO e −5% ai tempi. Questo dispositivo indica il livello in un recipiente già disponibile.</p>
+  </details>
+</article>
+<article id="P02" data-category="Attrezzature produttive" data-jobs="Sarto|Falegname|Meccanico">
+  <p class="eyebrow">P02 · Attrezzature produttive</p>
+  <h2>Telaio meccanizzato</h2>
+  <p class="jobs">Sarto LV3 · Falegname LV2 · Meccanico LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>200 MO</dd></div><div><dt>Vendita</dt><dd>400 MO</dd></div><div><dt>Lavoro totale</dt><dd>11 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Conta fino a 100 passaggi della navetta e conserva il conteggio finché azzerato. Il tessuto richiede i DT consueti.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Sarto · LV3 · 4 DT</strong><br>Componente principale — 4 m di ordito di lino</li><li><strong>Falegname · LV2 · 4 DT</strong><br>Componente secondario — telaio di faggio</li><li><strong>Meccanico · LV3 · 3 DT</strong><br>Componente secondario — contafili d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="P03" data-category="Attrezzature produttive" data-jobs="Artigiano|Falegname|Metallurgo">
+  <p class="eyebrow">P03 · Attrezzature produttive</p>
+  <h2>Banco modulare</h2>
+  <p class="jobs">Artigiano LV2 · Falegname LV2 · Metallurgo LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>90 MO</dd></div><div><dt>Vendita</dt><dd>180 MO</dd></div><div><dt>Lavoro totale</dt><dd>6 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Blocca fino a quattro utensili sul piano durante il trasporto. Richiede 1 minuto per allestire la postazione.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Artigiano · LV2 · 2 DT</strong><br>Componente principale — vassoio di cuoio</li><li><strong>Falegname · LV2 · 2 DT</strong><br>Componente secondario — piano di faggio</li><li><strong>Metallurgo · LV1 · 2 DT</strong><br>Componente secondario — 4 morsetti di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="P04" data-category="Attrezzature produttive" data-jobs="Metallurgo|Meccanico|Alchimista">
+  <p class="eyebrow">P04 · Attrezzature produttive</p>
+  <h2>Forno di precisione</h2>
+  <p class="jobs">Metallurgo LV3 · Meccanico LV2 · Alchimista LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>175 MO</dd></div><div><dt>Vendita</dt><dd>350 MO</dd></div><div><dt>Lavoro totale</dt><dd>10 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Mostra quale di quattro fasce termiche ha raggiunto una singola infornata. I risultati e i tempi di ricetta restano quelli del forno usato.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Metallurgo · LV3 · 4 DT</strong><br>Componente principale — camera di ferro</li><li><strong>Meccanico · LV2 · 3 DT</strong><br>Componente secondario — indicatore a lancetta d’ottone</li><li><strong>Alchimista · LV2 · 3 DT</strong><br>Componente secondario — 4 coni di argilla</li></ul>
+    
+  </details>
+</article>
+<article id="P05" data-category="Attrezzature produttive" data-jobs="Meccanico|Metallurgo|Falegname">
+  <p class="eyebrow">P05 · Attrezzature produttive</p>
+  <h2>Pressa meccanica</h2>
+  <p class="jobs">Meccanico LV3 · Metallurgo LV3 · Falegname LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>220 MO</dd></div><div><dt>Vendita</dt><dd>440 MO</dd></div><div><dt>Lavoro totale</dt><dd>12 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Tiene fermo un pacco di fogli largo fino a 30 cm per una notte senza sorveglianza. Va sbloccata a mano.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente principale — vite d’ottone</li><li><strong>Metallurgo · LV3 · 4 DT</strong><br>Componente secondario — ganasce di ferro</li><li><strong>Falegname · LV2 · 4 DT</strong><br>Componente secondario — base di quercia</li></ul>
+    
+  </details>
+</article>
+<article id="P06" data-category="Attrezzature produttive" data-jobs="Alchimista|Falegname|Meccanico">
+  <p class="eyebrow">P06 · Attrezzature produttive</p>
+  <h2>Essiccatore per erbe</h2>
+  <p class="jobs">Alchimista LV2 · Falegname LV2 · Meccanico LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>85 MO</dd></div><div><dt>Vendita</dt><dd>170 MO</dd></div><div><dt>Lavoro totale</dt><dd>5 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Conserva separate sei erbe già essiccate per 7 giorni. Sostituire un sacchetto per ciascun vano occupato.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Alchimista · LV2 · 2 DT</strong><br>Componente principale — 6 sacchetti di sali essiccanti</li><li><strong>Falegname · LV2 · 2 DT</strong><br>Componente secondario — rastrelliera di pino</li><li><strong>Meccanico · LV1 · 1 DT</strong><br>Componente secondario — indicatore a molla</li></ul>
+    
+  </details>
+</article>
+<article id="P07" data-category="Attrezzature produttive" data-jobs="Oste|Meccanico|Metallurgo">
+  <p class="eyebrow">P07 · Attrezzature produttive</p>
+  <h2>Spillatore multiplo</h2>
+  <p class="jobs">Oste LV2 · Meccanico LV2 · Metallurgo LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>110 MO</dd></div><div><dt>Vendita</dt><dd>220 MO</dd></div><div><dt>Lavoro totale</dt><dd>7 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Serve da due fusti separati e marca il rubinetto in uso. Le porzioni si scalano dalle scorte ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Oste · LV2 · 3 DT</strong><br>Componente principale — 2 fusti di bevanda base</li><li><strong>Meccanico · LV2 · 2 DT</strong><br>Componente secondario — 2 rubinetti d’ottone</li><li><strong>Metallurgo · LV2 · 2 DT</strong><br>Componente secondario — 2 innesti di rame</li></ul>
+    
+  </details>
+</article>
+<article id="P08" data-category="Attrezzature produttive" data-jobs="Oste|Artigiano|Meccanico">
+  <p class="eyebrow">P08 · Attrezzature produttive</p>
+  <h2>Imbottigliatrice manuale</h2>
+  <p class="jobs">Oste LV2 · Artigiano LV2 · Meccanico LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>125 MO</dd></div><div><dt>Vendita</dt><dd>250 MO</dd></div><div><dt>Lavoro totale</dt><dd>8 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Porta sei bottiglie alla stessa tacca per lotto. Ogni bottiglia usa un tappo e una dose di bevanda.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Oste · LV2 · 3 DT</strong><br>Componente principale — 6 tappi di sughero</li><li><strong>Artigiano · LV2 · 3 DT</strong><br>Componente secondario — 6 bottiglie di vetro</li><li><strong>Meccanico · LV2 · 2 DT</strong><br>Componente secondario — leva di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="P09" data-category="Attrezzature produttive" data-jobs="Artista|Artigiano|Meccanico">
+  <p class="eyebrow">P09 · Attrezzature produttive</p>
+  <h2>Banco da incisione</h2>
+  <p class="jobs">Artista LV2 · Artigiano LV2 · Meccanico LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>95 MO</dd></div><div><dt>Vendita</dt><dd>190 MO</dd></div><div><dt>Lavoro totale</dt><dd>6 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Conserva due posizioni di un motivo da riprendere dopo una pausa. Le incisioni finali seguono i DT della ricetta.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Artista · LV2 · 2 DT</strong><br>Componente principale — 2 matrici di cera</li><li><strong>Artigiano · LV2 · 2 DT</strong><br>Componente secondario — guida di bosso</li><li><strong>Meccanico · LV1 · 2 DT</strong><br>Componente secondario — slitta d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="P10" data-category="Attrezzature produttive" data-jobs="Falegname|Meccanico|Metallurgo">
+  <p class="eyebrow">P10 · Attrezzature produttive</p>
+  <h2>Sega a pedale</h2>
+  <p class="jobs">Falegname LV2 · Meccanico LV2 · Metallurgo LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>130 MO</dd></div><div><dt>Vendita</dt><dd>260 MO</dd></div><div><dt>Lavoro totale</dt><dd>8 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Ripete lo stesso spessore su fino a 10 listelli larghi 10 cm. Occorre un operatore per l’intera lavorazione.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV2 · 3 DT</strong><br>Componente principale — piano di faggio</li><li><strong>Meccanico · LV2 · 3 DT</strong><br>Componente secondario — pedale a biella</li><li><strong>Metallurgo · LV1 · 2 DT</strong><br>Componente secondario — guida di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="P11" data-category="Attrezzature produttive" data-jobs="Alchimista|Oste|Metallurgo">
+  <p class="eyebrow">P11 · Attrezzature produttive</p>
+  <h2>Alambicco professionale</h2>
+  <p class="jobs">Alchimista LV3 · Oste LV3 · Metallurgo LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>190 MO</dd></div><div><dt>Vendita</dt><dd>380 MO</dd></div><div><dt>Lavoro totale</dt><dd>10 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Separa in due recipienti la prima frazione del lotto e quella di servizio. Le rese della ricetta rimangono identiche.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Alchimista · LV3 · 4 DT</strong><br>Componente principale — 2 fiale di reagente cromatico</li><li><strong>Oste · LV3 · 3 DT</strong><br>Componente secondario — 2 giare di mosto</li><li><strong>Metallurgo · LV2 · 3 DT</strong><br>Componente secondario — serpentina di rame</li></ul>
+    
+  </details>
+</article>
+<article id="P12" data-category="Attrezzature produttive" data-jobs="Meccanico|Metallurgo|Artigiano">
+  <p class="eyebrow">P12 · Attrezzature produttive</p>
+  <h2>Tornio di precisione</h2>
+  <p class="jobs">Meccanico LV3 · Metallurgo LV2 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>180 MO</dd></div><div><dt>Vendita</dt><dd>360 MO</dd></div><div><dt>Lavoro totale</dt><dd>10 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Replica un diametro campione su pezzi sotto i 3 cm. Il campione va conservato fino alla fine del lotto.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente principale — manovella d’ottone</li><li><strong>Metallurgo · LV2 · 3 DT</strong><br>Componente secondario — mandrino d’acciaio</li><li><strong>Artigiano · LV2 · 3 DT</strong><br>Componente secondario — calibro di bosso</li></ul>
+    
+  </details>
+</article>
+<article id="P13" data-category="Attrezzature produttive" data-jobs="Alchimista|Meccanico|Artigiano">
+  <p class="eyebrow">P13 · Attrezzature produttive</p>
+  <h2>Sistema di refrigerazione</h2>
+  <p class="jobs">Alchimista LV4 · Meccanico LV3 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>350 MO</dd></div><div><dt>Vendita</dt><dd>700 MO</dd></div><div><dt>Lavoro totale</dt><dd>16 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Mantiene fresche fino a 12 razioni già fredde per 8 ore a contenitore chiuso. Consuma due cariche.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Alchimista · LV4 · 6 DT</strong><br>Componente principale — 2 cariche di sali refrigeranti</li><li><strong>Meccanico · LV3 · 5 DT</strong><br>Componente secondario — pompa d’ottone</li><li><strong>Artigiano · LV2 · 5 DT</strong><br>Componente secondario — urna di terracotta</li></ul>
+    
+  </details>
+</article>
+<article id="P14" data-category="Attrezzature produttive" data-jobs="Artista|Falegname|Meccanico">
+  <p class="eyebrow">P14 · Attrezzature produttive</p>
+  <h2>Macchina da stampa</h2>
+  <p class="jobs">Artista LV3 · Falegname LV3 · Meccanico LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>270 MO</dd></div><div><dt>Vendita</dt><dd>540 MO</dd></div><div><dt>Lavoro totale</dt><dd>14 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Riproduce fino a 20 avvisi da una matrice pronta in un’ora. Consuma un foglio per copia e produce solo avvisi ordinari.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Artista · LV3 · 5 DT</strong><br>Componente principale — inchiostro di nerofumo</li><li><strong>Falegname · LV3 · 5 DT</strong><br>Componente secondario — telaio di faggio</li><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente secondario — leva d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="P15" data-category="Attrezzature produttive" data-jobs="Artigiano|Artista|Meccanico">
+  <p class="eyebrow">P15 · Attrezzature produttive</p>
+  <h2>Banco per gioielli</h2>
+  <p class="jobs">Artigiano LV3 · Artista LV2 · Meccanico LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>155 MO</dd></div><div><dt>Vendita</dt><dd>310 MO</dd></div><div><dt>Lavoro totale</dt><dd>9 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Trattiene fino a sei pietre separate durante l’ispezione e registra l’ordine di montaggio. Non cambia il valore delle gemme.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Artigiano · LV3 · 3 DT</strong><br>Componente principale — vassoio di cuoio</li><li><strong>Artista · LV2 · 3 DT</strong><br>Componente secondario — campione di pigmento</li><li><strong>Meccanico · LV2 · 3 DT</strong><br>Componente secondario — morsetto d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="P16" data-category="Attrezzature produttive" data-jobs="Oste|Meccanico|Metallurgo">
+  <p class="eyebrow">P16 · Attrezzature produttive</p>
+  <h2>Miscelatore industriale</h2>
+  <p class="jobs">Oste LV3 · Meccanico LV3 · Metallurgo LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>210 MO</dd></div><div><dt>Vendita</dt><dd>420 MO</dd></div><div><dt>Lavoro totale</dt><dd>11 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Mantiene uniforme una bevanda già pronta per 15 minuti con un operatore. I volumi e le dosi di ricetta restano quelli consueti.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Oste · LV3 · 4 DT</strong><br>Componente principale — vasca da 10 l</li><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente secondario — manovella d’ottone</li><li><strong>Metallurgo · LV2 · 3 DT</strong><br>Componente secondario — pale di rame</li></ul>
+    
+  </details>
+</article>
+<article id="T01" data-category="Trasporti e commercio" data-jobs="Falegname|Metallurgo|Meccanico">
+  <p class="eyebrow">T01 · Trasporti e commercio</p>
+  <h2>Carro mercantile rinforzato</h2>
+  <p class="jobs">Falegname LV2 · Metallurgo LV2 · Meccanico LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>220 MO</dd></div><div><dt>Vendita</dt><dd>440 MO</dd></div><div><dt>Lavoro totale</dt><dd>12 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Ferma il carro carico su pendenza ordinaria durante soste di 10 minuti. Richiede il conducente per inserire il freno.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV2 · 4 DT</strong><br>Componente principale — assi di quercia</li><li><strong>Metallurgo · LV2 · 4 DT</strong><br>Componente secondario — 4 cerchi di ferro</li><li><strong>Meccanico · LV2 · 4 DT</strong><br>Componente secondario — freno a leva</li></ul>
+    
+  </details>
+</article>
+<article id="T02" data-category="Trasporti e commercio" data-jobs="Falegname|Sarto|Metallurgo">
+  <p class="eyebrow">T02 · Trasporti e commercio</p>
+  <h2>Carro coperto</h2>
+  <p class="jobs">Falegname LV2 · Sarto LV2 · Metallurgo LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>150 MO</dd></div><div><dt>Vendita</dt><dd>300 MO</dd></div><div><dt>Lavoro totale</dt><dd>9 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Mantiene asciutto un carico di 2 m³ per un giorno di pioggia ordinaria. Carico e tiro seguono le regole del carro base.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV2 · 3 DT</strong><br>Componente principale — centine di frassino</li><li><strong>Sarto · LV2 · 3 DT</strong><br>Componente secondario — 10 m di tela cerata</li><li><strong>Metallurgo · LV1 · 3 DT</strong><br>Componente secondario — 6 staffe di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="T03" data-category="Trasporti e commercio" data-jobs="Falegname|Artigiano">
+  <p class="eyebrow">T03 · Trasporti e commercio</p>
+  <h2>Carretto da mercato</h2>
+  <p class="jobs">Falegname LV1 · Artigiano LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>55 MO</dd></div><div><dt>Vendita</dt><dd>110 MO</dd></div><div><dt>Lavoro totale</dt><dd>4 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Espone sei categorie di merci in cassette numerate. Richiede 10 minuti di allestimento e una licenza quando prevista.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV1 · 2 DT</strong><br>Componente principale — assi di pioppo</li><li><strong>Artigiano · LV1 · 2 DT</strong><br>Componente secondario — 6 cassette di vimini</li></ul>
+    
+  </details>
+</article>
+<article id="T04" data-category="Trasporti e commercio" data-jobs="Falegname|Metallurgo|Artigiano">
+  <p class="eyebrow">T04 · Trasporti e commercio</p>
+  <h2>Baule commerciale blindato</h2>
+  <p class="jobs">Falegname LV2 · Metallurgo LV2 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>115 MO</dd></div><div><dt>Vendita</dt><dd>230 MO</dd></div><div><dt>Lavoro totale</dt><dd>7 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Tiene fino a 30 kg e mostra la manomissione del coperchio finché il sigillo resta visibile.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV2 · 3 DT</strong><br>Componente principale — 6 assi di quercia</li><li><strong>Metallurgo · LV2 · 2 DT</strong><br>Componente secondario — 4 fasce di ferro</li><li><strong>Artigiano · LV2 · 2 DT</strong><br>Componente secondario — 1 sigillo di cera</li></ul>
+    
+  </details>
+</article>
+<article id="T05" data-category="Trasporti e commercio" data-jobs="Metallurgo|Meccanico|Artigiano">
+  <p class="eyebrow">T05 · Trasporti e commercio</p>
+  <h2>Cassaforte a combinazione</h2>
+  <p class="jobs">Metallurgo LV3 · Meccanico LV3 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>180 MO</dd></div><div><dt>Vendita</dt><dd>360 MO</dd></div><div><dt>Lavoro totale</dt><dd>11 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Due incaricati possono cambiare il codice in 10 minuti a sportello aperto. Per forzarlo vale la CD della serratura di base.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Metallurgo · LV3 · 4 DT</strong><br>Componente principale — sportello di ferro</li><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente secondario — 3 dischi d’ottone</li><li><strong>Artigiano · LV2 · 3 DT</strong><br>Componente secondario — rivestimento di cuoio</li></ul>
+    
+  </details>
+</article>
+<article id="T06" data-category="Trasporti e commercio" data-jobs="Falegname|Alchimista|Meccanico">
+  <p class="eyebrow">T06 · Trasporti e commercio</p>
+  <h2>Carro refrigerato</h2>
+  <p class="jobs">Falegname LV3 · Alchimista LV3 · Meccanico LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>370 MO</dd></div><div><dt>Vendita</dt><dd>740 MO</dd></div><div><dt>Lavoro totale</dt><dd>18 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Conserva 24 razioni già fredde per 8 ore di viaggio con coperchio chiuso. Consuma quattro cariche a tratta.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV3 · 6 DT</strong><br>Componente principale — cassa di larice</li><li><strong>Alchimista · LV3 · 6 DT</strong><br>Componente secondario — 4 cariche saline</li><li><strong>Meccanico · LV3 · 6 DT</strong><br>Componente secondario — pompa a mano</li></ul>
+    
+  </details>
+</article>
+<article id="T07" data-category="Trasporti e commercio" data-jobs="Falegname|Artigiano|Sarto">
+  <p class="eyebrow">T07 · Trasporti e commercio</p>
+  <h2>Banco commerciale pieghevole</h2>
+  <p class="jobs">Falegname LV1 · Artigiano LV1 · Sarto LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>45 MO</dd></div><div><dt>Vendita</dt><dd>90 MO</dd></div><div><dt>Lavoro totale</dt><dd>3 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Una persona apre in 5 minuti un piano per 20 kg di merce su suolo piano. Licenze e vendite seguono le regole ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV1 · 1 DT</strong><br>Componente principale — 2 pannelli di pino</li><li><strong>Artigiano · LV1 · 1 DT</strong><br>Componente secondario — 4 chiavistelli di bosso</li><li><strong>Sarto · LV1 · 1 DT</strong><br>Componente secondario — telo di lino</li></ul>
+    
+  </details>
+</article>
+<article id="T08" data-category="Trasporti e commercio" data-jobs="Metallurgo|Falegname|Meccanico">
+  <p class="eyebrow">T08 · Trasporti e commercio</p>
+  <h2>Carrello da miniera</h2>
+  <p class="jobs">Metallurgo LV2 · Falegname LV2 · Meccanico LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>125 MO</dd></div><div><dt>Vendita</dt><dd>250 MO</dd></div><div><dt>Lavoro totale</dt><dd>8 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Trasporta 100 kg su rotaie già posate. Un operatore deve controllare il freno per l’intera corsa.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Metallurgo · LV2 · 3 DT</strong><br>Componente principale — 4 ruote di ferro</li><li><strong>Falegname · LV2 · 3 DT</strong><br>Componente secondario — 6 assi di larice</li><li><strong>Meccanico · LV1 · 2 DT</strong><br>Componente secondario — freno d’ottone</li></ul>
+    
+  </details>
+</article>
+<article id="T09" data-category="Trasporti e commercio" data-jobs="Artigiano|Sarto|Alchimista">
+  <p class="eyebrow">T09 · Trasporti e commercio</p>
+  <h2>Imballaggio antiurto</h2>
+  <p class="jobs">Artigiano LV2 · Sarto LV1 · Alchimista LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>35 MO</dd></div><div><dt>Vendita</dt><dd>70 MO</dd></div><div><dt>Lavoro totale</dt><dd>3 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Protegge un oggetto fragile da un singolo sobbalzo ordinario. Il sigillo si rompe al primo urto e va sostituito.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Artigiano · LV2 · 1 DT</strong><br>Componente principale — cesta di vimini</li><li><strong>Sarto · LV1 · 1 DT</strong><br>Componente secondario — 3 m di feltro</li><li><strong>Alchimista · LV1 · 1 DT</strong><br>Componente secondario — 1 dose di cera</li></ul>
+    
+  </details>
+</article>
+<article id="T10" data-category="Trasporti e commercio" data-jobs="Artigiano|Meccanico|Metallurgo">
+  <p class="eyebrow">T10 · Trasporti e commercio</p>
+  <h2>Bilancia commerciale</h2>
+  <p class="jobs">Artigiano LV2 · Meccanico LV2 · Metallurgo LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>95 MO</dd></div><div><dt>Vendita</dt><dd>190 MO</dd></div><div><dt>Lavoro totale</dt><dd>6 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Pesa fino a 20 kg con scarto massimo di 100 g su banco piano. Richiede azzeramento all’inizio di ogni mercato.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Artigiano · LV2 · 2 DT</strong><br>Componente principale — piatto di ceramica</li><li><strong>Meccanico · LV2 · 2 DT</strong><br>Componente secondario — bilanciere d’ottone</li><li><strong>Metallurgo · LV1 · 2 DT</strong><br>Componente secondario — 5 pesi di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="T11" data-category="Trasporti e commercio" data-jobs="Architetto|Falegname|Sarto">
+  <p class="eyebrow">T11 · Trasporti e commercio</p>
+  <h2>Chiosco commerciale mobile</h2>
+  <p class="jobs">Architetto LV2 · Falegname LV2 · Sarto LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>170 MO</dd></div><div><dt>Vendita</dt><dd>340 MO</dd></div><div><dt>Lavoro totale</dt><dd>10 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Due persone montano un riparo per un venditore e un cliente in 30 minuti. Occorre un posto di mercato autorizzato.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV2 · 4 DT</strong><br>Componente principale — 4 piastre di pietra</li><li><strong>Falegname · LV2 · 3 DT</strong><br>Componente secondario — 4 montanti di pino</li><li><strong>Sarto · LV2 · 3 DT</strong><br>Componente secondario — 8 m di tela</li></ul>
+    
+  </details>
+</article>
+<article id="T12" data-category="Trasporti e commercio" data-jobs="Falegname|Metallurgo|Sarto">
+  <p class="eyebrow">T12 · Trasporti e commercio</p>
+  <h2>Carro per animali</h2>
+  <p class="jobs">Falegname LV3 · Metallurgo LV2 · Sarto LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>240 MO</dd></div><div><dt>Vendita</dt><dd>480 MO</dd></div><div><dt>Lavoro totale</dt><dd>13 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Separa due animali piccoli in vani ventilati durante una tratta di 4 ore. Richiede un conducente e soste ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV3 · 5 DT</strong><br>Componente principale — 6 assi di quercia</li><li><strong>Metallurgo · LV2 · 4 DT</strong><br>Componente secondario — 4 anelli di ferro</li><li><strong>Sarto · LV2 · 4 DT</strong><br>Componente secondario — 2 cinghie di tela</li></ul>
+    
+  </details>
+</article>
+<article id="R01" data-category="Arredi e prestigio" data-jobs="Falegname|Artista|Sarto">
+  <p class="eyebrow">R01 · Arredi e prestigio</p>
+  <h2>Trono cerimoniale</h2>
+  <p class="jobs">Falegname LV3 · Artista LV3 · Sarto LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>250 MO</dd></div><div><dt>Vendita</dt><dd>500 MO</dd></div><div><dt>Lavoro totale</dt><dd>13 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Offre un seggio cerimoniale stabile per una persona durante una funzione. Ogni stemma dipinto richiede una sostituzione separata.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV3 · 5 DT</strong><br>Componente principale — 6 tavole di noce</li><li><strong>Artista · LV3 · 4 DT</strong><br>Componente secondario — 1 foglio d’oro battuto</li><li><strong>Sarto · LV2 · 4 DT</strong><br>Componente secondario — 3 m di velluto</li></ul>
+    
+  </details>
+</article>
+<article id="R02" data-category="Arredi e prestigio" data-jobs="Meccanico|Artigiano|Artista">
+  <p class="eyebrow">R02 · Arredi e prestigio</p>
+  <h2>Orologio da parete</h2>
+  <p class="jobs">Meccanico LV2 · Artigiano LV2 · Artista LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>110 MO</dd></div><div><dt>Vendita</dt><dd>220 MO</dd></div><div><dt>Lavoro totale</dt><dd>7 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Segna le ore per un giorno con scarto massimo di cinque minuti. Richiede carica e regolazione quotidiana.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV2 · 3 DT</strong><br>Componente principale — scappamento d’ottone</li><li><strong>Artigiano · LV2 · 2 DT</strong><br>Componente secondario — quadrante di ceramica</li><li><strong>Artista · LV1 · 2 DT</strong><br>Componente secondario — cifre a pigmento</li></ul>
+    
+  </details>
+</article>
+<article id="R03" data-category="Arredi e prestigio" data-jobs="Meccanico|Artista|Falegname">
+  <p class="eyebrow">R03 · Arredi e prestigio</p>
+  <h2>Carillon decorativo</h2>
+  <p class="jobs">Meccanico LV2 · Artista LV2 · Falegname LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>90 MO</dd></div><div><dt>Vendita</dt><dd>180 MO</dd></div><div><dt>Lavoro totale</dt><dd>6 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Riproduce una melodia fissa di un minuto dopo una carica. Udibile in una stanza silenziosa.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV2 · 2 DT</strong><br>Componente principale — cilindro d’ottone</li><li><strong>Artista · LV2 · 2 DT</strong><br>Componente secondario — cartiglio miniato</li><li><strong>Falegname · LV1 · 2 DT</strong><br>Componente secondario — cassa di noce</li></ul>
+    
+  </details>
+</article>
+<article id="R04" data-category="Arredi e prestigio" data-jobs="Metallurgo|Artista">
+  <p class="eyebrow">R04 · Arredi e prestigio</p>
+  <h2>Statua metallica</h2>
+  <p class="jobs">Metallurgo LV3 · Artista LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>180 MO</dd></div><div><dt>Vendita</dt><dd>360 MO</dd></div><div><dt>Lavoro totale</dt><dd>11 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> La targa leggibile a 3 m reca fino a 30 parole. Occupa un basamento già installato.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Metallurgo · LV3 · 6 DT</strong><br>Componente principale — 20 kg di bronzo</li><li><strong>Artista · LV3 · 5 DT</strong><br>Componente secondario — patina a pigmento</li></ul>
+    
+  </details>
+</article>
+<article id="R05" data-category="Arredi e prestigio" data-jobs="Sarto|Artista">
+  <p class="eyebrow">R05 · Arredi e prestigio</p>
+  <h2>Arazzo monumentale</h2>
+  <p class="jobs">Sarto LV3 · Artista LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>160 MO</dd></div><div><dt>Vendita</dt><dd>320 MO</dd></div><div><dt>Lavoro totale</dt><dd>10 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Espone due stemmi leggibili a 10 m in buona luce. Va appeso a due sostegni e ritirato sotto pioggia.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Sarto · LV3 · 5 DT</strong><br>Componente principale — 16 m di lana</li><li><strong>Artista · LV3 · 5 DT</strong><br>Componente secondario — 3 tinte minerali</li></ul>
+    
+  </details>
+</article>
+<article id="R06" data-category="Arredi e prestigio" data-jobs="Metallurgo|Artista|Sarto">
+  <p class="eyebrow">R06 · Arredi e prestigio</p>
+  <h2>Armatura cerimoniale</h2>
+  <p class="jobs">Metallurgo LV3 · Artista LV2 · Sarto LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>220 MO</dd></div><div><dt>Vendita</dt><dd>440 MO</dd></div><div><dt>Lavoro totale</dt><dd>12 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Rende riconoscibile una livrea a 15 m in buona luce. Per la protezione si usano le regole dell’equipaggiamento base.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Metallurgo · LV3 · 4 DT</strong><br>Componente principale — piastre di ferro</li><li><strong>Artista · LV2 · 4 DT</strong><br>Componente secondario — smalto minerale</li><li><strong>Sarto · LV2 · 4 DT</strong><br>Componente secondario — sottoveste di lana</li></ul>
+    
+  </details>
+</article>
+<article id="R07" data-category="Arredi e prestigio" data-jobs="Falegname|Artigiano|Artista">
+  <p class="eyebrow">R07 · Arredi e prestigio</p>
+  <h2>Scrigno intarsiato</h2>
+  <p class="jobs">Falegname LV2 · Artigiano LV2 · Artista LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>80 MO</dd></div><div><dt>Vendita</dt><dd>160 MO</dd></div><div><dt>Lavoro totale</dt><dd>6 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Custodisce sei lettere con separatori estraibili. Aprendolo si rompe il sigillo visibile.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV2 · 2 DT</strong><br>Componente principale — 6 tavolette di noce</li><li><strong>Artigiano · LV2 · 2 DT</strong><br>Componente secondario — 8 tasselli d’osso</li><li><strong>Artista · LV1 · 2 DT</strong><br>Componente secondario — pigmento rosso</li></ul>
+    
+  </details>
+</article>
+<article id="R08" data-category="Arredi e prestigio" data-jobs="Artista|Meccanico|Falegname">
+  <p class="eyebrow">R08 · Arredi e prestigio</p>
+  <h2>Insegna animata</h2>
+  <p class="jobs">Artista LV3 · Meccanico LV3 · Falegname LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>190 MO</dd></div><div><dt>Vendita</dt><dd>380 MO</dd></div><div><dt>Lavoro totale</dt><dd>11 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Alterna due simboli per un’ora dopo una carica. La portata è quella di un’insegna leggibile a 15 m in buona luce.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Artista · LV3 · 4 DT</strong><br>Componente principale — 2 pannelli dipinti</li><li><strong>Meccanico · LV3 · 4 DT</strong><br>Componente secondario — molla d’ottone</li><li><strong>Falegname · LV2 · 3 DT</strong><br>Componente secondario — cornice di pino</li></ul>
+    
+  </details>
+</article>
+<article id="R09" data-category="Arredi e prestigio" data-jobs="Artigiano|Artista|Oste">
+  <p class="eyebrow">R09 · Arredi e prestigio</p>
+  <h2>Servizio da banchetto</h2>
+  <p class="jobs">Artigiano LV2 · Artista LV2 · Oste LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>125 MO</dd></div><div><dt>Vendita</dt><dd>250 MO</dd></div><div><dt>Lavoro totale</dt><dd>8 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Assegna dodici posti e distingue due servizi durante un banchetto. Pietanze e bevande si acquistano a parte.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Artigiano · LV2 · 3 DT</strong><br>Componente principale — 12 coppe di ceramica</li><li><strong>Artista · LV2 · 3 DT</strong><br>Componente secondario — 2 smalti</li><li><strong>Oste · LV2 · 2 DT</strong><br>Componente secondario — 12 cartigli di servizio</li></ul>
+    
+  </details>
+</article>
+<article id="R10" data-category="Arredi e prestigio" data-jobs="Falegname|Meccanico|Artista">
+  <p class="eyebrow">R10 · Arredi e prestigio</p>
+  <h2>Organo meccanico</h2>
+  <p class="jobs">Falegname LV4 · Meccanico LV4 · Artista LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>460 MO</dd></div><div><dt>Vendita</dt><dd>920 MO</dd></div><div><dt>Lavoro totale</dt><dd>22 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Riproduce un brano fisso di tre minuti per carica. Un operatore aziona il mantice per tutta la durata.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV4 · 8 DT</strong><br>Componente principale — 12 canne di legno</li><li><strong>Meccanico · LV4 · 7 DT</strong><br>Componente secondario — rullo a camme</li><li><strong>Artista · LV3 · 7 DT</strong><br>Componente secondario — cartiglio musicale</li></ul>
+    
+  </details>
+</article>
+<article id="R11" data-category="Arredi e prestigio" data-jobs="Falegname|Artigiano|Sarto">
+  <p class="eyebrow">R11 · Arredi e prestigio</p>
+  <h2>Tavolo da gioco di lusso</h2>
+  <p class="jobs">Falegname LV3 · Artigiano LV3 · Sarto LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>175 MO</dd></div><div><dt>Vendita</dt><dd>350 MO</dd></div><div><dt>Lavoro totale</dt><dd>10 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Offre quattro posti e quattro riserve separate per gettoni. Le puntate si tengono e si risolvono con le regole ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Falegname · LV3 · 4 DT</strong><br>Componente principale — piano di noce</li><li><strong>Artigiano · LV3 · 3 DT</strong><br>Componente secondario — 4 vaschette d’osso</li><li><strong>Sarto · LV2 · 3 DT</strong><br>Componente secondario — panno di lana</li></ul>
+    
+  </details>
+</article>
+<article id="R12" data-category="Arredi e prestigio" data-jobs="Architetto|Artista|Meccanico">
+  <p class="eyebrow">R12 · Arredi e prestigio</p>
+  <h2>Fontana da interno</h2>
+  <p class="jobs">Architetto LV3 · Artista LV3 · Meccanico LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>290 MO</dd></div><div><dt>Vendita</dt><dd>580 MO</dd></div><div><dt>Lavoro totale</dt><dd>15 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Fa ricircolare 10 l per 5 minuti per carica manuale. L’acqua va cambiata a fine giornata.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV3 · 5 DT</strong><br>Componente principale — vasca di pietra</li><li><strong>Artista · LV3 · 5 DT</strong><br>Componente secondario — 4 tessere di mosaico</li><li><strong>Meccanico · LV2 · 5 DT</strong><br>Componente secondario — pompa a manovella</li></ul>
+    
+  </details>
+</article>
+<article id="S01" data-category="Strutture e infrastrutture" data-jobs="Architetto|Falegname|Alchimista">
+  <p class="eyebrow">S01 · Strutture e infrastrutture</p>
+  <h2>Serra attrezzata</h2>
+  <p class="jobs">Architetto LV2 · Falegname LV2 · Alchimista LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>280 MO</dd></div><div><dt>Vendita</dt><dd>560 MO</dd></div><div><dt>Lavoro totale</dt><dd>15 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Ripara sei vasi dal gelo lieve per una notte a sportelli chiusi. Crescita e raccolti seguono le regole ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV2 · 5 DT</strong><br>Componente principale — 6 basi di pietra</li><li><strong>Falegname · LV2 · 5 DT</strong><br>Componente secondario — 6 telai di larice</li><li><strong>Alchimista · LV2 · 5 DT</strong><br>Componente secondario — 2 cariche di sali igroscopici</li></ul>
+    
+  </details>
+</article>
+<article id="S02" data-category="Strutture e infrastrutture" data-jobs="Architetto|Oste|Alchimista">
+  <p class="eyebrow">S02 · Strutture e infrastrutture</p>
+  <h2>Nicchia da mescita</h2>
+  <p class="jobs">Architetto LV3 · Oste LV2 · Alchimista LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>140 MO</dd></div><div><dt>Vendita</dt><dd>280 MO</dd></div><div><dt>Lavoro totale</dt><dd>14 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> In uno scantinato già costruito mantiene quattro botti di bevanda pronta a temperatura di servizio per 4 ore. Consuma quattro cariche.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV3 · 5 DT</strong><br>Componente principale — 6 lastre di pietra</li><li><strong>Oste · LV2 · 5 DT</strong><br>Componente secondario — 4 rastrelliere per botti</li><li><strong>Alchimista · LV2 · 4 DT</strong><br>Componente secondario — 4 cariche saline</li></ul>
+    
+  </details>
+</article>
+<article id="S03" data-category="Strutture e infrastrutture" data-jobs="Architetto|Falegname|Meccanico">
+  <p class="eyebrow">S03 · Strutture e infrastrutture</p>
+  <h2>Setaccio da mulino</h2>
+  <p class="jobs">Architetto LV3 · Falegname LV3 · Meccanico LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>520 MO</dd></div><div><dt>Vendita</dt><dd>1040 MO</dd></div><div><dt>Lavoro totale</dt><dd>25 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Separa la crusca da 10 kg di farina già macinata per sessione di un’ora. Richiede un operatore.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV3 · 9 DT</strong><br>Componente principale — 2 macine di pietra</li><li><strong>Falegname · LV3 · 8 DT</strong><br>Componente secondario — tramoggia di quercia</li><li><strong>Meccanico · LV3 · 8 DT</strong><br>Componente secondario — asse a ruota</li></ul>
+    
+  </details>
+</article>
+<article id="S04" data-category="Strutture e infrastrutture" data-jobs="Architetto|Metallurgo|Meccanico">
+  <p class="eyebrow">S04 · Strutture e infrastrutture</p>
+  <h2>Ponte levatoio</h2>
+  <p class="jobs">Architetto LV3 · Metallurgo LV3 · Meccanico LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>650 MO</dd></div><div><dt>Vendita</dt><dd>1300 MO</dd></div><div><dt>Lavoro totale</dt><dd>30 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Rende retrattile una passerella esistente di 2 m. Due operatori impiegano 1 minuto per aprirla da una sola sponda.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV3 · 10 DT</strong><br>Componente principale — 2 spalle di pietra</li><li><strong>Metallurgo · LV3 · 10 DT</strong><br>Componente secondario — 2 staffe di ferro</li><li><strong>Meccanico · LV3 · 10 DT</strong><br>Componente secondario — contrappeso a manovella</li></ul>
+    
+  </details>
+</article>
+<article id="S05" data-category="Strutture e infrastrutture" data-jobs="Architetto|Falegname|Metallurgo">
+  <p class="eyebrow">S05 · Strutture e infrastrutture</p>
+  <h2>Pedana di vedetta</h2>
+  <p class="jobs">Architetto LV2 · Falegname LV2 · Metallurgo LV1</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>340 MO</dd></div><div><dt>Vendita</dt><dd>680 MO</dd></div><div><dt>Lavoro totale</dt><dd>18 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Su un tetto idoneo ospita un osservatore con due mani libere. Le prove di avvistamento sono ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV2 · 6 DT</strong><br>Componente principale — 4 appoggi di pietra</li><li><strong>Falegname · LV2 · 6 DT</strong><br>Componente secondario — 1 parapetto di quercia</li><li><strong>Metallurgo · LV1 · 6 DT</strong><br>Componente secondario — 2 staffe di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="S06" data-category="Strutture e infrastrutture" data-jobs="Architetto|Metallurgo|Meccanico">
+  <p class="eyebrow">S06 · Strutture e infrastrutture</p>
+  <h2>Barra interna di ronda</h2>
+  <p class="jobs">Architetto LV2 · Metallurgo LV3 · Meccanico LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>240 MO</dd></div><div><dt>Vendita</dt><dd>480 MO</dd></div><div><dt>Lavoro totale</dt><dd>13 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Blocca manualmente un ingresso già esistente dal lato interno. Richiede un’azione per aprire e la porta usa la propria resistenza.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV2 · 5 DT</strong><br>Componente principale — 2 architravi di pietra</li><li><strong>Metallurgo · LV3 · 4 DT</strong><br>Componente secondario — 2 traverse di ferro</li><li><strong>Meccanico · LV2 · 4 DT</strong><br>Componente secondario — 1 leva a catenaccio</li></ul>
+    
+  </details>
+</article>
+<article id="S07" data-category="Strutture e infrastrutture" data-jobs="Architetto|Oste|Metallurgo">
+  <p class="eyebrow">S07 · Strutture e infrastrutture</p>
+  <h2>Passavivande a bagnomaria</h2>
+  <p class="jobs">Architetto LV3 · Oste LV3 · Metallurgo LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>120 MO</dd></div><div><dt>Vendita</dt><dd>240 MO</dd></div><div><dt>Lavoro totale</dt><dd>20 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Mantiene calde dodici porzioni già pronte per un’ora con un braciere acceso. La preparazione segue le ricette ordinarie.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV3 · 7 DT</strong><br>Componente principale — 2 piani di pietra</li><li><strong>Oste · LV3 · 7 DT</strong><br>Componente secondario — 12 recipienti da servizio</li><li><strong>Metallurgo · LV2 · 6 DT</strong><br>Componente secondario — 6 condotti di rame</li></ul>
+    <p class="comparison">Cucina Professionale 250/500 MO e −5% ai tempi. Il passavivande interviene dopo la preparazione.</p>
+  </details>
+</article>
+<article id="S08" data-category="Strutture e infrastrutture" data-jobs="Architetto|Artigiano|Falegname">
+  <p class="eyebrow">S08 · Strutture e infrastrutture</p>
+  <h2>Deposito attrezzi a sigilli</h2>
+  <p class="jobs">Architetto LV3 · Artigiano LV3 · Falegname LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>105 MO</dd></div><div><dt>Vendita</dt><dd>210 MO</dd></div><div><dt>Lavoro totale</dt><dd>24 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Custodisce otto kit numerati e permette al custode di rilevare prelievi al giro di chiusura. Richiede un locale esistente.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV3 · 8 DT</strong><br>Componente principale — 4 piedistalli di pietra</li><li><strong>Artigiano · LV3 · 8 DT</strong><br>Componente secondario — 8 targhette di ceramica</li><li><strong>Falegname · LV2 · 8 DT</strong><br>Componente secondario — 8 casse di pino</li></ul>
+    
+  </details>
+</article>
+<article id="S09" data-category="Strutture e infrastrutture" data-jobs="Architetto|Artista|Falegname|Sarto">
+  <p class="eyebrow">S09 · Strutture e infrastrutture</p>
+  <h2>Palcoscenico permanente</h2>
+  <p class="jobs">Architetto LV2 · Artista LV2 · Falegname LV2 · Sarto LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>310 MO</dd></div><div><dt>Vendita</dt><dd>620 MO</dd></div><div><dt>Lavoro totale</dt><dd>17 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Permette a quattro interpreti di allestire due quinte su palco già costruito in 15 minuti. L’effetto vale per il singolo spettacolo.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV2 · 5 DT</strong><br>Componente principale — 6 appoggi di pietra</li><li><strong>Artista · LV2 · 4 DT</strong><br>Componente secondario — 4 segni dipinti</li><li><strong>Falegname · LV2 · 4 DT</strong><br>Componente secondario — 8 tavole di quercia</li><li><strong>Sarto · LV2 · 4 DT</strong><br>Componente secondario — 6 m di sipario</li></ul>
+    
+  </details>
+</article>
+<article id="S10" data-category="Strutture e infrastrutture" data-jobs="Architetto|Meccanico|Metallurgo">
+  <p class="eyebrow">S10 · Strutture e infrastrutture</p>
+  <h2>Sistema idrico a pompa</h2>
+  <p class="jobs">Architetto LV3 · Meccanico LV3 · Metallurgo LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>460 MO</dd></div><div><dt>Vendita</dt><dd>920 MO</dd></div><div><dt>Lavoro totale</dt><dd>23 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Sposta fino a 40 l d’acqua da un serbatoio esistente in 10 minuti di lavoro manuale. La fonte deve essere già disponibile.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV3 · 8 DT</strong><br>Componente principale — cisterna in pietra</li><li><strong>Meccanico · LV3 · 8 DT</strong><br>Componente secondario — pompa a stantuffo</li><li><strong>Metallurgo · LV2 · 7 DT</strong><br>Componente secondario — 6 m di condotto di rame</li></ul>
+    
+  </details>
+</article>
+<article id="S11" data-category="Strutture e infrastrutture" data-jobs="Architetto|Falegname|Artigiano">
+  <p class="eyebrow">S11 · Strutture e infrastrutture</p>
+  <h2>Corsia d’inventario</h2>
+  <p class="jobs">Architetto LV3 · Falegname LV2 · Artigiano LV2</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>125 MO</dd></div><div><dt>Vendita</dt><dd>250 MO</dd></div><div><dt>Lavoro totale</dt><dd>19 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Consente di contare dodici lotti catalogati in 10 minuti in un magazzino esistente. Capacità commerciale invariata.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV3 · 7 DT</strong><br>Componente principale — 4 plinti di pietra</li><li><strong>Falegname · LV2 · 6 DT</strong><br>Componente secondario — 6 scaffali di pino</li><li><strong>Artigiano · LV2 · 6 DT</strong><br>Componente secondario — 12 etichette di ceramica</li></ul>
+    
+  </details>
+</article>
+<article id="S12" data-category="Strutture e infrastrutture" data-jobs="Architetto|Metallurgo|Meccanico">
+  <p class="eyebrow">S12 · Strutture e infrastrutture</p>
+  <h2>Gru di sformatura</h2>
+  <p class="jobs">Architetto LV4 · Metallurgo LV4 · Meccanico LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>220 MO</dd></div><div><dt>Vendita</dt><dd>440 MO</dd></div><div><dt>Lavoro totale</dt><dd>34 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Due operatori spostano uno stampo già freddo fino a 100 kg per 3 m. Occorre una campata portante esistente.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV4 · 12 DT</strong><br>Componente principale — 4 blocchi di pietra refrattaria</li><li><strong>Metallurgo · LV4 · 11 DT</strong><br>Componente secondario — 2 vasche di ghisa</li><li><strong>Meccanico · LV3 · 11 DT</strong><br>Componente secondario — 1 argano a catena</li></ul>
+    <p class="comparison">Forgia Noxiana 250/500 MO e −5% ai tempi. La gru sposta stampi già freddi.</p>
+  </details>
+</article>
+<article id="M01" data-category="Progetti magistrali" data-jobs="Architetto|Falegname|Metallurgo|Meccanico|Artigiano">
+  <p class="eyebrow">M01 · Progetti magistrali</p>
+  <h2>Rimessa itinerante</h2>
+  <p class="jobs">Architetto LV4 · Falegname LV4 · Metallurgo LV3 · Meccanico LV4 · Artigiano LV3</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>1200 MO</dd></div><div><dt>Vendita</dt><dd>2400 MO</dd></div><div><dt>Lavoro totale</dt><dd>55 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Quattro persone scaricano sei kit da un carro esistente e li mettono al riparo in 30 minuti. I kit mantengono i loro requisiti.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV4 · 11 DT</strong><br>Componente principale — 4 basi di pietra</li><li><strong>Falegname · LV4 · 11 DT</strong><br>Componente secondario — 8 pannelli di quercia</li><li><strong>Metallurgo · LV3 · 11 DT</strong><br>Componente secondario — 6 cerniere di ferro</li><li><strong>Meccanico · LV4 · 11 DT</strong><br>Componente secondario — 2 argani</li><li><strong>Artigiano · LV3 · 11 DT</strong><br>Componente secondario — 6 custodie di cuoio</li></ul>
+    
+  </details>
+</article>
+<article id="M02" data-category="Progetti magistrali" data-jobs="Architetto|Falegname|Metallurgo|Sarto|Meccanico">
+  <p class="eyebrow">M02 · Progetti magistrali</p>
+  <h2>Stiva mercantile a scomparti</h2>
+  <p class="jobs">Architetto LV5 · Falegname LV5 · Metallurgo LV4 · Sarto LV4 · Meccanico LV4</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>5000 MO</dd></div><div><dt>Vendita</dt><dd>10.000 MO</dd></div><div><dt>Lavoro totale</dt><dd>180 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Su nave esistente separa dodici colli già ammessi a bordo per una traversata. Equipaggio e stazza seguono le regole della nave.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV5 · 36 DT</strong><br>Componente principale — 4 piastre di zavorra</li><li><strong>Falegname · LV5 · 36 DT</strong><br>Componente secondario — 12 tavole di quercia</li><li><strong>Metallurgo · LV4 · 36 DT</strong><br>Componente secondario — 12 ganci di ferro</li><li><strong>Sarto · LV4 · 36 DT</strong><br>Componente secondario — 8 m di tela</li><li><strong>Meccanico · LV4 · 36 DT</strong><br>Componente secondario — 2 verricelli</li></ul>
+    
+  </details>
+</article>
+<article id="M03" data-category="Progetti magistrali" data-jobs="Meccanico|Metallurgo|Alchimista|Artigiano">
+  <p class="eyebrow">M03 · Progetti magistrali</p>
+  <h2>Sentinella a campana</h2>
+  <p class="jobs">Meccanico LV5 · Metallurgo LV4 · Alchimista LV4 · Artigiano LV4</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>1800 MO</dd></div><div><dt>Vendita</dt><dd>3600 MO</dd></div><div><dt>Lavoro totale</dt><dd>80 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Dopo una carica sorveglia una soglia per 4 ore e suona al primo passaggio. Udibile fino a 20 m.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Meccanico · LV5 · 20 DT</strong><br>Componente principale — molla d’ottone</li><li><strong>Metallurgo · LV4 · 20 DT</strong><br>Componente secondario — scocca di ferro</li><li><strong>Alchimista · LV4 · 20 DT</strong><br>Componente secondario — 1 fiala di tintura</li><li><strong>Artigiano · LV4 · 20 DT</strong><br>Componente secondario — piede di terracotta</li></ul>
+    
+  </details>
+</article>
+<article id="M04" data-category="Progetti magistrali" data-jobs="Architetto|Alchimista|Artigiano|Artista|Falegname|Meccanico|Metallurgo|Oste|Sarto">
+  <p class="eyebrow">M04 · Progetti magistrali</p>
+  <h2>Sala dei turni della Gilda</h2>
+  <p class="jobs">Architetto LV4 · Alchimista LV4 · Artigiano LV4 · Artista LV4 · Falegname LV4 · Meccanico LV4 · Metallurgo LV4 · Oste LV4 · Sarto LV4</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>400 MO</dd></div><div><dt>Vendita</dt><dd>800 MO</dd></div><div><dt>Lavoro totale</dt><dd>300 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Organizza otto prenotazioni di banchi esistenti per giornata. Richiede un custode e i DT si calcolano normalmente.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV4 · 34 DT</strong><br>Componente principale — 4 plinti di pietra</li><li><strong>Alchimista · LV4 · 34 DT</strong><br>Componente secondario — 8 sigilli di cera</li><li><strong>Artigiano · LV4 · 34 DT</strong><br>Componente secondario — 8 registri</li><li><strong>Artista · LV4 · 33 DT</strong><br>Componente secondario — pigmento</li><li><strong>Falegname · LV4 · 33 DT</strong><br>Componente secondario — 8 pannelli di noce</li><li><strong>Meccanico · LV4 · 33 DT</strong><br>Componente secondario — 1 orologio a molla</li><li><strong>Metallurgo · LV4 · 33 DT</strong><br>Componente secondario — 8 ganci di ferro</li><li><strong>Oste · LV4 · 33 DT</strong><br>Componente secondario — 8 vassoi</li><li><strong>Sarto · LV4 · 33 DT</strong><br>Componente secondario — 8 tende di lino</li></ul>
+    
+  </details>
+</article>
+<article id="M05" data-category="Progetti magistrali" data-jobs="Architetto|Metallurgo|Meccanico|Artigiano">
+  <p class="eyebrow">M05 · Progetti magistrali</p>
+  <h2>Posto di segnalazione</h2>
+  <p class="jobs">Architetto LV5 · Metallurgo LV5 · Meccanico LV5 · Artigiano LV4</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>2800 MO</dd></div><div><dt>Vendita</dt><dd>5600 MO</dd></div><div><dt>Lavoro totale</dt><dd>115 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Su una torre esistente trasmette due segnali preconcordati, udibili fino a 100 m in quiete. Richiede un operatore.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV5 · 29 DT</strong><br>Componente principale — 4 supporti di pietra</li><li><strong>Metallurgo · LV5 · 29 DT</strong><br>Componente secondario — 2 aste di ferro</li><li><strong>Meccanico · LV5 · 29 DT</strong><br>Componente secondario — 1 tirante a molla</li><li><strong>Artigiano · LV4 · 28 DT</strong><br>Componente secondario — 2 campane di bronzo</li></ul>
+    
+  </details>
+</article>
+<article id="M06" data-category="Progetti magistrali" data-jobs="Architetto|Alchimista|Meccanico|Falegname">
+  <p class="eyebrow">M06 · Progetti magistrali</p>
+  <h2>Registro a galleggiante della serra</h2>
+  <p class="jobs">Architetto LV5 · Alchimista LV5 · Meccanico LV4 · Falegname LV4</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>2400 MO</dd></div><div><dt>Vendita</dt><dd>4800 MO</dd></div><div><dt>Lavoro totale</dt><dd>100 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Segnala quali di sei vasche già installate richiedono acqua. Va controllato una volta al giorno.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV5 · 25 DT</strong><br>Componente principale — 4 basi di pietra</li><li><strong>Alchimista · LV5 · 25 DT</strong><br>Componente secondario — 6 indicatori a sali</li><li><strong>Meccanico · LV4 · 25 DT</strong><br>Componente secondario — 6 galleggianti d’ottone</li><li><strong>Falegname · LV4 · 25 DT</strong><br>Componente secondario — 6 telai di larice</li></ul>
+    
+  </details>
+</article>
+<article id="M07" data-category="Progetti magistrali" data-jobs="Architetto|Artista|Meccanico|Metallurgo">
+  <p class="eyebrow">M07 · Progetti magistrali</p>
+  <h2>Quadrante civico a rintocchi</h2>
+  <p class="jobs">Architetto LV5 · Artista LV5 · Meccanico LV5 · Metallurgo LV4</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>3200 MO</dd></div><div><dt>Vendita</dt><dd>6400 MO</dd></div><div><dt>Lavoro totale</dt><dd>130 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Installato su una facciata esistente, scandisce le ore per una giornata per carica. Portata dei rintocchi 100 m in quiete.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV5 · 33 DT</strong><br>Componente principale — 4 appoggi di pietra</li><li><strong>Artista · LV5 · 33 DT</strong><br>Componente secondario — quadrante dipinto</li><li><strong>Meccanico · LV5 · 32 DT</strong><br>Componente secondario — meccanismo a pesi</li><li><strong>Metallurgo · LV4 · 32 DT</strong><br>Componente secondario — 1 campana di ferro</li></ul>
+    
+  </details>
+</article>
+<article id="M08" data-category="Progetti magistrali" data-jobs="Architetto|Artista|Falegname|Sarto|Meccanico">
+  <p class="eyebrow">M08 · Progetti magistrali</p>
+  <h2>Teatro itinerante</h2>
+  <p class="jobs">Architetto LV4 · Artista LV5 · Falegname LV4 · Sarto LV5 · Meccanico LV4</p>
+  <dl class="metrics"><div><dt>Materiali</dt><dd>1600 MO</dd></div><div><dt>Vendita</dt><dd>3200 MO</dd></div><div><dt>Lavoro totale</dt><dd>75 DT</dd></div></dl>
+  <p class="effect"><strong>Effetto</strong> Quattro persone allestiscono un palco smontabile per quattro interpreti in un’ora. Richiede suolo piano e un’area autorizzata.</p>
+  <details><summary>Distinta e lavoro per mestiere</summary>
+    <ul><li><strong>Architetto · LV4 · 15 DT</strong><br>Componente principale — 4 appoggi di pietra</li><li><strong>Artista · LV5 · 15 DT</strong><br>Componente secondario — 2 fondali dipinti</li><li><strong>Falegname · LV4 · 15 DT</strong><br>Componente secondario — 8 tavole di pino</li><li><strong>Sarto · LV5 · 15 DT</strong><br>Componente secondario — 10 m di tela</li><li><strong>Meccanico · LV4 · 15 DT</strong><br>Componente secondario — 2 carrucole</li></ul>
+    
+  </details>
+</article></div>
+</main>
+</body>
+</html>

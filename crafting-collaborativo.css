@@ -1,0 +1,44 @@
+:root {
+  color-scheme: dark;
+  --bg: #111216;
+  --panel: #1b1c22;
+  --border: #605137;
+  --gold: #d8b96e;
+  --text: #eee6d5;
+  --muted: #c6bdad;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 1rem/1.55 system-ui, sans-serif; }
+.frame { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+header { border-bottom: 1px solid var(--border); background: linear-gradient(125deg, #242017, #17181d 75%); }
+.hero { padding-block: 1.5rem 2.75rem; }
+.back, summary { color: var(--gold); }
+.back { display: inline-block; padding-block: .5rem; }
+.eyebrow { color: var(--gold); font-size: .76rem; letter-spacing: .09em; text-transform: uppercase; }
+.hero .eyebrow { margin: 2rem 0 .25rem; }
+h1, h2 { font-family: Georgia, serif; line-height: 1.12; }
+h1 { margin: 0; font-size: clamp(2rem, 6vw, 4.5rem); }
+.hero > p:last-child { max-width: 62ch; color: var(--muted); margin-bottom: 0; }
+main { padding-block: 1.5rem 3rem; }
+aside { padding: .85rem 1rem; background: var(--panel); border-inline-start: 3px solid var(--gold); }
+form { display: grid; grid-template-columns: 2fr 1.25fr 1fr auto; align-items: end; gap: .75rem; margin-top: 1.5rem; }
+label { display: grid; gap: .35rem; min-width: 0; }
+input, select, button { width: 100%; min-width: 0; min-height: 44px; border: 1px solid var(--border); border-radius: .35rem; background: var(--panel); color: var(--text); padding: .5rem .7rem; font: inherit; }
+button, summary { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+#result, .jobs, .comparison { color: var(--muted); }
+.catalog { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); align-items: start; gap: 1rem; }
+article { min-width: 0; background: var(--panel); border: 1px solid var(--border); border-radius: .5rem; padding: 1rem; overflow-wrap: anywhere; }
+article .eyebrow { margin-top: 0; }
+h2 { font-size: 1.5rem; margin: .45rem 0; }
+.jobs { font-size: .9rem; }
+.metrics { display: flex; flex-wrap: wrap; gap: .5rem 1rem; padding-block: .6rem; border-block: 1px solid var(--border); }
+.metrics dt { font-size: .75rem; color: var(--muted); }
+.metrics dd { margin: 0; font-variant-numeric: tabular-nums; }
+.effect strong { display: block; color: var(--gold); }
+summary { padding-block: .55rem; }
+details ul { padding-inline-start: 1.25rem; }
+details li + li { margin-top: .65rem; }
+@media (max-width: 46rem) { form { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 30rem) { form { grid-template-columns: 1fr; } }
