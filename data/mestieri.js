@@ -99,13 +99,13 @@ const MESTIERI = [
     materLav: [10,25,100,500,750],
     livelli: [
       { lv:1, items:[
-        {n:"Laboratorio Alchemico", mp:"45 MO Pietra", ms:"25 MO Vetro per alambicchi", tip:'Struttura di Mestiere - Alchimista', mestiere:"Alchimista", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
+        {n:"Laboratorio Alchemico", mp:"45 MO Pietra", ms:"25 MO Vetro per attrezzi", tip:'Struttura di Mestiere - Alchimista', mestiere:"Alchimista", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:"Forgia", mp:"50 MO Pietra refrattaria", ms:"20 MO Ferro per incudine", tip:'Struttura di Mestiere - Metallurgo', mestiere:"Metallurgo", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:"Falegnameria", mp:"50 MO Legno", ms:"20 MO Ferro per seghe", tip:'Struttura di Mestiere - Falegname', mestiere:"Falegname", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:"Laboratorio Tessile", mp:"50 MO Legno per telai", ms:"20 MO Ferro per utensili", tip:'Struttura di Mestiere - Sarto', mestiere:"Sarto", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:"Atelier Artistico", mp:"45 MO Legno per cavalletti", ms:"25 MO Pietra per banchi", tip:'Struttura di Mestiere - Artista', mestiere:"Artista", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:"Bottega di Manifattura", mp:"45 MO Pietra per il forno", ms:"25 MO Legno per banchi", tip:'Struttura di Mestiere - Artigiano', mestiere:"Artigiano", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
-        {n:"Officina Meccanica", mp:"45 MO Legno per banchi", ms:"25 MO Ferro per morse", tip:'Struttura di Mestiere - Meccanico', mestiere:"Meccanico", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
+        {n:"Officina Meccanica", mp:"45 MO Legno per banchi", ms:"25 MO Ferro per attrezzi", tip:'Struttura di Mestiere - Meccanico', mestiere:"Meccanico", bonusTempi:0, costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:'Salotto', mp:'35 MO Legno', ms:'35 MO Pietra', tip:'Abitazione', desc:'Stanza obbligatoria per costruire un\'abitazione.', costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:'Camera da Letto', mp:'35 MO Legno', ms:'35 MO Pietra', tip:'Abitazione', desc:'Dormire in un letto conferisce gli effetti di un riposo lungo.', costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:'Bagno', mp:'35 MO Legno', ms:'35 MO Pietra', tip:'Abitazione', desc:'Stanza obbligatoria per costruire un\'abitazione.', costo:70, vend:140, dt:[7,3,1,1,1]},
