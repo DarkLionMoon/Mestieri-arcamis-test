@@ -420,7 +420,7 @@ test('strutture di mestiere: menu, regole e collegamenti tra livelli', async ({ 
   await expect(menu).toHaveAttribute('aria-expanded', 'false');
   await expect(menu).toContainText('8 oggetti');
   await menu.click();
-  const upgrade = page.getByRole('row', { name: /^Laboratorio di Trasmutazione/ });
+  const upgrade = page.getByRole('row', { name: /^(?:Nome )?Laboratorio di Trasmutazione/ });
   await expect(upgrade).toContainText('−10%');
   await upgrade.getByRole('button', { name: 'Regole', exact: true }).click();
   await expect(page.getByText(/Ogni Impresa o Compagnia Commerciale può avere una sola struttura/)).toBeVisible();
@@ -430,12 +430,12 @@ test('strutture di mestiere: menu, regole e collegamenti tra livelli', async ({ 
   await upgrade.getByRole('button', { name: 'Laboratorio Alchemico Integrato ↗' }).click();
   await expect(menu).toHaveAttribute('aria-expanded', 'true');
   await expect(page.getByRole('button', { name: /Strutture di Classe/ })).toBeVisible();
-  const intermediate = page.getByRole('row', { name: /^Laboratorio Alchemico Integrato/ });
+  const intermediate = page.getByRole('row', { name: /^(?:Nome )?Laboratorio Alchemico Integrato/ });
   await expect(intermediate).toContainText('−5%');
 
   await intermediate.getByRole('button', { name: 'Laboratorio Alchemico ↗' }).click();
   await expect(menu).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.getByRole('row', { name: /^Laboratorio Alchemico / })).toContainText('Nessun bonus');
+  await expect(page.getByRole('row', { name: /^(?:Nome )?Laboratorio Alchemico / })).toContainText('Nessun bonus');
   await expect(page.locator('.altro-section-label')).toHaveCount(1);
   await selectLevel(4);
   await expect(page.locator('.altro-section-label')).toHaveCount(0);
