@@ -142,7 +142,7 @@ const MESTIERI = [
 
       ]},
       { lv:3, items:[
-        {n:"Cucina delle Grandi Caldaie", mp:"Cucina Professionale", ms:"150 MO Rame per attrezzi, 100 MO Acciaio per attrezzi", tip:'Struttura di Mestiere - Oste', mestiere:"Oste", bonusTempi:10, desc:"Mantiene le funzioni della Cucina Professionale.", costo:250, vend:1000, dt:[6,2,1]},
+        {n:"Cucina delle Grandi Caldaie", mp:"Cucina Professionale", ms:"150 MO Rame per attrezzi, 100 MO Acciaio per attrezzi", tip:'Struttura di Mestiere - Oste', mestiere:"Oste", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
         {n:"Laboratorio di Trasmutazione", mp:"Laboratorio Alchemico Integrato", ms:"150 MO Alambicchi rinforzati, 100 MO Pietra refrattaria per attrezzi", tip:'Struttura di Mestiere - Alchimista', mestiere:"Alchimista", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
         {n:"Forgia dei Grandi Mantici", mp:"Forgia Noxiana", ms:"150 MO Acciaio Noxiano per attrezzi, 100 MO Cuoio per attrezzi", tip:'Struttura di Mestiere - Metallurgo', mestiere:"Metallurgo", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
         {n:"Officina di Ebanisteria", mp:"Falegnameria Meccanizzata", ms:"150 MO Acciaio per attrezzi, 100 MO Ottone per attrezzi", tip:'Struttura di Mestiere - Falegname', mestiere:"Falegname", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
