@@ -113,14 +113,14 @@ const MESTIERI = [
         {n:'Recinzione', mp:'70 MO Legno', ms:'—', tip:'Abitazione', desc:'Delimita il perimetro e difende da piccoli animali.', costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:'Stalla', mp:'70 MO Legno', ms:'—', tip:'Struttura Generale', desc:'Può contenere fino a 5 animali di taglia grande.', costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:'Orto', mp:'50 MO Terra', ms:'30 MO Legno', tip:'Struttura Generale', desc:'Produce 15 MO di Erbe al mese. Max 2 per edificio.', costo:80, vend:160, dt:[8,4,1,1,1]},
-        {n:'Cucina', mp:'60 MO Pietra', ms:'10 MO Ferro', tip:'Struttura di Mestiere - Oste', mestiere:'Oste', bonusTempi:0, desc:'Permette di cucinare alimenti. Richiede 4 MO di combustibile/mese.', costo:70, vend:140, dt:[7,3,1,1,1]},
+        {n:'Cucina', mp:'60 MO Pietra', ms:'10 MO Ferro', tip:'Struttura di Mestiere - Oste', mestiere:'Oste', bonusTempi:0, desc:'Permette di cucinare alimenti.', costo:70, vend:140, dt:[7,3,1,1,1]},
         {n:'Magazzino', mp:'120 MO Pietra', ms:'30 MO Legno', tip:'Struttura Generale', desc:'Immagazzina materiali fino a 500 MO di valore.', costo:150, vend:300, dt:[15,6,2,1,1]},
 
       ]},
       { lv:2, items:[
-        {n:"Cucina Professionale", mp:"Cucina", ms:"120 MO Rame per attrezzi, 60 MO Acciaio per attrezzi", tip:'Struttura di Mestiere - Oste', mestiere:"Oste", bonusTempi:5, desc:"Permette piatti speciali da oste. Richiede 8 MO carbone/mese.", costo:180, vend:500, dt:[7,3,1,1]},
+        {n:"Cucina Professionale", mp:"Cucina", ms:"120 MO Rame per attrezzi, 60 MO Acciaio per attrezzi", tip:'Struttura di Mestiere - Oste', mestiere:"Oste", bonusTempi:5, desc:"Permette piatti speciali da oste.", costo:180, vend:500, dt:[7,3,1,1]},
         {n:"Laboratorio Alchemico Integrato", mp:"Laboratorio Alchemico", ms:"110 MO Distillatori Piltoveriani, 70 MO Rame per attrezzi", tip:'Struttura di Mestiere - Alchimista', mestiere:"Alchimista", bonusTempi:5, costo:180, vend:500, dt:[7,3,1,1]},
-        {n:"Forgia Noxiana", mp:"Forgia", ms:"125 MO Ghisa Noxiana, 55 MO Cemento", tip:'Struttura di Mestiere - Metallurgo', mestiere:"Metallurgo", bonusTempi:5, desc:"Ripara armature/armi durante riposo breve. 1/giorno: conferisce \"Distruttrice\" (+2 danni vs oggetti) per 24h.", costo:180, vend:500, dt:[7,3,1,1]},
+        {n:"Forgia Noxiana", mp:"Forgia", ms:"125 MO Ghisa Noxiana, 55 MO Cemento", tip:'Struttura di Mestiere - Metallurgo', mestiere:"Metallurgo", bonusTempi:5, costo:180, vend:500, dt:[7,3,1,1]},
         {n:"Falegnameria Meccanizzata", mp:"Falegnameria", ms:"110 MO Acciaio per attrezzi, 70 MO Legno per attrezzi", tip:'Struttura di Mestiere - Falegname', mestiere:"Falegname", bonusTempi:5, costo:180, vend:500, dt:[7,3,1,1]},
         {n:"Sartoria Attrezzata", mp:"Laboratorio Tessile", ms:"110 MO Legno stagionato per attrezzi, 70 MO Ottone per attrezzi", tip:'Struttura di Mestiere - Sarto', mestiere:"Sarto", bonusTempi:5, costo:180, vend:500, dt:[7,3,1,1]},
         {n:"Studio delle Belle Arti", mp:"Atelier Artistico", ms:"110 MO Legno stagionato per attrezzi, 70 MO Ottone per attrezzi", tip:'Struttura di Mestiere - Artista', mestiere:"Artista", bonusTempi:5, costo:180, vend:500, dt:[7,3,1,1]},
@@ -142,9 +142,9 @@ const MESTIERI = [
 
       ]},
       { lv:3, items:[
-        {n:"Cucina delle Grandi Caldaie", mp:"Cucina Professionale", ms:"150 MO Rame per attrezzi, 100 MO Acciaio per attrezzi", tip:'Struttura di Mestiere - Oste', mestiere:"Oste", bonusTempi:10, desc:"Mantiene le funzioni della Cucina Professionale e il consumo di 8 MO carbone/mese.", costo:250, vend:1000, dt:[6,2,1]},
+        {n:"Cucina delle Grandi Caldaie", mp:"Cucina Professionale", ms:"150 MO Rame per attrezzi, 100 MO Acciaio per attrezzi", tip:'Struttura di Mestiere - Oste', mestiere:"Oste", bonusTempi:10, desc:"Mantiene le funzioni della Cucina Professionale.", costo:250, vend:1000, dt:[6,2,1]},
         {n:"Laboratorio di Trasmutazione", mp:"Laboratorio Alchemico Integrato", ms:"150 MO Alambicchi rinforzati, 100 MO Pietra refrattaria per attrezzi", tip:'Struttura di Mestiere - Alchimista', mestiere:"Alchimista", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
-        {n:"Forgia dei Grandi Mantici", mp:"Forgia Noxiana", ms:"150 MO Acciaio Noxiano per attrezzi, 100 MO Cuoio per attrezzi", tip:'Struttura di Mestiere - Metallurgo', mestiere:"Metallurgo", bonusTempi:10, desc:"Mantiene le funzioni della Forgia Noxiana.", costo:250, vend:1000, dt:[6,2,1]},
+        {n:"Forgia dei Grandi Mantici", mp:"Forgia Noxiana", ms:"150 MO Acciaio Noxiano per attrezzi, 100 MO Cuoio per attrezzi", tip:'Struttura di Mestiere - Metallurgo', mestiere:"Metallurgo", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
         {n:"Officina di Ebanisteria", mp:"Falegnameria Meccanizzata", ms:"150 MO Acciaio per attrezzi, 100 MO Ottone per attrezzi", tip:'Struttura di Mestiere - Falegname', mestiere:"Falegname", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
         {n:"Manifattura Tessile", mp:"Sartoria Attrezzata", ms:"150 MO Acciaio per attrezzi, 100 MO Ottone per attrezzi", tip:'Struttura di Mestiere - Sarto', mestiere:"Sarto", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
         {n:"Atelier Magistrale", mp:"Studio delle Belle Arti", ms:"150 MO Acciaio per attrezzi, 100 MO Pietra per attrezzi", tip:'Struttura di Mestiere - Artista', mestiere:"Artista", bonusTempi:10, costo:250, vend:1000, dt:[6,2,1]},
