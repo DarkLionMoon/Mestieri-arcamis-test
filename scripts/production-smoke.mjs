@@ -1,6 +1,6 @@
 import { performance } from 'node:perf_hooks';
 
-const url = process.env.SMOKE_URL || 'https://mestieri-arcamis-test.pages.dev/';
+const url = process.env.SMOKE_URL || 'https://mestieri-arcamis.pages.dev/';
 const timeoutMs = 120_000;
 const deadline = Date.now() + timeoutMs;
 const requiredHeaders = [
