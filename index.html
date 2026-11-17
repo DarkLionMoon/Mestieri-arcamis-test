@@ -3283,6 +3283,7 @@ function renderIntro(m) {
         <h4>⬆️ Aumentare di Livello</h4>
         <ul>
           <li>Si sale solo con un corso tenuto da un NPC o da giocatori del livello desiderato.</li>
+          <li>Costo standard per tutti i mestieri: <strong style="color:var(--gold)">10 DT</strong> per il LV 2, <strong style="color:var(--gold)">15 DT</strong> per il LV 3, <strong style="color:var(--gold)">20 DT</strong> per il LV 4 e <strong style="color:var(--gold)">25 DT</strong> per il LV 5.</li>
           <li>Durante il downtime si è considerati del nuovo livello e si deve costruire un oggetto di quel livello.</li>
         </ul>
       </div>
@@ -4530,6 +4531,17 @@ function renderGuide() {
           <p>Solo tramite un corso erogato da un NPC o da un giocatore che possiede già il livello desiderato. Durante il DT di upgrade si è considerati del nuovo livello e si deve costruire un oggetto di quel livello.</p>
         </div>
       </div>
+      <p style="color:var(--text3);font-size:.88rem;margin:16px 0 12px;font-style:italic">Ogni passaggio di livello richiede lo stesso periodo di formazione per tutti i mestieri. I Downtime si svolgono con il corso già avviato, costruendo un oggetto del livello che si sta raggiungendo.</p>
+      <table class="dt-table">
+        <thead><tr><th>Passaggio di Livello</th><th>Downtime Richiesti</th><th>Ore Equivalenti</th></tr></thead>
+        <tbody>
+          <tr><td>Livello 1 → 2</td><td><strong>10 DT</strong></td><td style="color:var(--text3)">80 ore</td></tr>
+          <tr><td>Livello 2 → 3</td><td><strong>15 DT</strong></td><td style="color:var(--text3)">120 ore</td></tr>
+          <tr><td>Livello 3 → 4</td><td><strong>20 DT</strong></td><td style="color:var(--text3)">160 ore</td></tr>
+          <tr><td>Livello 4 → 5</td><td><strong>25 DT</strong></td><td style="color:var(--text3)">200 ore</td></tr>
+        </tbody>
+      </table>
+      <div class="guide-note">⏱️ <strong>Nota:</strong> un Downtime corrisponde a una sessione di lavoro da 8 ore. I costi indicati sono per singolo passaggio e non si sommano a quelli della tabella di produzione.</div>
     </div>
 
     <div class="guide-section">
