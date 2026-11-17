@@ -2537,6 +2537,39 @@ header {
 @media (max-width:768px) {
   .search-suggestions { max-height:min(160px, 30dvh); overflow-y:auto; overscroll-behavior:contain; }
 }
+
+  /* ── MOBILE: target tattili, safe area e tabelle guida a schede ── */
+  @media (max-width: 768px) {
+    .tab-btn { min-height: 44px; display: inline-flex; align-items: center; }
+    .sidenav-btn { min-height: 44px; }
+    .quantita-btn { min-height: 44px; display: inline-flex; align-items: center; }
+    .recipe-filter-toggle, .recipe-filter-chip { min-height: 44px; display: inline-flex; align-items: center; }
+    .quantita-close { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    .mobile-drawer-close { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    .mobile-nav-btn { right: calc(20px + env(safe-area-inset-right)); bottom: calc(20px + env(safe-area-inset-bottom)); }
+    .mobile-drawer { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+    header { padding-top: calc(14px + env(safe-area-inset-top)); }
+    .quantita-overlay { padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+    .quantita-dialog { max-height: calc(100dvh - 24px); }
+  }
+
+  @media (max-width: 600px) {
+    .dt-table { display: block; font-size: .9rem; }
+    .dt-table thead { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .dt-table tbody { display: block; }
+    .dt-table tbody tr { display: block; margin-bottom: 10px; border: 1px solid var(--border2); border-radius: 7px; background: var(--panel); overflow: hidden; }
+    .dt-table tbody tr:last-child { margin-bottom: 0; }
+    .dt-table td { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 10px 12px; text-align: left !important; border-bottom: 1px solid rgba(160,135,101,.16); overflow-wrap: anywhere; }
+    .dt-table td:last-child { border-bottom: 0; }
+    .dt-table td:first-child { background: var(--panel2); }
+    .dt-table td::before { content: attr(data-label); flex: 0 0 auto; color: var(--text3); font-size: .66rem; line-height: 1.3; letter-spacing: .07em; text-transform: uppercase; font-weight: 700; }
+    .dt-table td[data-label="Note"] { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .dt-table tr:hover td { background: transparent; }
+    .guide-note { font-size: .85rem; padding: 11px 13px; }
+  }
+
+  .recipe-filter-panel select,
+  .recipe-filter-panel input[type="number"] { min-height: 44px; }
 </style>
 </head>
 <body>
@@ -4535,10 +4568,10 @@ function renderGuide() {
       <table class="dt-table">
         <thead><tr><th>Passaggio di Livello</th><th>Downtime Richiesti</th></tr></thead>
         <tbody>
-          <tr><td>Livello 1 → 2</td><td><strong>10 DT</strong></td></tr>
-          <tr><td>Livello 2 → 3</td><td><strong>15 DT</strong></td></tr>
-          <tr><td>Livello 3 → 4</td><td><strong>20 DT</strong></td></tr>
-          <tr><td>Livello 4 → 5</td><td><strong>25 DT</strong></td></tr>
+          <tr><td data-label="Passaggio di Livello">Livello 1 → 2</td><td data-label="Downtime Richiesti"><strong>10 DT</strong></td></tr>
+          <tr><td data-label="Passaggio di Livello">Livello 2 → 3</td><td data-label="Downtime Richiesti"><strong>15 DT</strong></td></tr>
+          <tr><td data-label="Passaggio di Livello">Livello 3 → 4</td><td data-label="Downtime Richiesti"><strong>20 DT</strong></td></tr>
+          <tr><td data-label="Passaggio di Livello">Livello 4 → 5</td><td data-label="Downtime Richiesti"><strong>25 DT</strong></td></tr>
         </tbody>
       </table>
       <div class="guide-note">⏱️ <strong>Nota:</strong> un Downtime corrisponde a una sessione di lavoro da 8 ore. I costi indicati sono per singolo passaggio e non si sommano a quelli della tabella di produzione.</div>
@@ -4550,11 +4583,11 @@ function renderGuide() {
       <table class="dt-table">
         <thead><tr><th>Livello Mestiere</th><th>Capacità Produttiva per DT</th><th>Note</th></tr></thead>
         <tbody>
-          <tr><td>Livello 1</td><td><strong>10 Mo</strong> per Downtime</td><td style="color:var(--text3)">Apprendista — primi passi</td></tr>
-          <tr><td>Livello 2</td><td><strong>25 Mo</strong> per Downtime</td><td style="color:var(--text3)">Artigiano — lavoro solido</td></tr>
-          <tr><td>Livello 3</td><td><strong>100 Mo</strong> per Downtime</td><td style="color:var(--text3)">Esperto — oggetti rari</td></tr>
-          <tr><td>Livello 4</td><td><strong>500 Mo</strong> per Downtime</td><td style="color:var(--text3)">Maestro — grandi opere</td></tr>
-          <tr><td>Livello 5</td><td><strong>750 Mo</strong> per Downtime</td><td style="color:var(--text3)">Gran Maestro — leggendario</td></tr>
+          <tr><td data-label="Livello Mestiere">Livello 1</td><td data-label="Capacità Produttiva per DT"><strong>10 Mo</strong> per Downtime</td><td style="color:var(--text3)" data-label="Note">Apprendista — primi passi</td></tr>
+          <tr><td data-label="Livello Mestiere">Livello 2</td><td data-label="Capacità Produttiva per DT"><strong>25 Mo</strong> per Downtime</td><td style="color:var(--text3)" data-label="Note">Artigiano — lavoro solido</td></tr>
+          <tr><td data-label="Livello Mestiere">Livello 3</td><td data-label="Capacità Produttiva per DT"><strong>100 Mo</strong> per Downtime</td><td style="color:var(--text3)" data-label="Note">Esperto — oggetti rari</td></tr>
+          <tr><td data-label="Livello Mestiere">Livello 4</td><td data-label="Capacità Produttiva per DT"><strong>500 Mo</strong> per Downtime</td><td style="color:var(--text3)" data-label="Note">Maestro — grandi opere</td></tr>
+          <tr><td data-label="Livello Mestiere">Livello 5</td><td data-label="Capacità Produttiva per DT"><strong>750 Mo</strong> per Downtime</td><td style="color:var(--text3)" data-label="Note">Gran Maestro — leggendario</td></tr>
         </tbody>
       </table>
       <div class="guide-note">⚠️ <strong>Attenzione:</strong> La tabella qui presente è di riferimento generale. Fate sempre affidamento alla tabella nella scheda specifica del mestiere del mestiere, che può variare (es. il Sarto ha capacità diverse).</div>
